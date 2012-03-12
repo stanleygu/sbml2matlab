@@ -461,7 +461,7 @@ private:
 					}
 					else
 					{						
-						replaceStream << "g_p" << _currentModel->globalParamIndexList[innerString];
+						replaceStream << "rInfo.g_p" << _currentModel->globalParamIndexList[innerString];
 					}
 
 					if (divideVolumes)
@@ -485,7 +485,7 @@ private:
 				}
 				else
 				{
-					replaceStream << "g_p" << _currentModel->globalParamIndexList[innerString];
+					replaceStream << "rInfo.g_p" << _currentModel->globalParamIndexList[innerString];
 				}
 
 			}
@@ -514,6 +514,137 @@ private:
 						replaceStream << "(";
 
 					replaceStream << "x(" << (isp+1) << ")";
+
+					if (divideVolumes)
+					{
+						if (!isUnitVolume)
+							replaceStream << "/" << compartment ;
+
+						replaceStream << ")";
+					}
+					match = true;
+					break;
+				}
+
+			}
+
+			if (!match )
+			{
+				if (innerString == "exponentiale")
+					replaceStream << "exp(1)";
+				else if (innerString == "INF")
+					replaceStream << "Inf";
+				else if (innerString == "arcsin")
+					replaceStream << "asin";
+				else if (innerString == "arccos")
+					replaceStream << "acos";
+				else if (innerString == "arctan")
+					replaceStream << "atan";
+				else if (innerString == "arcsec")
+					replaceStream << "asec";
+				else if (innerString == "arccsc")
+					replaceStream << "acsc";
+				else if (innerString == "arccot")
+					replaceStream << "acot";
+				else if (innerString == "arcsinh")
+					replaceStream << "asinh";
+				else if (innerString == "arccosh")
+					replaceStream << "acosh";
+				else if (innerString == "arctanh")
+					replaceStream << "atanh";
+				else if (innerString == "arcsech")
+					replaceStream << "asech";
+				else if (innerString == "arccsch")
+					replaceStream << "acsch";
+				else if (innerString == "arccoth")
+					replaceStream << "acoth";
+
+				else 
+					replaceStream << innerString;
+			}
+		}
+
+		return replaceStream.str();
+	}
+
+	// replace a variable column, for example produces x(:,4) instead of x(4), called by subConstantsCol
+	string ReplaceStringTokenCol(const string& currentToken, const string &reactionId, bool divideVolumes = true)
+	{
+		stringstream replaceStream;
+
+		string innerString(stringInside(currentToken));		
+		string localParameterId = reactionId + "_" + innerString;
+
+		if ( _currentModel->globalParamIndexList.find ( innerString ) != _currentModel->globalParamIndexList.end() )
+		{
+			bool isBoundarySpecies = false;
+
+			for (int ib=0; ib< _currentModel->numBoundarySpecies; ib++)
+			{
+				if (innerString == _currentModel->sp_list[ib + _currentModel->numFloatingSpecies].id) 
+				{
+					if (divideVolumes)
+						replaceStream << "(";
+
+					if (_bInlineMode)
+					{
+						replaceStream << _currentModel->globalParametersList[innerString];
+					}
+					else
+					{						
+						replaceStream << "rInfo.g_p" << _currentModel->globalParamIndexList[innerString];
+					}
+
+					if (divideVolumes)
+					{
+						if (_currentModel->compartmentsList[_currentModel->sp_list[ib + _currentModel->numFloatingSpecies].compartment] != 1.0)
+							replaceStream << "/vol__" << _currentModel->sp_list[ib + _currentModel->numFloatingSpecies].compartment;
+
+						replaceStream << ")";
+					}
+
+					isBoundarySpecies = true;
+					break;
+				}
+			}
+
+			if (isBoundarySpecies == false) {
+
+				if (_bInlineMode)
+				{					
+					replaceStream << _currentModel->globalParametersList[innerString];
+				}
+				else
+				{
+					replaceStream << "rInfo.g_p" << _currentModel->globalParamIndexList[innerString];
+				}
+
+			}
+		}
+		else if ( _currentModel->parameterMapList.find ( localParameterId ) != _currentModel->parameterMapList.end() )
+		{
+			replaceStream << _currentModel->parameterMapList[localParameterId];
+		}
+		else if ( _currentModel->compartmentsList.find ( innerString ) != _currentModel->compartmentsList.end() )
+		{
+			replaceStream << "vol__" << innerString;
+		}
+		else
+		{			
+			bool match = false;
+			for (int isp=0; isp<_currentModel->numFloatingSpecies; isp++)
+			{
+
+				string speciesId = _currentModel->sp_list[isp].id;
+				if(speciesId == innerString)
+				{
+
+					string compartment = "vol__" + _currentModel->sp_list[isp].compartment;
+					bool isUnitVolume = _currentModel->compartmentsList[_currentModel->sp_list[isp].compartment] == 1.0;
+					if (divideVolumes)
+						replaceStream << "(";
+
+					replaceStream << "x(:," << (isp+1) << ")";
 
 					if (divideVolumes)
 					{
@@ -629,6 +760,69 @@ private:
 		return result.str();
 	}
 
+	// subConstants function for matlab columns, for example, produces x(:,4) instead of x(4)
+	string subConstantsCol(const string &equation, const string &reactionId, bool divideVolumes = true)
+	{
+		// set up the scanner
+		stringstream ss(equation);
+
+		TScanner scanner;
+		scanner.setStream(&ss);
+		scanner.startScanner();
+		scanner.nextToken();
+
+		stringstream result;
+
+		try
+		{
+			while(scanner.getToken()!= tEndOfStreamToken)
+			{
+
+				switch ( scanner.getToken() )
+				{
+				case tWordToken :	
+					{
+						string currentToken = scanner.tokenToString ( scanner.getToken() );						
+						result << ReplaceStringTokenCol(currentToken,  reactionId, divideVolumes);
+					}
+					break;
+				case tDoubleToken:
+					result << scanner.tokenDouble;
+					break;
+				case tIntToken	 :  
+					result << scanner.tokenInteger;
+					break;
+				case tPlusToken	 :	result << "+";
+					break;
+				case tMinusToken :  result << "-";
+					break;
+				case tDivToken	 :  result << "/";
+					break;
+				case tMultToken	 :	result << "*";
+					break;
+				case tPowerToken :	result << "^";
+					break;
+				case tLParenToken:	result << "(";
+					break;
+				case tRParenToken:	result << ")";
+					break;
+				case tCommaToken :	result << ",";
+					break;
+				default			 :  MatlabError* ae =
+										new MatlabError("Unknown token in subConstants (matlabTranslator): " + scanner.tokenToString( scanner.getToken() ));
+					throw ae;
+				}
+				scanner.nextToken();
+			}
+			result << ";";
+		}
+		catch (MatlabError ae)
+		{
+			throw ae;
+		}
+		return result.str();
+	}
+
 	// if expression is parenthesized, drop parentheses
 	string stringInside(const string &str)
 	{
@@ -644,11 +838,82 @@ public:
 	{
 	}
 
+	// prints out the wrapper function for doing assignment and algebraic rules and solving the ode
+	string PrintWrapper()
+	{
+		stringstream result;
+		result << "function [t x rInfo] = " << _currentModel->modelName << "(tspan,solver,options)" << endl;
+		result << "    [x rInfo] = model();" << endl;
+
+		result << endl << "    % initial assignments" << endl;
+
+		result << endl << "    % assignment rules" << endl;
+		if (_currentModel->numRules > 0)
+		{
+			for (int i = 0; i < _currentModel->numRules; i++)
+			{
+				string rule = _currentModel->rules[i];
+				int ruleType = _currentModel->ruleTypes[i];
+				// find equals sign ... split to get id translate id and combine ...
+				size_t index = rule.find("=");
+				string iCouldCareLess;
+				if (index != string::npos)
+				{
+					string variable = rule.substr(0, index);
+					if (isFloatingSpecies(variable.substr(0, variable.length()-1)))
+					{
+						variable = subConstants(variable, iCouldCareLess, false);
+						string equation = rule.substr(index + 1);
+						equation = subConstants(equation, iCouldCareLess);
+						if (ruleType == SBML_ASSIGNMENT_RULE)
+						{
+							result << "   " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
+						}
+					}
+				}
+			}
+		}
+
+
+		result << endl << "    [t x] = feval(solver,@model,tspan,x,options);" << endl;
+
+		result << endl << "    % assignment rules" << endl;
+
+		if (_currentModel->numRules > 0)
+		{
+			for (int i = 0; i < _currentModel->numRules; i++)
+			{
+				string rule = _currentModel->rules[i];
+				int ruleType = _currentModel->ruleTypes[i];
+				// find equals sign ... split to get id translate id and combine ...
+				size_t index = rule.find("=");
+				string iCouldCareLess;
+				if (index != string::npos)
+				{
+					string variable = rule.substr(0, index);
+					if (isFloatingSpecies(variable.substr(0, variable.length()-1)))
+					{
+						variable = subConstantsCol(variable, iCouldCareLess, false);
+						string equation = rule.substr(index + 1);
+						equation = subConstantsCol(equation, iCouldCareLess);
+						if (ruleType == SBML_ASSIGNMENT_RULE)
+						{
+							result << "   " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
+						}
+					}
+				}
+			}
+		}
+
+
+		return result.str();
+	}
+
 	/// prints the header information on how to use the matlab file
 	string PrintHeader()
 	{
 		stringstream result; 
-		result << "function [xdot rInfo] = " << _currentModel->modelName << "(time,x)" << endl;
+		result << "function [xdot rInfo] = model(time,x)" << endl;
 		result <<  "%  synopsis:" << endl;
 		result <<  "%     xdot = " << _currentModel->modelName << " (time, x)" << endl;
 		result <<  "%     x0 = " << _currentModel->modelName << endl;
@@ -721,7 +986,7 @@ public:
 		for(int i = 0; i < _currentModel->numGlobalParameters; i++)
 		{			
 
-			result <<  "g_p" << (i+1) << " = " 
+			result <<  "rInfo.g_p" << (i+1) << " = " 
 				<< _currentModel->globalParameters[i].value << ";\t\t% " 
 				<< _currentModel->globalParameters[i].name << endl;
 
@@ -747,7 +1012,7 @@ public:
 			bool isAmount = _currentModel->sp_list[index].is_amount;
 			string speciesId = _currentModel->sp_list[index].id;
 
-			result <<  "g_p" << (_currentModel->numGlobalParameters + i+1) << " = "; 			
+			result <<  "rInfo.g_p" << (_currentModel->numGlobalParameters + i+1) << " = "; 			
 
 			double value;
 			if (isAmount == true)
@@ -1163,7 +1428,7 @@ public:
 						result << "   x = fsolve(@(x)(" << variable.substr(0, variable.length()-1) << "),x);" << endl;
 						result << "   ALGEBRAIC RULE ERROR, NOT IN TRANSLATED FUNCTION " << endl;
 					}
-					else if (ruleType != SBML_RATE_RULE)
+					else if ((ruleType != SBML_RATE_RULE) && (ruleType != SBML_ASSIGNMENT_RULE))
 					{
 						result << "   " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
 					}
@@ -1247,7 +1512,7 @@ public:
 		result << endl << "   xdot = [" << endl;
 
 		string floatingSpeciesName;
-		int xdotIndex = 0;
+		int xdotIndex = 1;
 		for (int i = 0; i < _currentModel->numFloatingSpecies; i++)
 		{
 			eqn = "     ";
@@ -1315,7 +1580,7 @@ public:
 				}
 			}
 			
-			if (eqn == "     ")
+			if (eqn == "     ") // add a rate rule reaction if defined for a floating species
 			{
 				for (int i = 0; i < _currentModel->numRules; i++)
 				{
@@ -1353,54 +1618,61 @@ public:
 
 		//// adding in reactions with parameters from rate rules
 		//xdotIndex++;
-		//vector<string> paramsToConvert; // vector of rule parameters to convert to matlab x(n) variable and corresponding
-		//vector<string> convertParamsTo;
-		//vector<string> rulesToConvert;
+		vector<string> paramsToConvert; // vector of rule parameters to convert to matlab x(n) variable and corresponding
+		vector<string> convertParamsTo;
+		vector<string> rulesToConvert;
 
-		//for (int i = 0; i < _currentModel->numRules; i++) //adding reaction for rate rule on a non-species
-		//{
-		//	string rule = _currentModel->rules[i];
-		//	int ruleType = _currentModel->ruleTypes[i];
-		//	if (ruleType == SBML_RATE_RULE) // if rate rule, then promote parameter into ode (X)
-		//	{
-		//		// find equals sign ... split to get id translate id and combine ...
-		//		size_t index = rule.find("=");
-		//		string iCouldCareLess;
-		//		if (index != string::npos)
-		//		{
-		//			string variable = rule.substr(0, index);
-		//			variable = subConstants(variable, iCouldCareLess, false);
-		//			string equation = rule.substr(index + 1);
-		//			equation = subConstants(equation, iCouldCareLess);
+		for (int i = 0; i < _currentModel->numRules; i++) //adding reaction for rate rule on a non-species
+		{
+			string rule = _currentModel->rules[i];
+			int ruleType = _currentModel->ruleTypes[i];
+			if (ruleType == SBML_RATE_RULE) // if rate rule, then promote parameter into ode (X)
+			{
+				// find equals sign ... split to get id translate id and combine ...
+				size_t index = rule.find("=");
+				string iCouldCareLess;
+				if (index != string::npos)
+				{
+					string variable = rule.substr(0, index);
+					variable = subConstants(variable, iCouldCareLess, false);
+					string equation = rule.substr(index + 1);
+					equation = subConstants(equation, iCouldCareLess);
+					
+				
+					//result << "   " << variable.substr(0, variable.length()-1) << " = " << equation << endl;
+					stringstream ruleToConvertStream; // read in all the rules to convert to stringfo
+					stringstream convertVarStream; // stringstream for assigning the appropriate matlab variable
 
-		//			//result << "   " << variable.substr(0, variable.length()-1) << " = " << equation << endl;
-		//			stringstream ruleToConvertStream; // read in all the rules to convert to stringfo
-		//			stringstream convertVarStream; // stringstream for assigning the appropriate matlab variable
+					// create strings of rule and new parameter assignment
+					string varToConvert = variable.substr(0, variable.length()-1);
+					ruleToConvertStream << "   " << equation << endl;
+					convertVarStream << "x(" << xdotIndex << ")";
 
-		//			// create strings of rule and new parameter assignment
-		//			string varToConvert = variable.substr(0, variable.length()-1);
-		//			ruleToConvertStream << "   " << equation << endl;
-		//			convertVarStream << "x(" << xdotIndex << ")";
-
-		//			// adding rules and new parameter assignments to vectors
-		//			paramsToConvert.push_back(varToConvert);
-		//			rulesToConvert.push_back(ruleToConvertStream.str());
-		//			convertParamsTo.push_back(convertVarStream.str());
-		//		}
-		//	}
-		//}
-		//for (int i = 0; i < rulesToConvert.size(); i++)
-		//{
-		//	for (int j = 0; j < paramsToConvert.size(); j++)
-		//	{
-		//		stringReplace(rulesToConvert[i], paramsToConvert[j], convertParamsTo[j]);
-		//	}
-		//	// check that rule is for non-species
-		//	if (!isFloatingSpecies(paramsToConvert[i]))
-		//	{
-		//		result << rulesToConvert[i];
-		//	}
-		//}
+					// making sure that the rule is not specifying a floating species, because adding a rate
+					// rule for a floating species is done earlier
+					if (!isFloatingSpecies(varToConvert))
+					{
+						// adding rules and new parameter assignments to vectors
+						paramsToConvert.push_back(varToConvert);
+						rulesToConvert.push_back(ruleToConvertStream.str());
+						convertParamsTo.push_back(convertVarStream.str());
+						xdotIndex++;
+					}
+				}
+			}
+		}
+		for (int i = 0; i < rulesToConvert.size(); i++)
+		{
+			for (int j = 0; j < paramsToConvert.size(); j++)
+			{
+				stringReplace(rulesToConvert[i], paramsToConvert[j], convertParamsTo[j]);
+			}
+			// check that rule is for non-species
+			if (!isFloatingSpecies(paramsToConvert[i]))
+			{
+				result << rulesToConvert[i];
+			}
+		}
 
 
 
@@ -1631,6 +1903,7 @@ public:
 		outSbml_str = outSbml;
 		_currentModel = new SBMLInfo(outSbml_str);
 
+		result << PrintWrapper();
 		result << PrintHeader();
 		result << PrintSpeciesOverview();
 		result << PrintOutCompartments();
@@ -1644,7 +1917,7 @@ public:
 		result << PrintOutReactionScheme();
 		result << PrintSupportedFunctions();
 
-		delete _currentModel;
+		//delete _currentModel;
 
 		return result.str();
 	}
@@ -1780,7 +2053,7 @@ public:
 int main(int argc, char* argv[])
 {
 	if (argc <= 1) {
-		printf ("Matlab Translator 1.0, -h for help\n");
+		printf ("sbml2matlab, -h for help, -v for version info\n");
 		exit (0);
 	}
 	try
@@ -1813,6 +2086,9 @@ int main(int argc, char* argv[])
 			}
 			else if (current == "-h") {
 				fprintf (stderr, "To translate an sbml file use -input sbml.xml [-output output.m]\n");
+			}
+			else if (current == "-v") {
+				fprintf (stderr, "sbml2matlab version 1.0.0\n");
 			}
 		}
 
