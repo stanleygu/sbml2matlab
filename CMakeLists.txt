@@ -14,11 +14,11 @@ INCLUDE_DIRECTORIES(
 
 link_directories(${LIBSBML_LIB})
 
-SET(BUILD_MT_AS "Executable" CACHE STRING "Build sbml2matlab as an executable or library")
-SET_PROPERTY(CACHE BUILD_MT_AS PROPERTY STRINGS Executable SharedLibrary StaticLibrary) 
+SET(BUILD_SBML2MATLAB_AS "Executable" CACHE STRING "Build sbml2matlab as an executable or library")
+SET_PROPERTY(CACHE BUILD_SBML2MATLAB_AS PROPERTY STRINGS Executable SharedLibrary StaticLibrary) 
 
 
-if (BUILD_MT_AS MATCHES "Executable")
+if (BUILD_SBML2MATLAB_AS MATCHES "Executable")
 # build executable
 ADD_EXECUTABLE( sbml2matlab
     ${PROJECT_SOURCE_DIR}/*.h
@@ -26,7 +26,7 @@ ADD_EXECUTABLE( sbml2matlab
 )
 install(TARGETS sbml2matlab RUNTIME DESTINATION .)
 endif ()
-if (BUILD_MT_AS MATCHES "StaticLibrary")
+if (BUILD_SBML2MATLAB_AS MATCHES "StaticLibrary")
 # build static library
 ADD_LIBRARY( sbml2matlab STATIC
     ${PROJECT_SOURCE_DIR}/*.h
@@ -34,7 +34,7 @@ ADD_LIBRARY( sbml2matlab STATIC
 )
 install(TARGETS sbml2matlab ARCHIVE DESTINATION .)
 endif ()
-if(BUILD_MT_AS MATCHES "SharedLibrary")
+if(BUILD_SBML2MATLAB_AS MATCHES "SharedLibrary")
 # build shared library
 ADD_LIBRARY( sbml2matlab SHARED
     ${PROJECT_SOURCE_DIR}/*.h
@@ -72,4 +72,5 @@ ELSE(WIN32 AND NOT UNIX)
   SET(CPACK_SOURCE_STRIP_FILES "")
 ENDIF(WIN32 AND NOT UNIX)
 SET(CPACK_PACKAGE_EXECUTABLES "sbml2matlab" "sbml2matlab")
+SET(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\README.lnk'  '\$INSTDIR\\\\README.txt'")
 INCLUDE(CPack)

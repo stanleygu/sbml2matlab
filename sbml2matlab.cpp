@@ -1422,16 +1422,16 @@ public:
 					variable = subConstants(variable, iCouldCareLess, false);
 					string equation = rule.substr(index + 1);
 					equation = subConstants(equation, iCouldCareLess);
-					if (ruleType == SBML_ALGEBRAIC_RULE) // if an algebraic rule
-					{
-						result << "   % algebraicRule " << endl;
-						result << "   x = fsolve(@(x)(" << variable.substr(0, variable.length()-1) << "),x);" << endl;
-						result << "   ALGEBRAIC RULE ERROR, NOT IN TRANSLATED FUNCTION " << endl;
-					}
-					else if ((ruleType != SBML_RATE_RULE) && (ruleType != SBML_ASSIGNMENT_RULE))
-					{
-						result << "   " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
-					}
+					//if (ruleType == SBML_ALGEBRAIC_RULE) // if an algebraic rule
+					//{
+					//	result << "   % algebraicRule " << endl;
+					//	result << "   x = fsolve(@(x)(" << variable.substr(0, variable.length()-1) << "),x);" << endl;
+					//	result << "   ALGEBRAIC RULE ERROR, NOT IN TRANSLATED FUNCTION " << endl;
+					//}
+					//else if ((ruleType != SBML_RATE_RULE) && (ruleType != SBML_ASSIGNMENT_RULE))
+					//{
+					result << "   " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
+					//}
 				}
 			}
 		}
