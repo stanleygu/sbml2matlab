@@ -13,7 +13,7 @@ Replace the square brackets with the paths of the input and output files, respec
 
 = Limitations =
 
-sbml2matlab currently does not support the use of events, algebraic/assignment rules, or varying compartment values.
+Generally, sbml2matlab currently does not support the use of events, algebraic rules, or compartment rate rules.
 
 Validation test and current analysis of sbml2matlab can be found [http://code.google.com/p/sbwtools/wiki/CurrentValidation here].
 
