@@ -867,7 +867,7 @@ public:
 						equation = subConstants(equation, iCouldCareLess);
 						if (ruleType == SBML_ASSIGNMENT_RULE)
 						{
-							result << "   " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
+							result << "    " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
 						}
 					}
 				}
@@ -898,7 +898,7 @@ public:
 						equation = subConstantsCol(equation, iCouldCareLess);
 						if (ruleType == SBML_ASSIGNMENT_RULE)
 						{
-							result << "   " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
+							result << "    " <<  variable.substr(0, variable.length()-1) << " = " << equation << endl;
 						}
 					}
 				}
