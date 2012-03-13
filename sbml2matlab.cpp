@@ -1634,7 +1634,7 @@ public:
 				if (index != string::npos)
 				{
 					string variable = rule.substr(0, index);
-					variable = subConstants(variable, iCouldCareLess, false);
+					string mVariable = subConstants(variable, iCouldCareLess, false);
 					string equation = rule.substr(index + 1);
 					equation = subConstants(equation, iCouldCareLess);
 					
@@ -1644,13 +1644,13 @@ public:
 					stringstream convertVarStream; // stringstream for assigning the appropriate matlab variable
 
 					// create strings of rule and new parameter assignment
-					string varToConvert = variable.substr(0, variable.length()-1);
+					string varToConvert = mVariable.substr(0, mVariable.length()-1);
 					ruleToConvertStream << "   " << equation << endl;
 					convertVarStream << "x(" << xdotIndex << ")";
 
 					// making sure that the rule is not specifying a floating species, because adding a rate
 					// rule for a floating species is done earlier
-					if (!isFloatingSpecies(varToConvert))
+					if (!isFloatingSpecies(variable.substr(0, variable.length()-1)))
 					{
 						// adding rules and new parameter assignments to vectors
 						paramsToConvert.push_back(varToConvert);
