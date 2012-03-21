@@ -1928,7 +1928,8 @@ public:
 		{
 			string sbmlString = string(sbmlInput);
 			string matlabString = translateSBML(sbmlString);
-			strcpy(*matlabOutput, matlabString.c_str());
+			*matlabOutput= (char *) matlabString.c_str();
+			//strcpy(*matlabOutput, matlabString.c_str());
 
 		}
 		catch (MatlabError *e)
