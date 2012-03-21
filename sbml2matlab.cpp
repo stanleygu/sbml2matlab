@@ -1922,7 +1922,7 @@ public:
 		return result.str();
 	}
 
-	DLL_EXPORT int sbml2Matlab(char* sbmlInput, char** matlabOutput)
+	DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
 	{
 		try
 		{
