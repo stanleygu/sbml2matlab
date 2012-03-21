@@ -4,14 +4,14 @@ All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the University of Washington nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
+	* Redistributions of source code must retain the above copyright
+	  notice, this list of conditions and the following disclaimer.
+	* Redistributions in binary form must reproduce the above copyright
+	  notice, this list of conditions and the following disclaimer in the
+	  documentation and/or other materials provided with the distribution.
+	* Neither the name of the University of Washington nor the
+	  names of its contributors may be used to endorse or promote products
+	  derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -575,7 +575,7 @@ private:
 		string innerString(stringInside(currentToken));		
 		string localParameterId = reactionId + "_" + innerString;
 
-		if ( _currentModel->globalParamIndexList.find ( innerString ) != _currentModel->globalParamIndexList.end() )
+	if ( _currentModel->globalParamIndexList.find ( innerString ) != _currentModel->globalParamIndexList.end() )
 		{
 			bool isBoundarySpecies = false;
 
@@ -1922,11 +1922,20 @@ public:
 		return result.str();
 	}
 
-	DLL_EXPORT int sbmlToMatlab(char* sbmlInput, char** matlabOutput)
+	DLL_EXPORT int sbml2Matlab(char* sbmlInput, char** matlabOutput)
 	{
-		string sbmlString = string(sbmlInput);
-		string matlabString = translate(sbmlString);
-		strcpy(*matlabOutput, matlabString.c_str());
+		try
+		{
+			string sbmlString = string(sbmlInput);
+			string matlabString = translateSBML(sbmlString);
+			strcpy(*matlabOutput, matlabString.c_str());
+
+		}
+		catch (MatlabError *e)
+		{
+			fprintf(stderr, "MatlabTranslator exception: %s\n", e->getMessage().c_str());
+			return -1;
+		}
 		return 0;
 	}
 

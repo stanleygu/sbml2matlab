@@ -39,6 +39,5 @@ using namespace std;
 
 extern "C"
 {
-	DLL_EXPORT int sbmlToMatlab(char* sbmlInput, char** matlabOutput);
-	//int sbmlToMatlab(char* sbmlInput, char** matlabOutput);
+	DLL_EXPORT int sbml2Matlab(char* sbmlInput, char** matlabOutput);
 }
