@@ -1,5 +1,5 @@
 /**
-* @file NOMLib.h
+* @file NOM.h
 * @author  Frank Bergmann <fbergman@kgi.edu>, Sri Paladugu <spaladug@kgi.edu>, Herbert Sauro <hsauro@u.washington.edu>, Stanley Gu <stanleygu@gmail.com>
 * @date February 22, 2012
 * @brief NOM version of libSBML

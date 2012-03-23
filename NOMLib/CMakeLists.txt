@@ -8,9 +8,6 @@ SET (LIBSBML_INCLUDE CACHE PATH "Full Path to LIBSBML Include Directory")
 SET (LIBSBML_LIB CACHE PATH "Full Path to LIBSBML Import Libraries")
 SET (LIBSBML_BIN CACHE PATH "Full Path to LIBSBML Binaries")
 
-#SET( LIBSBML_LIBRARY        ${PROJECT_SOURCE_DIR}/libsbml )
-#SET( LIBSBML_SOURCE         ${PROJECT_SOURCE_DIR}/libsbml/sbml )
-
 
 # dependencies
 # it will expect a CMakeLists.txt in each folder
@@ -27,9 +24,8 @@ link_directories(${LIBSBML_LIB})
 
 # source files
 FILE( GLOB NOM_SOURCE_FILES
-    ${PROJECT_SOURCE_DIR}/*.h
-    ${PROJECT_SOURCE_DIR}/*.cpp
-	${LIBSBML_SOURCE}
+    ${PROJECT_SOURCE_DIR}/NOM.h
+    ${PROJECT_SOURCE_DIR}/NOM.cpp
     # you can list each file in here instead if you want
 )
 
@@ -42,7 +38,7 @@ ADD_LIBRARY( NOM
 
 # link to dependencies
 TARGET_LINK_LIBRARIES( NOM
-    ${LIBSBML_LIB}/libsbml.*
+    ${LIBSBML_LIB}/libsbml.lib
 )
 
 # install NOM
@@ -50,7 +46,7 @@ install(TARGETS NOM
 	RUNTIME DESTINATION .
 )
 
-# Installing libsbml/nomlib dependencies
-file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/*.dll")
+# Installing libsbml/NOM dependencies
+file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/libsbml.dll")
 install(FILES ${NOM_DEPENDENCIES} DESTINATION .)
 

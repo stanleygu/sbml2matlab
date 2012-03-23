@@ -42,7 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "uScanner.h"
-#include "NOMLib.h"
+#include "NOM.h"
 
 using namespace uScanner;
 using namespace std;
@@ -418,7 +418,7 @@ public:
 * MatlabTranslator
 * this class provides an implementation of the translator service
 */
-class MatlabTranslator
+DLL_EXPORT class MatlabTranslator
 {
 private:	
 
@@ -1922,23 +1922,6 @@ public:
 		return result.str();
 	}
 
-	DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
-	{
-		try
-		{
-			string sbmlString = string(sbmlInput);
-			string matlabString = translateSBML(sbmlString);
-			*matlabOutput= (char *) matlabString.c_str();
-			//strcpy(*matlabOutput, matlabString.c_str());
-
-		}
-		catch (MatlabError *e)
-		{
-			fprintf(stderr, "MatlabTranslator exception: %s\n", e->getMessage().c_str());
-			return -1;
-		}
-		return 0;
-	}
 
 
 	// This method provides the implementation of getStoichiometryMatrix method
@@ -2060,6 +2043,27 @@ public:
 //#else
 //const string MatlabTranslator::NL      = "\n";
 //#endif
+
+DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
+{
+	try
+	{
+		MatlabTranslator translator(false);
+		string translation = translator.translateSBML(sbmlInput);
+		//char * trans = (char *) translation.c_str(); 
+		//strcpy(trans, translation.c_str());
+		//*matlabOutput = trans;
+		*matlabOutput = (char *) translation.c_str();
+
+	}
+	catch (MatlabError *e)
+	{
+		fprintf(stderr, "MatlabTranslator exception: %s\n", e->getMessage().c_str());
+		return -1;
+	}
+	return 0;
+}
+
 int main(int argc, char* argv[])
 {
 	if (argc <= 1) {

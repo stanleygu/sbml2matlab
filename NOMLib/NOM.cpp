@@ -36,7 +36,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
-#include "NOMLib.h"
+#include "NOM.h"
 
 //#include "sbml/SBMLReader.h"
 //#include "sbml/SBMLWriter.h"
