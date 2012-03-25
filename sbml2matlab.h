@@ -31,14 +31,17 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
-#include <string>
-#include "string.h"
-#include <windows.h>
+
 using namespace std;
+#ifdef WIN32
 #define DLL_EXPORT __declspec(dllexport)
+#else
+#define DLL_EXPORT
+#endif
+
+#include "NOM.h"
 
 extern "C"
 {
-	//DLL_EXPORT class MatlabTranslator;
 	DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput);
 }

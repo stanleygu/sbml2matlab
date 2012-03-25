@@ -31,14 +31,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sstream>
 #include <clocale>
 #include <exception>
-#include <windows.h>
 
 #define CONVERT_ANY(source,target)\
-	{\
-	std::stringstream oStream;\
-	oStream << source;\
-	oStream >> target;\
-	}
+        {\
+        std::stringstream oStream;\
+        oStream << source;\
+        oStream >> target;\
+        }
 
 
 #include "uScanner.h"
@@ -46,7 +45,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace uScanner;
 using namespace std;
-
 // const string TRANSLATOR_NAME			= "matlabTranslator";
 // const string TRANSLATOR_VERSION			= "3.00";
 // const string TRANSLATOR_AUTHOR			= "Frank Bergmann, Sri Paladugu, Ravishankar Rao Vallabhajosyula and Herbert Sauro";
@@ -99,7 +97,7 @@ public:
 };
 
 
-class DLL_EXPORT MatlabError
+class MatlabError
 	: public std::exception
 {
 public:
@@ -418,7 +416,7 @@ public:
 * MatlabTranslator
 * this class provides an implementation of the translator service
 */
-DLL_EXPORT class MatlabTranslator
+class MatlabTranslator
 {
 private:	
 
@@ -2050,13 +2048,7 @@ DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
 	{
 		MatlabTranslator translator(false);
 		string translation = translator.translateSBML(sbmlInput);
-		//char * trans = (char *) translation.c_str(); 
-		//strcpy(trans, translation.c_str());
-		//*matlabOutput = trans;
-		//*matlabOutput = (char *) translation.c_str();
-		char * translation_c = (char *) translation.c_str();
-		//*matlabOutput = translation_c;
-		strcpy(*matlabOutput,translation_c);
+		strcpy(*matlabOutput,(char *) translation.c_str());
 	}
 	catch (MatlabError *e)
 	{
@@ -2065,6 +2057,8 @@ DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
 	}
 	return 0;
 }
+
+DLL_EXPORT char *getErrors();
 
 int main(int argc, char* argv[])
 {

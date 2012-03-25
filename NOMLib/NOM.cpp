@@ -32,10 +32,7 @@
 // November 16th 2011, Removed dependence on SBW
 
 
-#define WIN32_LEAN_AND_MEAN
-#include <stdio.h>
-#include <stdlib.h>
-#include <cstring>
+//#define WIN32_LEAN_AND_MEAN
 #include "NOM.h"
 
 //#include "sbml/SBMLReader.h"
@@ -62,7 +59,6 @@
 #include "sbml/conversion/SBMLRuleConverter.h"
 #include "sbml/conversion/SBMLFunctionDefinitionConverter.h"
 
-using namespace std;
 
 SBMLDocument* _oSBMLDocCPP = NULL;
 Model* _oModelCPP = NULL;

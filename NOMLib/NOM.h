@@ -31,13 +31,20 @@
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-
 #ifndef SBML_SUPPORT_H
 #define SBML_SUPPORT_H
 
-#define DLL_EXPORT __declspec(dllexport)
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
 
-#define WIN32_LEAN_AND_MEAN
+#ifdef WIN32
+#define DLL_EXPORT __declspec(dllexport)
+#else
+#define DLL_EXPORT
+#endif
+
+//#define WIN32_LEAN_AND_MEAN
 #undef SEVERITY_ERROR
 
 #include "sbml/SBMLTypes.h"
@@ -53,6 +60,8 @@
 
 #include <string>
 #include <vector>
+using namespace std;
+
 
 
 extern "C" {
