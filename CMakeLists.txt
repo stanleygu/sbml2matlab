@@ -4,11 +4,11 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
 
 # dependencies
 # it will expect a CMakeLists.txt in each folder
-ADD_SUBDIRECTORY(NOMLib)
+ADD_SUBDIRECTORY(NOM)
 
 # dependency headers
 INCLUDE_DIRECTORIES(
-    ${PROJECT_SOURCE_DIR}/NOMLib
+    ${PROJECT_SOURCE_DIR}/NOM
     ${LIBSBML_INCLUDE}
 )
 
