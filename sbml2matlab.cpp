@@ -2053,8 +2053,10 @@ DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
 		//char * trans = (char *) translation.c_str(); 
 		//strcpy(trans, translation.c_str());
 		//*matlabOutput = trans;
-		*matlabOutput = (char *) translation.c_str();
-
+		//*matlabOutput = (char *) translation.c_str();
+		char * translation_c = (char *) translation.c_str();
+		//*matlabOutput = translation_c;
+		strcpy(*matlabOutput,translation_c);
 	}
 	catch (MatlabError *e)
 	{
