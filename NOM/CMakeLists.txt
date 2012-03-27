@@ -36,19 +36,37 @@ ADD_LIBRARY( NOM
     ${NOM_SOURCE_FILES}
 )
 
-# link to dependencies
-TARGET_LINK_LIBRARIES( NOM
-    ${LIBSBML_LIB}/libsbml.lib
-)
-
-# install NOM
 if (WIN32 AND NOT UNIX)
-	install(TARGETS NOM RUNTIME DESTINATION .)
+	# link to dependencies
+	TARGET_LINK_LIBRARIES( NOM
+		${LIBSBML_LIB}/libsbml.lib
+	)
+	# Installing libsbml/NOM dependencies
+	file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/*.dll")
 else (WIN32 AND NOT UNIX)
-	install(TARGETS NOM LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
+	# link to dependencies
+	TARGET_LINK_LIBRARIES( NOM
+		${LIBSBML_LIB}/libsbml.so
+	)
+	# Installing libsbml/NOM dependencies
+	file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/*.so")
 endif (WIN32 AND NOT UNIX)
 
+# link to dependencies
+# TARGET_LINK_LIBRARIES( NOM
+    # ${LIBSBML_LIB}/libsbml.lib
+    # ${LIBSBML_LIB}/bzip2.lib
+    # ${LIBSBML_LIB}/iconv.lib
+    # ${LIBSBML_LIB}/libcheck.lib
+    # ${LIBSBML_LIB}/libexpat.lib
+    # ${LIBSBML_LIB}/libxml2.lib
+    # ${LIBSBML_LIB}/xerces-c_3.lib
+    # ${LIBSBML_LIB}/xerces-c_3D.lib
+    # ${LIBSBML_LIB}/zdll.lib
+# )
+
+# install NOM
+install(TARGETS NOM LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
 # Installing libsbml/NOM dependencies
-file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/libsbml.dll")
 install(FILES ${NOM_DEPENDENCIES} DESTINATION .)
 
