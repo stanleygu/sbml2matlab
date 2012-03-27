@@ -14,8 +14,6 @@ INCLUDE_DIRECTORIES(
 
 link_directories(${LIBSBML_LIB})
 
-SET(BUILD_SBML2MATLAB_AS "Executable" CACHE STRING "Build sbml2matlab as an executable or library")
-SET_PROPERTY(CACHE BUILD_SBML2MATLAB_AS PROPERTY STRINGS Executable SharedLibrary StaticLibrary) 
 SET(SBML2MATLAB_SOURCE sbml2matlab.h uScanner.h sbml2matlab.cpp)
 
 ADD_EXECUTABLE( sbml2matlab
@@ -24,43 +22,6 @@ ADD_EXECUTABLE( sbml2matlab
 ADD_LIBRARY( libsbml2matlab SHARED
 	${PROJECT_SOURCE_DIR}/${SBML2MATLAB_SOURCE}
 )
-# ADD_LIBRARY( sbml2matlab-static STATIC
-	# ${PROJECT_SOURCE_DIR}/${SBML2MATLAB_SOURCE}
-# )
-
-# if (BUILD_SBML2MATLAB_AS MATCHES "Executable")
-# build executable
-	# ADD_EXECUTABLE( sbml2matlab
-		# ${PROJECT_SOURCE_DIR}/${SBML2MATLAB_SOURCE}
-	# )
-	# if (WIN32 AND NOT UNIX)
-		# install(TARGETS sbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
-	# else (WIN32 AND NOT UNIX)
-		# install(TARGETS sbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
-	# endif (WIN32 AND NOT UNIX)
-# endif ()
-# if (BUILD_SBML2MATLAB_AS MATCHES "StaticLibrary")
-# build static library
-	# ADD_LIBRARY( sbml2matlab STATIC
-		# ${PROJECT_SOURCE_DIR}/${SBML2MATLAB_SOURCE}
-	# )
-	# if (WIN32 AND NOT UNIX)
-		# install(TARGETS sbml2matlab ARCHIVE DESTINATION .)
-	# else (WIN32 AND NOT UNIX)
-		# install(TARGETS sbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
-	# endif (WIN32 AND NOT UNIX)
-# endif ()
-# if(BUILD_SBML2MATLAB_AS MATCHES "SharedLibrary")
-# build shared library
-	# ADD_LIBRARY( sbml2matlab SHARED
-		# ${PROJECT_SOURCE_DIR}/${SBML2MATLAB_SOURCE}
-	# )
-	# if (WIN32 AND NOT UNIX)
-		# install(TARGETS sbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
-	# else (WIN32 AND NOT UNIX)
-		# install(TARGETS sbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
-	# endif (WIN32 AND NOT UNIX)
-# endif ()
 
 install(FILES README.txt DESTINATION .)
 install(FILES LICENSE.txt DESTINATION .)
@@ -68,10 +29,7 @@ install(FILES help.zip DESTINATION ./help)
 
 # link to dependencies
 TARGET_LINK_LIBRARIES(sbml2matlab NOM)
-# TARGET_LINK_LIBRARIES(sbml2matlab-static NOM)
 TARGET_LINK_LIBRARIES(libsbml2matlab NOM)
-
-
 
 #---------------------CPACK---------------------
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Translate SBML files to MATLAB functions")
