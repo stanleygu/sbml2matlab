@@ -2048,6 +2048,7 @@ DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
 	{
 		MatlabTranslator translator(false);
 		string translation = translator.translateSBML(sbmlInput);
+		*matlabOutput = (char *) malloc((translation.length()+1)*sizeof(char));
 		strcpy(*matlabOutput,(char *) translation.c_str());
 	}
 	catch (MatlabError *e)

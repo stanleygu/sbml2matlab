@@ -44,7 +44,7 @@ extern "C"
 	/** @brief translates SBML to the MATLAB function equivalent
 	*
 	* @param[in] sbmlInput The SBML string to be translated
-	* @param[in] matlabOutput Pointer to the C string, with memory allocated by the caller, to assign the translated MATLAB function
+	* @param[in] matlabOutput Pointer to the C string to assign the translated MATLAB function
 	*
 	* @return 0 if translation was successful, -1 if not
 	*/
