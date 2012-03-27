@@ -2058,7 +2058,25 @@ DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
 	return 0;
 }
 
-DLL_EXPORT char *getErrors();
+DLL_EXPORT char *getNomErrors()
+{
+	return getError();
+}
+
+DLL_EXPORT int getNumSbmlErrors()
+{
+	return getNumErrors();
+}
+
+DLL_EXPORT int getNthSbmlError (int index, int *line, int *column, int *errorId, char **errorType, char **errorMsg)
+{
+	return getNthError(index, line, column, errorId, errorType, errorMsg);
+}
+
+DLL_EXPORT int validateSBMLString (char *cSBML)
+{
+	return validateSBML(cSBML);
+}
 
 int main(int argc, char* argv[])
 {

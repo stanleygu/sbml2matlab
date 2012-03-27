@@ -39,9 +39,45 @@ using namespace std;
 #define DLL_EXPORT
 #endif
 
-#include "NOM.h"
-
 extern "C"
 {
+	/** @brief translates SBML to the MATLAB function equivalent
+	*
+	* @param[in] sbmlInput The SBML string to be translated
+	* @param[in] matlabOutput Pointer to the C string, with memory allocated by the caller, to assign the translated MATLAB function
+	*
+	* @return 0 if translation was successful, -1 if not
+	*/
 	DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput);
+	
+	/** @brief Returns the error message from NOM 
+	*
+	* @return char* to the error message
+	*/
+	DLL_EXPORT char *getNomErrors();
+
+	/** @brief Returns number of errors in SBML model
+	*
+	* @return -1 if there has been an error, otherwise returns number of errors in SBML model
+	*/
+	DLL_EXPORT int getNumSbmlErrors();
+
+	/** @brief Returns details on the index^th SBML error
+	*
+	* @param[in] index The index^th error in the list
+	* @param[out] line The line number in the SBML file that corresponds to the error
+	* @param[out] column The column number in the SBML file that corresponds to the error
+	* @param[out] errorId The SBML errorId (see libSBML for details);
+	* @param[out] errorType The error type includes "Advisory", "Warning", "Fatal", "Error", and "Warning"
+	* @param[out] errorMsg The error message associated with the error
+	* @return -1 if there has been an error
+	*/
+	DLL_EXPORT int getNthSbmlError (int index, int *line, int *column, int *errorId, char **errorType, char **errorMsg);
+
+	/** @brief Validates the given SBML model
+	*
+	* @return -1 if the SBML model is invalid, else returns 0
+	*/
+	DLL_EXPORT int validateSBMLString (char *cSBML);
+
 }
