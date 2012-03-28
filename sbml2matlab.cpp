@@ -1,5 +1,5 @@
 /* Filename    : sbml2matlab.cpp
-Copyright (c) 2012, Stanley Gu
+Copyright (c) 2006-2012, Ravi Rao, Frank Bergmann, Herbert Sauro and Stanley Gu
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
