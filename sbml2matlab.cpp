@@ -903,6 +903,8 @@ public:
 			}
 		}
 
+		result << endl << "function [xdot rInfo] = model(time,x)" << endl;
+
 
 		return result.str();
 	}
@@ -911,7 +913,6 @@ public:
 	string PrintHeader()
 	{
 		stringstream result; 
-		result << "function [xdot rInfo] = model(time,x)" << endl;
 		result <<  "%  synopsis:" << endl;
 		result <<  "%     xdot = " << _currentModel->modelName << " (time, x)" << endl;
 		result <<  "%     x0 = " << _currentModel->modelName << endl;
@@ -1901,8 +1902,8 @@ public:
 		outSbml_str = outSbml;
 		_currentModel = new SBMLInfo(outSbml_str);
 
-		result << PrintWrapper();
 		result << PrintHeader();
+		result << PrintWrapper();
 		result << PrintSpeciesOverview();
 		result << PrintOutCompartments();
 		result << PrintOutGlobalParameters();
