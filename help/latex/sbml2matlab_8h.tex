@@ -1,0 +1,131 @@
+\hypertarget{sbml2matlab_8h}{\section{sbml2matlab.\-h File Reference}
+\label{sbml2matlab_8h}\index{sbml2matlab.\-h@{sbml2matlab.\-h}}
+}
+
+
+S\-B\-M\-L-\/to-\/\-M\-A\-T\-L\-A\-B translator.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{sbml2matlab_8h_a23ab0dbf0cd652ae4257e41afbe5c954}{sbml2matlab} (char $\ast$sbml\-Input, char $\ast$$\ast$matlab\-Output)
+\begin{DoxyCompactList}\small\item\em translates S\-B\-M\-L to the M\-A\-T\-L\-A\-B function equivalent \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T char $\ast$ \hyperlink{sbml2matlab_8h_af021d4f2ebecbd6e8d88420669cef615}{get\-Nom\-Errors} ()
+\begin{DoxyCompactList}\small\item\em Returns the error message from N\-O\-M. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{sbml2matlab_8h_adb91d598d616c1e3d45ba21184cc4f45}{get\-Num\-Sbml\-Errors} ()
+\begin{DoxyCompactList}\small\item\em Returns number of errors in S\-B\-M\-L model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{sbml2matlab_8h_ae1abb93734a82ca8bad7accb11cf290f}{get\-Nth\-Sbml\-Error} (int index, int $\ast$line, int $\ast$column, int $\ast$error\-Id, char $\ast$$\ast$error\-Type, char $\ast$$\ast$error\-Msg)
+\begin{DoxyCompactList}\small\item\em Returns details on the index$^\wedge$th S\-B\-M\-L error. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{sbml2matlab_8h_a62afdc40146473b2a43d492105943675}{validate\-S\-B\-M\-L\-String} (char $\ast$c\-S\-B\-M\-L)
+\begin{DoxyCompactList}\small\item\em Validates the given S\-B\-M\-L model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+S\-B\-M\-L-\/to-\/\-M\-A\-T\-L\-A\-B translator. \begin{DoxyAuthor}{Author}
+Stanley Gu \href{mailto:stanleygu@gmail.com}{\tt stanleygu@gmail.\-com} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Februrary 16, 2012 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\hypertarget{sbml2matlab_8h_af021d4f2ebecbd6e8d88420669cef615}{\index{sbml2matlab.\-h@{sbml2matlab.\-h}!get\-Nom\-Errors@{get\-Nom\-Errors}}
+\index{get\-Nom\-Errors@{get\-Nom\-Errors}!sbml2matlab.h@{sbml2matlab.\-h}}
+\subsubsection[{get\-Nom\-Errors}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T char$\ast$ {\bf get\-Nom\-Errors} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sbml2matlab_8h_af021d4f2ebecbd6e8d88420669cef615}
+
+
+Returns the error message from N\-O\-M. 
+
+\begin{DoxyReturn}{Returns}
+char$\ast$ to the error message 
+\end{DoxyReturn}
+\hypertarget{sbml2matlab_8h_ae1abb93734a82ca8bad7accb11cf290f}{\index{sbml2matlab.\-h@{sbml2matlab.\-h}!get\-Nth\-Sbml\-Error@{get\-Nth\-Sbml\-Error}}
+\index{get\-Nth\-Sbml\-Error@{get\-Nth\-Sbml\-Error}!sbml2matlab.h@{sbml2matlab.\-h}}
+\subsubsection[{get\-Nth\-Sbml\-Error}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Sbml\-Error} (
+\begin{DoxyParamCaption}
+\item[{int}]{index, }
+\item[{int $\ast$}]{line, }
+\item[{int $\ast$}]{column, }
+\item[{int $\ast$}]{error\-Id, }
+\item[{char $\ast$$\ast$}]{error\-Type, }
+\item[{char $\ast$$\ast$}]{error\-Msg}
+\end{DoxyParamCaption}
+)}}\label{sbml2matlab_8h_ae1abb93734a82ca8bad7accb11cf290f}
+
+
+Returns details on the index$^\wedge$th S\-B\-M\-L error. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index$^\wedge$th error in the list \\
+\hline
+\mbox{\tt out}  & {\em line} & The line number in the S\-B\-M\-L file that corresponds to the error \\
+\hline
+\mbox{\tt out}  & {\em column} & The column number in the S\-B\-M\-L file that corresponds to the error \\
+\hline
+\mbox{\tt out}  & {\em error\-Id} & The S\-B\-M\-L error\-Id (see lib\-S\-B\-M\-L for details); \\
+\hline
+\mbox{\tt out}  & {\em error\-Type} & The error type includes \char`\"{}\-Advisory\char`\"{}, \char`\"{}\-Warning\char`\"{}, \char`\"{}\-Fatal\char`\"{}, \char`\"{}\-Error\char`\"{}, and \char`\"{}\-Warning\char`\"{} \\
+\hline
+\mbox{\tt out}  & {\em error\-Msg} & The error message associated with the error \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{sbml2matlab_8h_adb91d598d616c1e3d45ba21184cc4f45}{\index{sbml2matlab.\-h@{sbml2matlab.\-h}!get\-Num\-Sbml\-Errors@{get\-Num\-Sbml\-Errors}}
+\index{get\-Num\-Sbml\-Errors@{get\-Num\-Sbml\-Errors}!sbml2matlab.h@{sbml2matlab.\-h}}
+\subsubsection[{get\-Num\-Sbml\-Errors}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Sbml\-Errors} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sbml2matlab_8h_adb91d598d616c1e3d45ba21184cc4f45}
+
+
+Returns number of errors in S\-B\-M\-L model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns number of errors in S\-B\-M\-L model 
+\end{DoxyReturn}
+\hypertarget{sbml2matlab_8h_a23ab0dbf0cd652ae4257e41afbe5c954}{\index{sbml2matlab.\-h@{sbml2matlab.\-h}!sbml2matlab@{sbml2matlab}}
+\index{sbml2matlab@{sbml2matlab}!sbml2matlab.h@{sbml2matlab.\-h}}
+\subsubsection[{sbml2matlab}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf sbml2matlab} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{sbml\-Input, }
+\item[{char $\ast$$\ast$}]{matlab\-Output}
+\end{DoxyParamCaption}
+)}}\label{sbml2matlab_8h_a23ab0dbf0cd652ae4257e41afbe5c954}
+
+
+translates S\-B\-M\-L to the M\-A\-T\-L\-A\-B function equivalent 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sbml\-Input} & The S\-B\-M\-L string to be translated \\
+\hline
+\mbox{\tt in}  & {\em matlab\-Output} & Pointer to the C string to assign the translated M\-A\-T\-L\-A\-B function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if translation was successful, -\/1 if not 
+\end{DoxyReturn}
+\hypertarget{sbml2matlab_8h_a62afdc40146473b2a43d492105943675}{\index{sbml2matlab.\-h@{sbml2matlab.\-h}!validate\-S\-B\-M\-L\-String@{validate\-S\-B\-M\-L\-String}}
+\index{validate\-S\-B\-M\-L\-String@{validate\-S\-B\-M\-L\-String}!sbml2matlab.h@{sbml2matlab.\-h}}
+\subsubsection[{validate\-S\-B\-M\-L\-String}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf validate\-S\-B\-M\-L\-String} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{c\-S\-B\-M\-L}
+\end{DoxyParamCaption}
+)}}\label{sbml2matlab_8h_a62afdc40146473b2a43d492105943675}
+
+
+Validates the given S\-B\-M\-L model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if the S\-B\-M\-L model is invalid, else returns 0 
+\end{DoxyReturn}

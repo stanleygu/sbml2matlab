@@ -1,0 +1,1267 @@
+\hypertarget{_n_o_m_8h}{\section{N\-O\-M/\-N\-O\-M.h File Reference}
+\label{_n_o_m_8h}\index{N\-O\-M/\-N\-O\-M.\-h@{N\-O\-M/\-N\-O\-M.\-h}}
+}
+
+
+N\-O\-M version of lib\-S\-B\-M\-L.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$cstring$>$}\\*
+{\ttfamily \#include \char`\"{}sbml/\-S\-B\-M\-L\-Types.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sbml/math/\-A\-S\-T\-Node.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{_n_o_m_8h_a1ca888bd091694c05472e1b91df1a97b}{\#define {\bfseries D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T}}\label{_n_o_m_8h_a1ca888bd091694c05472e1b91df1a97b}
+
+\item 
+\hypertarget{_n_o_m_8h_a6b20d41d6252e9871430c242cb1a56e7}{\#define {\bfseries B\-U\-F\-F\-E\-R\-\_\-\-S\-I\-Z\-E}~1024}\label{_n_o_m_8h_a6b20d41d6252e9871430c242cb1a56e7}
+
+\item 
+\hypertarget{_n_o_m_8h_a070bd50881c9258acbda2c8563bcb3a3}{\#define {\bfseries F\-U\-N\-C\-D\-A\-T\-A\-R\-O\-W\-S}~44}\label{_n_o_m_8h_a070bd50881c9258acbda2c8563bcb3a3}
+
+\item 
+\hypertarget{_n_o_m_8h_a8c1236f038140b9113bf5701bb1b368b}{\#define {\bfseries F\-U\-N\-C\-D\-A\-T\-A\-C\-O\-L\-S}~16}\label{_n_o_m_8h_a8c1236f038140b9113bf5701bb1b368b}
+
+\item 
+\hypertarget{_n_o_m_8h_a252ef4f13ca94173a616a4bee0a29dc7}{\#define {\bfseries G\-E\-T\-\_\-\-I\-D\-\_\-\-I\-F\-\_\-\-P\-O\-S\-S\-I\-B\-L\-E}(x)~(x-\/$>$is\-Set\-Id() ?  x-\/$>$get\-Id() \-:  x-\/$>$get\-Name() )}\label{_n_o_m_8h_a252ef4f13ca94173a616a4bee0a29dc7}
+
+\item 
+\hypertarget{_n_o_m_8h_a667b3d5fb6c47d8db02593a82d3eab5b}{\#define {\bfseries G\-E\-T\-\_\-\-N\-A\-M\-E\-\_\-\-I\-F\-\_\-\-P\-O\-S\-S\-I\-B\-L\-E}(x)~(x-\/$>$is\-Set\-Name() ?  x-\/$>$get\-Name() \-:  x-\/$>$get\-Id() )}\label{_n_o_m_8h_a667b3d5fb6c47d8db02593a82d3eab5b}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T char $\ast$ \hyperlink{_n_o_m_8h_a1365bc1bdb0aa9ebb4b30072f84cd03e}{get\-Error} ()
+\begin{DoxyCompactList}\small\item\em Returns the error message given the last error code generated. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a5f5439bbcd9517d47de023ed0907457c}{load\-S\-B\-M\-L} (char $\ast$sbml\-Str)
+\begin{DoxyCompactList}\small\item\em Load S\-B\-M\-L into the N\-O\-M. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a079a3a69c0821126fba17d04d6425f41}{get\-Num\-Errors} ()
+\begin{DoxyCompactList}\small\item\em Returns number of errors in S\-B\-M\-L model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_addcb6dee5dfd9277b74601e15a01c4b0}{get\-Nth\-Error} (int index, int $\ast$line, int $\ast$column, int $\ast$error\-Id, char $\ast$$\ast$error\-Type, char $\ast$$\ast$error\-Msg)
+\begin{DoxyCompactList}\small\item\em Returns details on the index$^\wedge$th error. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_afce4267a4ab402c1522bd34f2887dd38}{validate\-S\-B\-M\-L} (char $\ast$c\-S\-B\-M\-L)
+\begin{DoxyCompactList}\small\item\em Validates the given S\-B\-M\-L model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a747095fb2dc159285de9662083637444}{has\-Initial\-Amount} (char $\ast$s\-Id, bool $\ast$is\-Initial\-Amount)
+\begin{DoxyCompactList}\small\item\em Returns 0 (false) in the argument list if the species given by s\-Id does not have an amount associated with it, otherwise returns 1 (true) \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a841740c46bb0e0f7f347b51ffddd539e}{has\-Initial\-Concentration} (char $\ast$c\-Id, int $\ast$has\-Initial)
+\begin{DoxyCompactList}\small\item\em Returns 0 (false) in the argument list if the species given by s\-Id does not have a concentration associated with it, otherwise returns 1 (true) \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a6ff7c40478d37fa8a1e058a5d79730b4}{get\-Value} (char $\ast$s\-Id, double $\ast$value)
+\begin{DoxyCompactList}\small\item\em Get the value for a given symbol in the S\-B\-M\-L. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a795848f6e83d7e7a90cf343eda9ed146}{set\-Value} (char $\ast$s\-Id, double d\-Value)
+\begin{DoxyCompactList}\small\item\em Set the value for a given symbol in the S\-B\-M\-L. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a868ddcd04c027432f42ec7cd20dc6d43}{validate} (char $\ast$sbml\-Str)
+\begin{DoxyCompactList}\small\item\em Retrusn 0 (false) the supplied S\-B\-M\-L string is invalid, else returns 1 (true) \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a1851545c7fcc5f9a344e3ebb37d9cda8}{get\-Model\-Name} (char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Return the model name in the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_abc6bc9e5b51834ae9d9b5f6281691795}{get\-Model\-Id} (char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Return the model Id for the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a1d4a0b0f620217413e1ec0188bd7423c}{set\-Model\-Id} (char $\ast$c\-Id)
+\begin{DoxyCompactList}\small\item\em Set the model Id for the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a3b9cb92d581a11ebdd6665f455d1822c}{get\-Num\-Function\-Definitions} ()
+\begin{DoxyCompactList}\small\item\em Return the number of function definitions in the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_acbe6dd6f9dfeda2abb96fd44bcc80bc9}{get\-Num\-Compartments} ()
+\begin{DoxyCompactList}\small\item\em Return the number of compartment in the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a529334f079635d0c70b0ba51fc0b83e3}{get\-Num\-Reactions} ()
+\begin{DoxyCompactList}\small\item\em Return the number of reactions in the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_acb959dabe83167b13b1762e62077aa47}{get\-Num\-Floating\-Species} ()
+\begin{DoxyCompactList}\small\item\em Return the number of floating species in the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_af0adef2c7eeea577bca72b4c4150c1f7}{get\-Num\-Boundary\-Species} ()
+\begin{DoxyCompactList}\small\item\em Return the number of boundary species in the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a9aa5db386d6b7d81730d02f99607ad25}{get\-Num\-Global\-Parameters} ()
+\begin{DoxyCompactList}\small\item\em Return the number of global parameters in the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_afe30ddbb308650a0bb96d1ea4033a438}{get\-Nth\-Global\-Parameter\-Name} (int n\-Index, char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th global parameter name. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a7c91c8c67344983ae57741ac3190a111}{get\-Nth\-Global\-Parameter\-Id} (int n\-Index, char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th global parameter Id. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_abbfba54a320d9dab27ad6f7c79d0104b}{get\-Nth\-Function\-Definition} (int index, char $\ast$$\ast$fn\-Id, int $\ast$num\-Args, char $\ast$$\ast$$\ast$arg\-List, char $\ast$$\ast$body)
+\begin{DoxyCompactList}\small\item\em Collects information on the index$^\wedge$th function definition. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_ae211fa578c4f93465ce990f9b775b5bc}{get\-Nth\-Compartment\-Name} (int n\-Index, char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th compartment name. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_ab52d8941a8812d3bf800a6d4a6283e5f}{get\-Nth\-Compartment\-Id} (int n\-Index, char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th compartment Id. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_aaf586132d60fa0e5e8f8771a3241a64b}{get\-Compartment\-Id\-By\-Species\-Id} (char $\ast$c\-Id, char $\ast$$\ast$comp\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the compartment Id associated with a particular species Id. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a9b89cd339a008fb31bf0432d6a095355}{get\-List\-Of\-Floating\-Species\-Ids} (char $\ast$$\ast$$\ast$Id\-List, int $\ast$num\-Float)
+\begin{DoxyCompactList}\small\item\em Returns a list of the Ids of the floating species. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a70c27dfbb307872ad1c5ad637f9d4c7f}{get\-Nth\-Floating\-Species\-Name} (int n\-Index, char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th floating species name. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a3f11520c2bfcd7f9a3d815fc0e729cdc}{get\-Nth\-Floating\-Species\-Id} (int n\-Index, char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th floating species Id. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a6d3e89f9c8da8d981ec6f171f02ccdcf}{get\-List\-Of\-Boundary\-Species\-Ids} (char $\ast$$\ast$$\ast$Id\-List, int $\ast$num\-Boundary)
+\begin{DoxyCompactList}\small\item\em Returns a list of the Ids of the boundary species. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a8e99a17ed6f975ac686f5cce6b3c0256}{get\-Nth\-Boundary\-Species\-Name} (int n\-Index, char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th boundary species name. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_aaaf82ffd0152598f5eae674bc16c08c9}{get\-Nth\-Boundary\-Species\-Id} (int n\-Index, char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th boundary species Id. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_ad457ea84e00f4a1cc89b79db52732e28}{get\-Num\-Rules} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of rules in the S\-B\-M\-L model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a34cb620977ca579f047ca6822fe8461f}{get\-Nth\-Rule} (int n\-Index, char $\ast$$\ast$rule, int $\ast$rule\-Type)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th rule from the current model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a34b32b70a9a17d19b6ed41ef2e835d3f}{get\-Num\-Events} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of events in the S\-B\-M\-L model. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a78759edc4963df3a9f767ebe2966ac68}{get\-Nth\-Reaction\-Name} (int n\-Index, char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th reaction name. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_af44a76d43555afc2fa62ce689565b7a7}{is\-Reaction\-Reversible} (int arg, int $\ast$is\-Reversible)
+\begin{DoxyCompactList}\small\item\em Returns if reaction is reversible. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a73e87572fdc274a0bb0a6d80a471a1f3}{get\-Nth\-Reaction\-Id} (int n\-Index, char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the n\-Index$^\wedge$th reaction Id. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a37c7bc75a4a2d938a9a716bbfc6b3920}{get\-Num\-Reactants} (int arg)
+\begin{DoxyCompactList}\small\item\em Return the number of reactants for the arg$^\wedge$th reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a21748953ecc50415b383b76e03387660}{get\-Num\-Products} (int arg)
+\begin{DoxyCompactList}\small\item\em Return the number of reactants for the arg$^\wedge$th reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a10d9d7b9bedb0b3df2ece76151c20ac6}{get\-Nth\-Reactant\-Name} (int arg1, int arg2, char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Return the name of the arg2$^\wedge$th reactant from the arg1$^\wedge$th reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a09cf895f180c0bb93fa6afb0667d15c0}{get\-Nth\-Product\-Name} (int arg1, int arg2, char $\ast$$\ast$name)
+\begin{DoxyCompactList}\small\item\em Return the name of the arg2$^\wedge$th reactant from the arg1$^\wedge$th reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_aa62b03c2162b0296c23ab6f1ba43fcb3}{get\-Kinetic\-Law} (int index, char $\ast$$\ast$kinetic\-Law)
+\begin{DoxyCompactList}\small\item\em Return the kinetic law of the index$^\wedge$th reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a73efb598c764988a85e2b6031c380368}{get\-Nth\-Reactant\-Stoichiometry} (int arg1, int arg2)
+\begin{DoxyCompactList}\small\item\em Returns the arg2$^\wedge$th reactant stoichiometry from the arg1$^\wedge$th reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a12f06a85b093d6e02ddb5b7017b9fc5a}{get\-Nth\-Product\-Stoichiometry} (int arg1, int arg2)
+\begin{DoxyCompactList}\small\item\em Returns the arg2$^\wedge$th product stoichiometry from the arg1$^\wedge$th reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a8607f1cb00ea9a0ee9a9e97c9a97f853}{get\-Num\-Local\-Parameters} (int reaction\-Index)
+\begin{DoxyCompactList}\small\item\em Returns the number of local parameters. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_ac3e74bc0c6ccb53e46d1e8c98c0caca4}{get\-Nth\-Local\-Parameter\-Name} (int reaction\-Index, int parameter\-Index, char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the name of nth local parameter is a given reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_ad8284fc2ee458348f42333f075e00968}{get\-Nth\-Local\-Parameter\-Id} (int reaction\-Index, int parameter\-Index, char $\ast$$\ast$s\-Id)
+\begin{DoxyCompactList}\small\item\em Returns the Id of nth local parameter is a given reaction. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a9dbe09525375f6b7aabacf9b59284473}{get\-Nth\-Local\-Parameter\-Value} (int reaction\-Index, int parameter\-Index, double $\ast$value)
+\begin{DoxyCompactList}\small\item\em Returns the value of the specificed local parameter. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_afb92f8df3eb8a3b18885a9ce8adeee4b}{get\-Param\-Promoted\-S\-B\-M\-L} (char $\ast$in\-S\-B\-M\-L, char $\ast$$\ast$out\-S\-B\-M\-L)
+\begin{DoxyCompactList}\small\item\em Any local parameters in an S\-B\-M\-L model are promoted to global status by this call. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_ada34348159d6260a6e419256fbbcb1ab}{add\-Missing\-Modifiers} (char $\ast$in\-S\-B\-M\-L, char $\ast$$\ast$out\-S\-B\-M\-L)
+\begin{DoxyCompactList}\small\item\em Fills in any missing modifiers to the S\-B\-M\-L file. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a41b872aee11ccade18f4ced565691474}{convert\-Math\-M\-L\-To\-String} (char $\ast$math\-M\-L\-Str, char $\ast$$\ast$infix)
+\begin{DoxyCompactList}\small\item\em Converts a Math\-M\-L string into infix notation. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_af321672ae66fa9553fa1c9003a3231a9}{convert\-String\-To\-Math\-M\-L} (char $\ast$infix\-Str, char $\ast$$\ast$math\-M\-L\-Str)
+\begin{DoxyCompactList}\small\item\em Converts an infix string into Math\-M\-L Notation. \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_aea2e733ea9461373010c1785e0faf768}{reorder\-Rules} (char $\ast$$\ast$sbml)
+\begin{DoxyCompactList}\small\item\em reorders rules in S\-B\-M\-L \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{_n_o_m_8h_a69ea35f5d16f6c0169152669fa68db02}{convert\-S\-B\-M\-L} (char $\ast$input\-Model, char $\ast$$\ast$output\-Model, int n\-Level, int n\-Version)
+\begin{DoxyCompactList}\small\item\em converts input S\-B\-M\-L to another level and version \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+N\-O\-M version of lib\-S\-B\-M\-L. \begin{DoxyAuthor}{Author}
+Frank Bergmann \href{mailto:fbergman@kgi.edu}{\tt fbergman@kgi.\-edu}, Sri Paladugu \href{mailto:spaladug@kgi.edu}{\tt spaladug@kgi.\-edu}, Herbert Sauro \href{mailto:hsauro@u.washington.edu}{\tt hsauro@u.\-washington.\-edu}, Stanley Gu \href{mailto:stanleygu@gmail.com}{\tt stanleygu@gmail.\-com} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+February 22, 2012 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\hypertarget{_n_o_m_8h_ada34348159d6260a6e419256fbbcb1ab}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!add\-Missing\-Modifiers@{add\-Missing\-Modifiers}}
+\index{add\-Missing\-Modifiers@{add\-Missing\-Modifiers}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{add\-Missing\-Modifiers}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf add\-Missing\-Modifiers} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{in\-S\-B\-M\-L, }
+\item[{char $\ast$$\ast$}]{out\-S\-B\-M\-L}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_ada34348159d6260a6e419256fbbcb1ab}
+
+
+Fills in any missing modifiers to the S\-B\-M\-L file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em S\-B\-M\-L} & is the input sbml string \\
+\hline
+\mbox{\tt out}  & {\em S\-B\-M\-L} & is output sbml string with modifiers added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a41b872aee11ccade18f4ced565691474}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!convert\-Math\-M\-L\-To\-String@{convert\-Math\-M\-L\-To\-String}}
+\index{convert\-Math\-M\-L\-To\-String@{convert\-Math\-M\-L\-To\-String}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{convert\-Math\-M\-L\-To\-String}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf convert\-Math\-M\-L\-To\-String} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{math\-M\-L\-Str, }
+\item[{char $\ast$$\ast$}]{infix}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a41b872aee11ccade18f4ced565691474}
+
+
+Converts a Math\-M\-L string into infix notation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Math\-M\-L} & is the input string \\
+\hline
+\mbox{\tt out}  & {\em infix} & notation is the output string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+Prepend an X\-M\-L header if not already present.\hypertarget{_n_o_m_8h_a69ea35f5d16f6c0169152669fa68db02}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!convert\-S\-B\-M\-L@{convert\-S\-B\-M\-L}}
+\index{convert\-S\-B\-M\-L@{convert\-S\-B\-M\-L}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{convert\-S\-B\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf convert\-S\-B\-M\-L} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input\-Model, }
+\item[{char $\ast$$\ast$}]{output\-Model, }
+\item[{int}]{n\-Level, }
+\item[{int}]{n\-Version}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a69ea35f5d16f6c0169152669fa68db02}
+
+
+converts input S\-B\-M\-L to another level and version 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em input\-Model} & is the input S\-B\-M\-L to be converted to another version \\
+\hline
+\mbox{\tt out}  & {\em output\-Model} & is the pointer to the output S\-B\-M\-L \\
+\hline
+\mbox{\tt in}  & {\em n\-Level} & is the level of output S\-B\-M\-L \\
+\hline
+\mbox{\tt in}  & {\em n\-Version} & is the version of output S\-B\-M\-L \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_af321672ae66fa9553fa1c9003a3231a9}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!convert\-String\-To\-Math\-M\-L@{convert\-String\-To\-Math\-M\-L}}
+\index{convert\-String\-To\-Math\-M\-L@{convert\-String\-To\-Math\-M\-L}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{convert\-String\-To\-Math\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf convert\-String\-To\-Math\-M\-L} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{infix\-Str, }
+\item[{char $\ast$$\ast$}]{math\-M\-L\-Str}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_af321672ae66fa9553fa1c9003a3231a9}
+
+
+Converts an infix string into Math\-M\-L Notation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em infix} & is the input string \\
+\hline
+\mbox{\tt out}  & {\em Math\-M\-L} & notation is the output string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_aaf586132d60fa0e5e8f8771a3241a64b}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Compartment\-Id\-By\-Species\-Id@{get\-Compartment\-Id\-By\-Species\-Id}}
+\index{get\-Compartment\-Id\-By\-Species\-Id@{get\-Compartment\-Id\-By\-Species\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Compartment\-Id\-By\-Species\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Compartment\-Id\-By\-Species\-Id} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{c\-Id, }
+\item[{char $\ast$$\ast$}]{comp\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_aaf586132d60fa0e5e8f8771a3241a64b}
+
+
+Returns the compartment Id associated with a particular species Id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em c\-Id} & species Id \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & is the Id of the accociated species \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a1365bc1bdb0aa9ebb4b30072f84cd03e}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Error@{get\-Error}}
+\index{get\-Error@{get\-Error}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Error}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T char$\ast$ {\bf get\-Error} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a1365bc1bdb0aa9ebb4b30072f84cd03e}
+
+
+Returns the error message given the last error code generated. 
+
+\begin{DoxyReturn}{Returns}
+char$\ast$ to the error message 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_aa62b03c2162b0296c23ab6f1ba43fcb3}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Kinetic\-Law@{get\-Kinetic\-Law}}
+\index{get\-Kinetic\-Law@{get\-Kinetic\-Law}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Kinetic\-Law}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Kinetic\-Law} (
+\begin{DoxyParamCaption}
+\item[{int}]{index, }
+\item[{char $\ast$$\ast$}]{kinetic\-Law}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_aa62b03c2162b0296c23ab6f1ba43fcb3}
+
+
+Return the kinetic law of the index$^\wedge$th reaction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & is the ith reaction to obtain the kinetic law from \\
+\hline
+\mbox{\tt out}  & {\em kinetic\-Law} & is the string returned by the call \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a6d3e89f9c8da8d981ec6f171f02ccdcf}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-List\-Of\-Boundary\-Species\-Ids@{get\-List\-Of\-Boundary\-Species\-Ids}}
+\index{get\-List\-Of\-Boundary\-Species\-Ids@{get\-List\-Of\-Boundary\-Species\-Ids}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-List\-Of\-Boundary\-Species\-Ids}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-List\-Of\-Boundary\-Species\-Ids} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$$\ast$}]{Id\-List, }
+\item[{int $\ast$}]{num\-Boundary}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a6d3e89f9c8da8d981ec6f171f02ccdcf}
+
+
+Returns a list of the Ids of the boundary species. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em Id\-List} & is a array of char$\ast$ containing the names of the boundary species \\
+\hline
+\mbox{\tt out}  & {\em num\-Boundary} & is the number of boundary species in the list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a9b89cd339a008fb31bf0432d6a095355}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-List\-Of\-Floating\-Species\-Ids@{get\-List\-Of\-Floating\-Species\-Ids}}
+\index{get\-List\-Of\-Floating\-Species\-Ids@{get\-List\-Of\-Floating\-Species\-Ids}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-List\-Of\-Floating\-Species\-Ids}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-List\-Of\-Floating\-Species\-Ids} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$$\ast$}]{Id\-List, }
+\item[{int $\ast$}]{num\-Float}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a9b89cd339a008fb31bf0432d6a095355}
+
+
+Returns a list of the Ids of the floating species. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em Id\-List} & is a array of char$\ast$ containing the names of the floating species \\
+\hline
+\mbox{\tt out}  & {\em num\-Float} & is the number of boundary species in the list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_abc6bc9e5b51834ae9d9b5f6281691795}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Model\-Id@{get\-Model\-Id}}
+\index{get\-Model\-Id@{get\-Model\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Model\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Model\-Id} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_abc6bc9e5b51834ae9d9b5f6281691795}
+
+
+Return the model Id for the current model. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em s\-Id} & the current model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a1851545c7fcc5f9a344e3ebb37d9cda8}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Model\-Name@{get\-Model\-Name}}
+\index{get\-Model\-Name@{get\-Model\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Model\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Model\-Name} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a1851545c7fcc5f9a344e3ebb37d9cda8}
+
+
+Return the model name in the current model. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em name} & of the model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_aaaf82ffd0152598f5eae674bc16c08c9}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Boundary\-Species\-Id@{get\-Nth\-Boundary\-Species\-Id}}
+\index{get\-Nth\-Boundary\-Species\-Id@{get\-Nth\-Boundary\-Species\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Boundary\-Species\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Boundary\-Species\-Id} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_aaaf82ffd0152598f5eae674bc16c08c9}
+
+
+Returns the n\-Index$^\wedge$th boundary species Id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th boundary spedcies Id \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & is the Id of the n\-Index$^\wedge$th boundary species \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a8e99a17ed6f975ac686f5cce6b3c0256}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Boundary\-Species\-Name@{get\-Nth\-Boundary\-Species\-Name}}
+\index{get\-Nth\-Boundary\-Species\-Name@{get\-Nth\-Boundary\-Species\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Boundary\-Species\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Boundary\-Species\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a8e99a17ed6f975ac686f5cce6b3c0256}
+
+
+Returns the n\-Index$^\wedge$th boundary species name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th boundary spedcies name \\
+\hline
+\mbox{\tt out}  & {\em name} & is the name of the n\-Index$^\wedge$th boundary species \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_ab52d8941a8812d3bf800a6d4a6283e5f}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Compartment\-Id@{get\-Nth\-Compartment\-Id}}
+\index{get\-Nth\-Compartment\-Id@{get\-Nth\-Compartment\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Compartment\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Compartment\-Id} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_ab52d8941a8812d3bf800a6d4a6283e5f}
+
+
+Returns the n\-Index$^\wedge$th compartment Id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th compartment Id \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & is the Id of the n\-Index$^\wedge$th floating species \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_ae211fa578c4f93465ce990f9b775b5bc}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Compartment\-Name@{get\-Nth\-Compartment\-Name}}
+\index{get\-Nth\-Compartment\-Name@{get\-Nth\-Compartment\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Compartment\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Compartment\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_ae211fa578c4f93465ce990f9b775b5bc}
+
+
+Returns the n\-Index$^\wedge$th compartment name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th compartment name \\
+\hline
+\mbox{\tt out}  & {\em name} & is the name of the n\-Index$^\wedge$th compartment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_addcb6dee5dfd9277b74601e15a01c4b0}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Error@{get\-Nth\-Error}}
+\index{get\-Nth\-Error@{get\-Nth\-Error}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Error}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Error} (
+\begin{DoxyParamCaption}
+\item[{int}]{index, }
+\item[{int $\ast$}]{line, }
+\item[{int $\ast$}]{column, }
+\item[{int $\ast$}]{error\-Id, }
+\item[{char $\ast$$\ast$}]{error\-Type, }
+\item[{char $\ast$$\ast$}]{error\-Msg}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_addcb6dee5dfd9277b74601e15a01c4b0}
+
+
+Returns details on the index$^\wedge$th error. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & The index$^\wedge$th error in the list \\
+\hline
+\mbox{\tt out}  & {\em line} & The line number in the S\-B\-M\-L file that corresponds to the error \\
+\hline
+\mbox{\tt out}  & {\em column} & The column number in the S\-B\-M\-L file that corresponds to the error \\
+\hline
+\mbox{\tt out}  & {\em error\-Id} & The S\-B\-M\-L error\-Id (see lib\-S\-B\-M\-L for details); \\
+\hline
+\mbox{\tt out}  & {\em error\-Type} & The error type includes \char`\"{}\-Advisory\char`\"{}, \char`\"{}\-Warning\char`\"{}, \char`\"{}\-Fatal\char`\"{}, \char`\"{}\-Error\char`\"{}, and \char`\"{}\-Warning\char`\"{} \\
+\hline
+\mbox{\tt out}  & {\em error\-Msg} & The error message associated with the error \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a3f11520c2bfcd7f9a3d815fc0e729cdc}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Floating\-Species\-Id@{get\-Nth\-Floating\-Species\-Id}}
+\index{get\-Nth\-Floating\-Species\-Id@{get\-Nth\-Floating\-Species\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Floating\-Species\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Floating\-Species\-Id} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a3f11520c2bfcd7f9a3d815fc0e729cdc}
+
+
+Returns the n\-Index$^\wedge$th floating species Id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th floating species Id \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & is the Id of the n\-Index$^\wedge$th floating species \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a70c27dfbb307872ad1c5ad637f9d4c7f}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Floating\-Species\-Name@{get\-Nth\-Floating\-Species\-Name}}
+\index{get\-Nth\-Floating\-Species\-Name@{get\-Nth\-Floating\-Species\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Floating\-Species\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Floating\-Species\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a70c27dfbb307872ad1c5ad637f9d4c7f}
+
+
+Returns the n\-Index$^\wedge$th floating species name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th floating species name \\
+\hline
+\mbox{\tt out}  & {\em name} & is the name of the n\-Index$^\wedge$th floating species \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_abbfba54a320d9dab27ad6f7c79d0104b}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Function\-Definition@{get\-Nth\-Function\-Definition}}
+\index{get\-Nth\-Function\-Definition@{get\-Nth\-Function\-Definition}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Function\-Definition}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Function\-Definition} (
+\begin{DoxyParamCaption}
+\item[{int}]{index, }
+\item[{char $\ast$$\ast$}]{fn\-Id, }
+\item[{int $\ast$}]{num\-Args, }
+\item[{char $\ast$$\ast$$\ast$}]{arg\-List, }
+\item[{char $\ast$$\ast$}]{body}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_abbfba54a320d9dab27ad6f7c79d0104b}
+
+
+Collects information on the index$^\wedge$th function definition. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em index} & is the index$^\wedge$th function definition to consider \\
+\hline
+\mbox{\tt out}  & {\em fn\-Id} & is the Id for this function definition \\
+\hline
+\mbox{\tt out}  & {\em num\-Args} & is the number of arguments for this function definition \\
+\hline
+\mbox{\tt out}  & {\em arg\-List} & is the list of arguments (names) to the function definition \\
+\hline
+\mbox{\tt out}  & {\em body} & is the main body of the function definition in infix notation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns 0 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a7c91c8c67344983ae57741ac3190a111}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Global\-Parameter\-Id@{get\-Nth\-Global\-Parameter\-Id}}
+\index{get\-Nth\-Global\-Parameter\-Id@{get\-Nth\-Global\-Parameter\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Global\-Parameter\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Global\-Parameter\-Id} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a7c91c8c67344983ae57741ac3190a111}
+
+
+Returns the n\-Index$^\wedge$th global parameter Id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th global parameter Id \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & is the Id of the n\-Index$^\wedge$th global parameter Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_afe30ddbb308650a0bb96d1ea4033a438}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Global\-Parameter\-Name@{get\-Nth\-Global\-Parameter\-Name}}
+\index{get\-Nth\-Global\-Parameter\-Name@{get\-Nth\-Global\-Parameter\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Global\-Parameter\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Global\-Parameter\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_afe30ddbb308650a0bb96d1ea4033a438}
+
+
+Returns the n\-Index$^\wedge$th global parameter name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th global parameter name \\
+\hline
+\mbox{\tt out}  & {\em name} & is the name of the n\-Index$^\wedge$th global parameter name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_ad8284fc2ee458348f42333f075e00968}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Local\-Parameter\-Id@{get\-Nth\-Local\-Parameter\-Id}}
+\index{get\-Nth\-Local\-Parameter\-Id@{get\-Nth\-Local\-Parameter\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Local\-Parameter\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Local\-Parameter\-Id} (
+\begin{DoxyParamCaption}
+\item[{int}]{reaction\-Index, }
+\item[{int}]{parameter\-Index, }
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_ad8284fc2ee458348f42333f075e00968}
+
+
+Returns the Id of nth local parameter is a given reaction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em reaction\-Index} & is the ith reaction \\
+\hline
+\mbox{\tt in}  & {\em parameter\-Index} & is the ith product \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & Pointer to the Id of the local parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_ac3e74bc0c6ccb53e46d1e8c98c0caca4}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Local\-Parameter\-Name@{get\-Nth\-Local\-Parameter\-Name}}
+\index{get\-Nth\-Local\-Parameter\-Name@{get\-Nth\-Local\-Parameter\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Local\-Parameter\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Local\-Parameter\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{reaction\-Index, }
+\item[{int}]{parameter\-Index, }
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_ac3e74bc0c6ccb53e46d1e8c98c0caca4}
+
+
+Returns the name of nth local parameter is a given reaction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em reaction\-Index} & is the ith reaction \\
+\hline
+\mbox{\tt in}  & {\em parameter\-Index} & is the ith product \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & Pointer to the name of the local parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a9dbe09525375f6b7aabacf9b59284473}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Local\-Parameter\-Value@{get\-Nth\-Local\-Parameter\-Value}}
+\index{get\-Nth\-Local\-Parameter\-Value@{get\-Nth\-Local\-Parameter\-Value}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Local\-Parameter\-Value}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Local\-Parameter\-Value} (
+\begin{DoxyParamCaption}
+\item[{int}]{reaction\-Index, }
+\item[{int}]{parameter\-Index, }
+\item[{double $\ast$}]{value}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a9dbe09525375f6b7aabacf9b59284473}
+
+
+Returns the value of the specificed local parameter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em reaction\-Index} & is the ith reaction \\
+\hline
+\mbox{\tt in}  & {\em parameter\-Index} & is the ith product \\
+\hline
+\mbox{\tt out}  & {\em value} & Pointer to the value of the local parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a09cf895f180c0bb93fa6afb0667d15c0}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Product\-Name@{get\-Nth\-Product\-Name}}
+\index{get\-Nth\-Product\-Name@{get\-Nth\-Product\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Product\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Product\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{arg1, }
+\item[{int}]{arg2, }
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a09cf895f180c0bb93fa6afb0667d15c0}
+
+
+Return the name of the arg2$^\wedge$th reactant from the arg1$^\wedge$th reaction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arg1} & is the ith reaction \\
+\hline
+\mbox{\tt in}  & {\em arg2} & is the ith product \\
+\hline
+\mbox{\tt out}  & {\em name} & is the product name that is returned \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a12f06a85b093d6e02ddb5b7017b9fc5a}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Product\-Stoichiometry@{get\-Nth\-Product\-Stoichiometry}}
+\index{get\-Nth\-Product\-Stoichiometry@{get\-Nth\-Product\-Stoichiometry}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Product\-Stoichiometry}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Product\-Stoichiometry} (
+\begin{DoxyParamCaption}
+\item[{int}]{arg1, }
+\item[{int}]{arg2}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a12f06a85b093d6e02ddb5b7017b9fc5a}
+
+
+Returns the arg2$^\wedge$th product stoichiometry from the arg1$^\wedge$th reaction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arg1} & is the ith reaction \\
+\hline
+\mbox{\tt in}  & {\em arg2} & is the ith product \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error or the value of the stoichiometric amount 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a10d9d7b9bedb0b3df2ece76151c20ac6}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Reactant\-Name@{get\-Nth\-Reactant\-Name}}
+\index{get\-Nth\-Reactant\-Name@{get\-Nth\-Reactant\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Reactant\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Reactant\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{arg1, }
+\item[{int}]{arg2, }
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a10d9d7b9bedb0b3df2ece76151c20ac6}
+
+
+Return the name of the arg2$^\wedge$th reactant from the arg1$^\wedge$th reaction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arg1} & is the ith reaction \\
+\hline
+\mbox{\tt in}  & {\em arg2} & is the ith reactant \\
+\hline
+\mbox{\tt out}  & {\em name} & is the reactant name that is returned \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a73efb598c764988a85e2b6031c380368}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Reactant\-Stoichiometry@{get\-Nth\-Reactant\-Stoichiometry}}
+\index{get\-Nth\-Reactant\-Stoichiometry@{get\-Nth\-Reactant\-Stoichiometry}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Reactant\-Stoichiometry}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Reactant\-Stoichiometry} (
+\begin{DoxyParamCaption}
+\item[{int}]{arg1, }
+\item[{int}]{arg2}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a73efb598c764988a85e2b6031c380368}
+
+
+Returns the arg2$^\wedge$th reactant stoichiometry from the arg1$^\wedge$th reaction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arg1} & is the ith reaction \\
+\hline
+\mbox{\tt in}  & {\em arg2} & is the ith reactant \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error or the value of the stoichiometric amount 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a73e87572fdc274a0bb0a6d80a471a1f3}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Reaction\-Id@{get\-Nth\-Reaction\-Id}}
+\index{get\-Nth\-Reaction\-Id@{get\-Nth\-Reaction\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Reaction\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Reaction\-Id} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{s\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a73e87572fdc274a0bb0a6d80a471a1f3}
+
+
+Returns the n\-Index$^\wedge$th reaction Id. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th reaction Id \\
+\hline
+\mbox{\tt out}  & {\em s\-Id} & is the Id that is returned to the caller \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a78759edc4963df3a9f767ebe2966ac68}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Reaction\-Name@{get\-Nth\-Reaction\-Name}}
+\index{get\-Nth\-Reaction\-Name@{get\-Nth\-Reaction\-Name}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Reaction\-Name}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Reaction\-Name} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a78759edc4963df3a9f767ebe2966ac68}
+
+
+Returns the n\-Index$^\wedge$th reaction name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th reaction \\
+\hline
+\mbox{\tt out}  & {\em name} & is the name of the n\-Index$^\wedge$th reaction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a34cb620977ca579f047ca6822fe8461f}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Nth\-Rule@{get\-Nth\-Rule}}
+\index{get\-Nth\-Rule@{get\-Nth\-Rule}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Nth\-Rule}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Nth\-Rule} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-Index, }
+\item[{char $\ast$$\ast$}]{rule, }
+\item[{int $\ast$}]{rule\-Type}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a34cb620977ca579f047ca6822fe8461f}
+
+
+Returns the n\-Index$^\wedge$th rule from the current model. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em n\-Index} & is the n\-Index$^\wedge$th rule \\
+\hline
+\mbox{\tt out}  & {\em rule} & Pointer to a char$\ast$ that will return the rule itself \\
+\hline
+\mbox{\tt out}  & {\em rule\-Type} & Pointer to a char$\ast$ that will return the type of the rule (i.\-e. algebraic, assignment, etc) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error or the number of rules 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_af0adef2c7eeea577bca72b4c4150c1f7}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Boundary\-Species@{get\-Num\-Boundary\-Species}}
+\index{get\-Num\-Boundary\-Species@{get\-Num\-Boundary\-Species}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Boundary\-Species}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Boundary\-Species} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_af0adef2c7eeea577bca72b4c4150c1f7}
+
+
+Return the number of boundary species in the current model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns \# of boundary species 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_acbe6dd6f9dfeda2abb96fd44bcc80bc9}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Compartments@{get\-Num\-Compartments}}
+\index{get\-Num\-Compartments@{get\-Num\-Compartments}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Compartments}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Compartments} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_acbe6dd6f9dfeda2abb96fd44bcc80bc9}
+
+
+Return the number of compartment in the current model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns \# of compartments 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a079a3a69c0821126fba17d04d6425f41}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Errors@{get\-Num\-Errors}}
+\index{get\-Num\-Errors@{get\-Num\-Errors}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Errors}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Errors} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a079a3a69c0821126fba17d04d6425f41}
+
+
+Returns number of errors in S\-B\-M\-L model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns number of errors in S\-B\-M\-L model 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a34b32b70a9a17d19b6ed41ef2e835d3f}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Events@{get\-Num\-Events}}
+\index{get\-Num\-Events@{get\-Num\-Events}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Events}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Events} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a34b32b70a9a17d19b6ed41ef2e835d3f}
+
+
+Returns the number of events in the S\-B\-M\-L model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error or the number of events 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_acb959dabe83167b13b1762e62077aa47}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Floating\-Species@{get\-Num\-Floating\-Species}}
+\index{get\-Num\-Floating\-Species@{get\-Num\-Floating\-Species}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Floating\-Species}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Floating\-Species} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_acb959dabe83167b13b1762e62077aa47}
+
+
+Return the number of floating species in the current model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns \# of floating species 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a3b9cb92d581a11ebdd6665f455d1822c}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Function\-Definitions@{get\-Num\-Function\-Definitions}}
+\index{get\-Num\-Function\-Definitions@{get\-Num\-Function\-Definitions}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Function\-Definitions}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Function\-Definitions} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a3b9cb92d581a11ebdd6665f455d1822c}
+
+
+Return the number of function definitions in the current model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns \# of function definitions 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a9aa5db386d6b7d81730d02f99607ad25}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Global\-Parameters@{get\-Num\-Global\-Parameters}}
+\index{get\-Num\-Global\-Parameters@{get\-Num\-Global\-Parameters}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Global\-Parameters}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Global\-Parameters} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a9aa5db386d6b7d81730d02f99607ad25}
+
+
+Return the number of global parameters in the current model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns \# of global parameters 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a8607f1cb00ea9a0ee9a9e97c9a97f853}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Local\-Parameters@{get\-Num\-Local\-Parameters}}
+\index{get\-Num\-Local\-Parameters@{get\-Num\-Local\-Parameters}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Local\-Parameters}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Local\-Parameters} (
+\begin{DoxyParamCaption}
+\item[{int}]{reaction\-Index}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a8607f1cb00ea9a0ee9a9e97c9a97f853}
+
+
+Returns the number of local parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em reaction\-Index} & is the ith reaction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error or the number of local parameters 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a21748953ecc50415b383b76e03387660}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Products@{get\-Num\-Products}}
+\index{get\-Num\-Products@{get\-Num\-Products}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Products}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Products} (
+\begin{DoxyParamCaption}
+\item[{int}]{arg}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a21748953ecc50415b383b76e03387660}
+
+
+Return the number of reactants for the arg$^\wedge$th reaction. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a37c7bc75a4a2d938a9a716bbfc6b3920}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Reactants@{get\-Num\-Reactants}}
+\index{get\-Num\-Reactants@{get\-Num\-Reactants}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Reactants}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Reactants} (
+\begin{DoxyParamCaption}
+\item[{int}]{arg}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a37c7bc75a4a2d938a9a716bbfc6b3920}
+
+
+Return the number of reactants for the arg$^\wedge$th reaction. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a529334f079635d0c70b0ba51fc0b83e3}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Reactions@{get\-Num\-Reactions}}
+\index{get\-Num\-Reactions@{get\-Num\-Reactions}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Reactions}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Reactions} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a529334f079635d0c70b0ba51fc0b83e3}
+
+
+Return the number of reactions in the current model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns \# of reactions 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_ad457ea84e00f4a1cc89b79db52732e28}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Num\-Rules@{get\-Num\-Rules}}
+\index{get\-Num\-Rules@{get\-Num\-Rules}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Num\-Rules}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Num\-Rules} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_ad457ea84e00f4a1cc89b79db52732e28}
+
+
+Returns the number of rules in the S\-B\-M\-L model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error or the number of rules 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_afb92f8df3eb8a3b18885a9ce8adeee4b}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Param\-Promoted\-S\-B\-M\-L@{get\-Param\-Promoted\-S\-B\-M\-L}}
+\index{get\-Param\-Promoted\-S\-B\-M\-L@{get\-Param\-Promoted\-S\-B\-M\-L}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Param\-Promoted\-S\-B\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Param\-Promoted\-S\-B\-M\-L} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{in\-S\-B\-M\-L, }
+\item[{char $\ast$$\ast$}]{out\-S\-B\-M\-L}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_afb92f8df3eb8a3b18885a9ce8adeee4b}
+
+
+Any local parameters in an S\-B\-M\-L model are promoted to global status by this call. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em in} & S\-B\-M\-L is the input sbml string \\
+\hline
+\mbox{\tt out}  & {\em ou} & t\-S\-B\-M\-L is output sbml string with local parameters promoted to global parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a6ff7c40478d37fa8a1e058a5d79730b4}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!get\-Value@{get\-Value}}
+\index{get\-Value@{get\-Value}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{get\-Value}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf get\-Value} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s\-Id, }
+\item[{double $\ast$}]{value}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a6ff7c40478d37fa8a1e058a5d79730b4}
+
+
+Get the value for a given symbol in the S\-B\-M\-L. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em s\-Id} & This is the name of the symbol to request the value for \\
+\hline
+\mbox{\tt out}  & {\em value} & The value of the symbol is returned in this argument \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns 0 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a747095fb2dc159285de9662083637444}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!has\-Initial\-Amount@{has\-Initial\-Amount}}
+\index{has\-Initial\-Amount@{has\-Initial\-Amount}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{has\-Initial\-Amount}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf has\-Initial\-Amount} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s\-Id, }
+\item[{bool $\ast$}]{is\-Initial\-Amount}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a747095fb2dc159285de9662083637444}
+
+
+Returns 0 (false) in the argument list if the species given by s\-Id does not have an amount associated with it, otherwise returns 1 (true) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em s\-Id} & is the Id of the species \\
+\hline
+\mbox{\tt out}  & {\em is\-Initial\-Amount} & is 0 if false, 1 if true \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a841740c46bb0e0f7f347b51ffddd539e}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!has\-Initial\-Concentration@{has\-Initial\-Concentration}}
+\index{has\-Initial\-Concentration@{has\-Initial\-Concentration}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{has\-Initial\-Concentration}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf has\-Initial\-Concentration} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{c\-Id, }
+\item[{int $\ast$}]{has\-Initial}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a841740c46bb0e0f7f347b51ffddd539e}
+
+
+Returns 0 (false) in the argument list if the species given by s\-Id does not have a concentration associated with it, otherwise returns 1 (true) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em c\-Id} & is the Id of the species \\
+\hline
+\mbox{\tt out}  & {\em has\-Initial} & is 0 if false, 1 if true \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_af44a76d43555afc2fa62ce689565b7a7}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!is\-Reaction\-Reversible@{is\-Reaction\-Reversible}}
+\index{is\-Reaction\-Reversible@{is\-Reaction\-Reversible}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{is\-Reaction\-Reversible}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf is\-Reaction\-Reversible} (
+\begin{DoxyParamCaption}
+\item[{int}]{arg, }
+\item[{int $\ast$}]{is\-Reversible}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_af44a76d43555afc2fa62ce689565b7a7}
+
+
+Returns if reaction is reversible. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arg} & is the reaction number index \\
+\hline
+\mbox{\tt out}  & {\em is\-Reversible} & is 1 if the reaction is reversible and 0 if not. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a5f5439bbcd9517d47de023ed0907457c}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!load\-S\-B\-M\-L@{load\-S\-B\-M\-L}}
+\index{load\-S\-B\-M\-L@{load\-S\-B\-M\-L}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{load\-S\-B\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf load\-S\-B\-M\-L} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{sbml\-Str}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a5f5439bbcd9517d47de023ed0907457c}
+
+
+Load S\-B\-M\-L into the N\-O\-M. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sbml\-Str} & sbml\-Str is a char pointer to the S\-B\-M\-L model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns 0 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_aea2e733ea9461373010c1785e0faf768}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!reorder\-Rules@{reorder\-Rules}}
+\index{reorder\-Rules@{reorder\-Rules}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{reorder\-Rules}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf reorder\-Rules} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{sbml}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_aea2e733ea9461373010c1785e0faf768}
+
+
+reorders rules in S\-B\-M\-L 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sbml} & is the input sbml string to be modified by rule reordering \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a1d4a0b0f620217413e1ec0188bd7423c}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!set\-Model\-Id@{set\-Model\-Id}}
+\index{set\-Model\-Id@{set\-Model\-Id}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{set\-Model\-Id}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf set\-Model\-Id} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{c\-Id}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a1d4a0b0f620217413e1ec0188bd7423c}
+
+
+Set the model Id for the current model. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em c\-Id} & the Id to set in the current model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a795848f6e83d7e7a90cf343eda9ed146}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!set\-Value@{set\-Value}}
+\index{set\-Value@{set\-Value}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{set\-Value}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf set\-Value} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s\-Id, }
+\item[{double}]{d\-Value}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a795848f6e83d7e7a90cf343eda9ed146}
+
+
+Set the value for a given symbol in the S\-B\-M\-L. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em s\-Id} & is the name of the symbol to set the value to \\
+\hline
+\mbox{\tt in}  & {\em d\-Value} & The value which wish to use \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns 0 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_a868ddcd04c027432f42ec7cd20dc6d43}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!validate@{validate}}
+\index{validate@{validate}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{validate}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf validate} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{sbml\-Str}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_a868ddcd04c027432f42ec7cd20dc6d43}
+
+
+Retrusn 0 (false) the supplied S\-B\-M\-L string is invalid, else returns 1 (true) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sbml\-Str} & is the S\-B\-M\-L string to validate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there has been an error, otherwise returns 0 
+\end{DoxyReturn}
+\hypertarget{_n_o_m_8h_afce4267a4ab402c1522bd34f2887dd38}{\index{N\-O\-M.\-h@{N\-O\-M.\-h}!validate\-S\-B\-M\-L@{validate\-S\-B\-M\-L}}
+\index{validate\-S\-B\-M\-L@{validate\-S\-B\-M\-L}!NOM.h@{N\-O\-M.\-h}}
+\subsubsection[{validate\-S\-B\-M\-L}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int {\bf validate\-S\-B\-M\-L} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{c\-S\-B\-M\-L}
+\end{DoxyParamCaption}
+)}}\label{_n_o_m_8h_afce4267a4ab402c1522bd34f2887dd38}
+
+
+Validates the given S\-B\-M\-L model. 
+
+\begin{DoxyReturn}{Returns}
+-\/1 if the S\-B\-M\-L model is invalid, else returns 0 
+\end{DoxyReturn}
