@@ -49,6 +49,13 @@ extern "C"
 	* @return 0 if translation was successful, -1 if not
 	*/
 	DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput);
+
+	/** @brief Frees MATLAB fumction string from memory
+	*
+	* @param[in] matlabInput The MATLAB string to be cleared from memory
+	*
+	*/
+	DLL_EXPORT void freeMatlabString(char* matlabInput);
 	
 	/** @brief Returns the error message from NOM 
 	*

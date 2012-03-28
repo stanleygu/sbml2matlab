@@ -2060,6 +2060,11 @@ DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
 	return 0;
 }
 
+DLL_EXPORT void freeMatlabString(char* matlabInput)
+{
+	free(matlabInput);
+}
+
 DLL_EXPORT char *getNomErrors()
 {
 	return getError();

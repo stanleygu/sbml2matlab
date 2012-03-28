@@ -11,6 +11,8 @@ S\-B\-M\-L-\/to-\/\-M\-A\-T\-L\-A\-B translator.
 \item 
 D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{sbml2matlab_8h_a23ab0dbf0cd652ae4257e41afbe5c954}{sbml2matlab} (char $\ast$sbml\-Input, char $\ast$$\ast$matlab\-Output)
 \begin{DoxyCompactList}\small\item\em translates S\-B\-M\-L to the M\-A\-T\-L\-A\-B function equivalent \end{DoxyCompactList}\item 
+D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T void \hyperlink{sbml2matlab_8h_aa32798ea67b95baeb7b0d320ea23f14d}{free\-Matlab\-String} (char $\ast$matlab\-Input)
+\begin{DoxyCompactList}\small\item\em Frees M\-A\-T\-L\-A\-B fumction string from memory. \end{DoxyCompactList}\item 
 D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T char $\ast$ \hyperlink{sbml2matlab_8h_af021d4f2ebecbd6e8d88420669cef615}{get\-Nom\-Errors} ()
 \begin{DoxyCompactList}\small\item\em Returns the error message from N\-O\-M. \end{DoxyCompactList}\item 
 D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T int \hyperlink{sbml2matlab_8h_adb91d598d616c1e3d45ba21184cc4f45}{get\-Num\-Sbml\-Errors} ()
@@ -31,6 +33,22 @@ Februrary 16, 2012
 
 
 \subsection{Function Documentation}
+\hypertarget{sbml2matlab_8h_aa32798ea67b95baeb7b0d320ea23f14d}{\index{sbml2matlab.\-h@{sbml2matlab.\-h}!free\-Matlab\-String@{free\-Matlab\-String}}
+\index{free\-Matlab\-String@{free\-Matlab\-String}!sbml2matlab.h@{sbml2matlab.\-h}}
+\subsubsection[{free\-Matlab\-String}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T void {\bf free\-Matlab\-String} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{matlab\-Input}
+\end{DoxyParamCaption}
+)}}\label{sbml2matlab_8h_aa32798ea67b95baeb7b0d320ea23f14d}
+
+
+Frees M\-A\-T\-L\-A\-B fumction string from memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em matlab\-Input} & The M\-A\-T\-L\-A\-B string to be cleared from memory \\
+\hline
+\end{DoxyParams}
 \hypertarget{sbml2matlab_8h_af021d4f2ebecbd6e8d88420669cef615}{\index{sbml2matlab.\-h@{sbml2matlab.\-h}!get\-Nom\-Errors@{get\-Nom\-Errors}}
 \index{get\-Nom\-Errors@{get\-Nom\-Errors}!sbml2matlab.h@{sbml2matlab.\-h}}
 \subsubsection[{get\-Nom\-Errors}]{\setlength{\rightskip}{0pt plus 5cm}D\-L\-L\-\_\-\-E\-X\-P\-O\-R\-T char$\ast$ {\bf get\-Nom\-Errors} (

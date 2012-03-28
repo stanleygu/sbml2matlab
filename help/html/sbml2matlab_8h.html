@@ -106,6 +106,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Functions</h2></td></tr>
 <tr class="memitem:a23ab0dbf0cd652ae4257e41afbe5c954"><td class="memItemLeft" align="right" valign="top">DLL_EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbml2matlab_8h.html#a23ab0dbf0cd652ae4257e41afbe5c954">sbml2matlab</a> (char *sbmlInput, char **matlabOutput)</td></tr>
 <tr class="memdesc:a23ab0dbf0cd652ae4257e41afbe5c954"><td class="mdescLeft">&#160;</td><td class="mdescRight">translates SBML to the MATLAB function equivalent  <a href="#a23ab0dbf0cd652ae4257e41afbe5c954"></a><br/></td></tr>
+<tr class="memitem:aa32798ea67b95baeb7b0d320ea23f14d"><td class="memItemLeft" align="right" valign="top">DLL_EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbml2matlab_8h.html#aa32798ea67b95baeb7b0d320ea23f14d">freeMatlabString</a> (char *matlabInput)</td></tr>
+<tr class="memdesc:aa32798ea67b95baeb7b0d320ea23f14d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees MATLAB fumction string from memory.  <a href="#aa32798ea67b95baeb7b0d320ea23f14d"></a><br/></td></tr>
 <tr class="memitem:af021d4f2ebecbd6e8d88420669cef615"><td class="memItemLeft" align="right" valign="top">DLL_EXPORT char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbml2matlab_8h.html#af021d4f2ebecbd6e8d88420669cef615">getNomErrors</a> ()</td></tr>
 <tr class="memdesc:af021d4f2ebecbd6e8d88420669cef615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the error message from NOM.  <a href="#af021d4f2ebecbd6e8d88420669cef615"></a><br/></td></tr>
 <tr class="memitem:adb91d598d616c1e3d45ba21184cc4f45"><td class="memItemLeft" align="right" valign="top">DLL_EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sbml2matlab_8h.html#adb91d598d616c1e3d45ba21184cc4f45">getNumSbmlErrors</a> ()</td></tr>
@@ -120,6 +122,31 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author:</dt><dd>Stanley Gu <a href="#" onclick="location.href='mai'+'lto:'+'sta'+'nl'+'eyg'+'u@'+'gma'+'il'+'.co'+'m'; return false;">stanl<span style="display: none;">.nosp@m.</span>eygu<span style="display: none;">.nosp@m.</span>@gmai<span style="display: none;">.nosp@m.</span>l.co<span style="display: none;">.nosp@m.</span>m</a> </dd></dl>
 <dl class="section date"><dt>Date:</dt><dd>Februrary 16, 2012 </dd></dl>
 </div><hr/><h2>Function Documentation</h2>
+<a class="anchor" id="aa32798ea67b95baeb7b0d320ea23f14d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DLL_EXPORT void <a class="el" href="sbml2matlab_8h.html#aa32798ea67b95baeb7b0d320ea23f14d">freeMatlabString</a> </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>matlabInput</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Frees MATLAB fumction string from memory. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">matlabInput</td><td>The MATLAB string to be cleared from memory </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="af021d4f2ebecbd6e8d88420669cef615"></a>
 <div class="memitem">
 <div class="memproto">
@@ -284,7 +311,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 27 2012 13:55:45 for sbml2matlab by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 28 2012 09:12:44 for sbml2matlab by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.0
 </small></address>
