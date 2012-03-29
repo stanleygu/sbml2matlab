@@ -841,6 +841,7 @@ public:
 	{
 		stringstream result;
 		result << "function [t x rInfo] = " << _currentModel->modelName << "(tspan,solver,options)" << endl;
+		result << "    % initial conditions" << endl;
 		result << "    [x rInfo] = model();" << endl;
 
 		result << endl << "    % initial assignments" << endl;
@@ -872,8 +873,8 @@ public:
 			}
 		}
 
-
-		result << endl << "    [t x] = feval(solver,@model,tspan,x,options);" << endl;
+		result << endl << "    % run simulation" << endl;
+		result << "    [t x] = feval(solver,@model,tspan,x,options);" << endl;
 
 		result << endl << "    % assignment rules" << endl;
 
@@ -913,46 +914,35 @@ public:
 	string PrintHeader()
 	{
 		stringstream result; 
-		result <<  "%  synopsis:" << endl;
-		result <<  "%     xdot = " << _currentModel->modelName << " (time, x)" << endl;
-		result <<  "%     x0 = " << _currentModel->modelName << endl;
+		result <<  "%  How to use:" << endl;
 		result <<  "%" << endl;
-		result <<  "%  " << _currentModel->modelName << " can be used with in two ways." << endl << "%" << endl;
-		result <<  "%  1. Running a Simulation using odeN:" << endl;
-		result <<  "%  x0 = " << _currentModel->modelName << ";" << endl;
-		result <<  "%  [t,x] = ode23s(@" << _currentModel->modelName << ", [0 100], " << _currentModel->modelName << ");" << endl ;
-		result <<  "%  plot (t,x);" << endl;
+		result <<  "%  " << _currentModel->modelName << " takes 3 inputs and returns 3 outputs." << endl;
 		result <<  "%" << endl;
-		result <<  "%  2. Obtaining the Stoichiometry Matrix:" << endl;
-		result <<  "%  [x0 rInfo] = " << _currentModel->modelName << ";" << endl << "%" << endl;
-		result <<  "%  where rInfo.stoich contains the stoichiometry matrix" << endl << "%" << endl;
-		result <<  "%  When " << _currentModel->modelName << " is used without any arguments it returns a vector of" << endl;
-		result <<  "%  the initial concentrations of the " << _currentModel->numFloatingSpecies << " floating species and" << endl;
-		result <<  "%  the stoichiometry matrix." << endl;
-		result <<  "%  Otherwise " << _currentModel->modelName << " should be called with two arguments:" << endl;
-		result <<  "%  time and x.  time is the current time. x is the vector of the" << endl;
-		result <<  "%  concentrations of the " << _currentModel->numFloatingSpecies << " floating species." << endl << endl;
-
-		result <<  "%  Additional details about the model may also be retrieved through optional parameters:" << endl;
-		result <<  "%  [xdot rInfo] = " << _currentModel->modelName << ";" << endl;
-		result <<  "%  will additionally return information about floating species, compartments, " << endl; 
-		result <<  "%  kinetic parameters, and boundary species" << endl;
-
-
-		result <<  "%  When these parameters are supplied " << _currentModel->modelName << " returns a vector of " << endl;
-		result <<  "%  the rates of change of the concentrations of the " << _currentModel->numFloatingSpecies << " floating species." << endl << "%" << endl;
-		result <<  "%  the following table shows the mapping between the vector" << endl;
-		result <<  "%  index of a floating species and the species name." << endl;
-
-		result <<  "%  " << endl;
-		result <<  "%  NOTE for compartmental models" << endl;
-		result <<  "%  matlab translator generates code that when simulated in matlab, " << endl;
-		result <<  "%  produces results which have the units of species amounts. Users " << endl;
-		result <<  "%  should divide the results for each species with the volume of the" << endl;
-		result <<  "%  compartment it resides in, in order to obtain concentrations." << endl;
-		result <<  "%  " << endl;
-
-		result <<  "%  Indx      Name" << endl;
+		result <<  "%  [t x rInfo] = " << _currentModel->modelName << "(tspan,solver,options)" << endl;
+		result <<  "%  tspan - the time vector for the simulation. It can contain every time point, " << endl;
+		result <<  "%  or just the start and end (e.g. [0 1 2 3] or [0 100])." << endl;
+		result <<  "%  solver - the function handle for the odeN solver you wish to use (e.g. @ode23s)." << endl;
+		result <<  "%  options - this is the options structure returned from the MATLAB odeset" << endl;
+		result <<  "%  function used for setting tolerances and other parameters for the solver." << endl;
+		result <<  "%  t - the time vector that corresponds with the solution. If tspan only contains" << endl;
+		result <<  "%  the start and end times, t will contain points spaced out by the solver." << endl;
+		result <<  "%  x - the simulation results." << endl;
+		result <<  "%  rInfo - a structure containing information about the model. The fields" << endl; 
+		result <<  "%  within rInfo are: " << endl;
+		result <<  "%     stoich - the stoichiometry matrix of the model " << endl;
+		result <<  "%     floatingSpecies - a cell array containing floating species name, initial" << endl;
+		result <<  "%     value, and indicator of the units being inconcentration or amount" << endl;
+		result <<  "%     compartments - a cell array containing compartment names and volumes" << endl;
+		result <<  "%     params - a cell array containing parameter names and values" << endl;
+		result <<  "%     boundarySpecies - a cell array containing boundary species name, initial" << endl;
+		result <<  "%     value, and indicator of the units being inconcentration or amount" << endl;
+		result <<  "%     rateRules - a cell array containing the names of variables used in a rate rule" << endl;
+		result <<  "%" << endl;
+		result <<  "%  Sample function call:" << endl;
+		result <<  "%     options = odeset('RelTol',1e-12,'AbsTol',1e-9);" << endl;
+		result <<  "%     [t x rInfo] = " << _currentModel->modelName << "(linspace(0,100,100),@ode23s,options);" << endl;
+		result <<  "%" << endl;
+		
 		return result.str();
 	}
 
