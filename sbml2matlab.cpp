@@ -33,11 +33,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <exception>
 
 #define CONVERT_ANY(source,target)\
-        {\
-        std::stringstream oStream;\
-        oStream << source;\
-        oStream >> target;\
-        }
+		{\
+		std::stringstream oStream;\
+		oStream << source;\
+		oStream >> target;\
+		}
 
 
 #include "uScanner.h"
