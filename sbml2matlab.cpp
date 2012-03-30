@@ -919,11 +919,14 @@ public:
 		result <<  "%  " << _currentModel->modelName << " takes 3 inputs and returns 3 outputs." << endl;
 		result <<  "%" << endl;
 		result <<  "%  [t x rInfo] = " << _currentModel->modelName << "(tspan,solver,options)" << endl;
+		result <<  "%  INPUTS: " << endl;
 		result <<  "%  tspan - the time vector for the simulation. It can contain every time point, " << endl;
 		result <<  "%  or just the start and end (e.g. [0 1 2 3] or [0 100])." << endl;
 		result <<  "%  solver - the function handle for the odeN solver you wish to use (e.g. @ode23s)." << endl;
 		result <<  "%  options - this is the options structure returned from the MATLAB odeset" << endl;
 		result <<  "%  function used for setting tolerances and other parameters for the solver." << endl;
+		result <<  "%  " << endl;
+		result <<  "%  OUTPUTS: " << endl;
 		result <<  "%  t - the time vector that corresponds with the solution. If tspan only contains" << endl;
 		result <<  "%  the start and end times, t will contain points spaced out by the solver." << endl;
 		result <<  "%  x - the simulation results." << endl;
@@ -1731,7 +1734,7 @@ public:
 
 		result << PrintOutUserDefinedFunctions();
 
-		result <<  "    %listOfSupportedFunctions" << endl;
+		result <<  "%listOfSupportedFunctions" << endl;
 
 		result <<  "function z = pow (x,y) " << endl;
 		result <<  "    z = x^y; " << endl;
