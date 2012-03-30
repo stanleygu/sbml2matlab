@@ -1,7 +1,7 @@
 /**
 * @file sbml2matlab.h
-* @author Stanley Gu <stanleygu@gmail.com>
-* @date Februrary 16, 2012
+* @author Stanley Gu <stanleygu@gmail.com>, Frank Bergmann <fbergman@kgi.edu>, Sri Paladugu <spaladug@kgi.edu>, Herbert Sauro <hsauro@u.washington.edu> 
+* @date March 30, 2012
 * @brief SBML-to-MATLAB translator
 *
 */
