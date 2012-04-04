@@ -49,7 +49,8 @@ else (WIN32 AND NOT UNIX)
 		${LIBSBML_LIB}/libsbml.so
 	)
 	# Installing libsbml/NOM dependencies
-	file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/*.so")
+	# removed because it is generating broken links
+	#file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/libsbml.so" "${LIBSBML_BIN}/libxml2.so")
 endif (WIN32 AND NOT UNIX)
 
 # link to dependencies
@@ -66,7 +67,7 @@ endif (WIN32 AND NOT UNIX)
 # )
 
 # install NOM
-install(TARGETS NOM LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
+install(TARGETS NOM LIBRARY DESTINATION ./NOM RUNTIME DESTINATION ./NOM ARCHIVE DESTINATION ./NOM)
 # Installing libsbml/NOM dependencies
 install(FILES ${NOM_DEPENDENCIES} DESTINATION .)
 
