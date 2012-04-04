@@ -1901,7 +1901,7 @@ public:
 		result << PrintOutCompartments();
 		result << PrintOutGlobalParameters();
 		result << PrintOutBoundarySpecies();
-		result << PrintLocalParameters();
+		//result << PrintLocalParameters(); a bug is caused in linux for BIOMD0000000006
 		result << PrintInitialConditions();
 		result << PrintOutRules();
 		result << PrintOutEvents();
