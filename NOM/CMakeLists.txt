@@ -41,7 +41,7 @@ if (WIN32 AND NOT UNIX)
 	TARGET_LINK_LIBRARIES( NOM
 		${LIBSBML_LIB}/libsbml.lib
 	)
-	# Installing libsbml/NOM dependencies
+	# gathering libsbml/NOM dependencies
 	file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/*.dll")
 else (WIN32 AND NOT UNIX)
 	# link to dependencies
