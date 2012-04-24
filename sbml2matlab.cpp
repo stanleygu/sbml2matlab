@@ -2081,20 +2081,31 @@ DLL_EXPORT int validateSBMLString (char *cSBML)
 
 int main(int argc, char* argv[])
 {
+	bool bInline = false;
+	bool doTranslate = false;
+	bool doWriteToFile = false;
+	bool directSbml = false;
+	char * matlabOutput;
+	string infileName; 
+	string outfileName;
 	if (argc <= 1) {
-		printf ("sbml2matlab, -h for help, -v for version info\n");
-		exit (0);
-	}
+		//printf ("sbml2matlab, -h for help, -v for version info\n");
+		//exit (0);
+		stringstream sbmlStream;
+		string inputLine;
+		while (cin)
+		{
+			getline(cin, inputLine);
+			sbmlStream << inputLine;
+		}
+		doTranslate = true;
+		sbml2matlab(strdup(sbmlStream.str().c_str()), &matlabOutput);
+		directSbml = true;
+	} 
 	try
 	{
 		setlocale(LC_ALL,"C");
-		bool bInline = false;
-		bool doTranslate = false;
-		bool doWriteToFile = false;
-		bool directSbml = false;
-		char * matlabOutput;
-		string infileName; 
-		string outfileName;
+
 		for (int i = 0; i < argc; i++)
 		{
 			string current(argv[i]);
@@ -2123,7 +2134,7 @@ int main(int argc, char* argv[])
 			}
 			else if (i == 1) {
 				char * sbmlString = strdup(current.c_str());
-				
+
 				//strcpy(sbmlString, current.c_str()); // May contain SBML string
 
 				/*if (validateSBMLString(sbmlString) == 0)
@@ -2154,10 +2165,7 @@ int main(int argc, char* argv[])
 			else {
 				cout << translator.translate(infileName) << endl;
 			}
-
-
 		}
-
 		exit(0);
 
 	}
