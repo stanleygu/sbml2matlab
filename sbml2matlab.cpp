@@ -2158,15 +2158,6 @@ int main(int argc, char* argv[])
 
 		}
 
-		//int numErrors = getNumSbmlErrors();
-		//if (numErrors != 0)
-		//{
-		//	char * sbmlErrors = getNomErrors();
-		//	cerr << sbmlErrors << endl;
-		//SBMLDocument_t *d;
-		//int errors = SBMLDocument_getNumErrors(oDoc);
-		//if (errors > 0) SBMLDocument_printErrors(oDoc, stdout);
-
 		exit(0);
 
 	}
