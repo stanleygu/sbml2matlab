@@ -36,14 +36,18 @@ ADD_LIBRARY( NOM
     ${NOM_SOURCE_FILES}
 )
 
-if (WIN32 AND NOT UNIX)
+if (WIN32)
 	# link to dependencies
 	TARGET_LINK_LIBRARIES( NOM
 		${LIBSBML_LIB}/libsbml.lib
 	)
 	# gathering libsbml/NOM dependencies
 	file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/*.dll")
-else (WIN32 AND NOT UNIX)
+elseif (APPLE)	
+	TARGET_LINK_LIBRARIES( NOM
+		${LIBSBML_LIB}/libsbml.dylib
+	)
+else ()
 	# link to dependencies
 	TARGET_LINK_LIBRARIES( NOM
 		${LIBSBML_LIB}/libsbml.so
@@ -51,7 +55,7 @@ else (WIN32 AND NOT UNIX)
 	# Installing libsbml/NOM dependencies
 	# removed because it is generating broken links
 	#file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/libsbml.so" "${LIBSBML_BIN}/libxml2.so")
-endif (WIN32 AND NOT UNIX)
+endif ()
 
 # link to dependencies
 # TARGET_LINK_LIBRARIES( NOM
