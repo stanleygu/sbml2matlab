@@ -4,14 +4,14 @@ All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-	* Redistributions of source code must retain the above copyright
-	  notice, this list of conditions and the following disclaimer.
-	* Redistributions in binary form must reproduce the above copyright
-	  notice, this list of conditions and the following disclaimer in the
-	  documentation and/or other materials provided with the distribution.
-	* Neither the name of the University of Washington nor the
-	  names of its contributors may be used to endorse or promote products
-	  derived from this software without specific prior written permission.
+* Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+* Neither the name of the University of Washington nor the
+names of its contributors may be used to endorse or promote products
+derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -573,7 +573,7 @@ private:
 		string innerString(stringInside(currentToken));		
 		string localParameterId = reactionId + "_" + innerString;
 
-	if ( _currentModel->globalParamIndexList.find ( innerString ) != _currentModel->globalParamIndexList.end() )
+		if ( _currentModel->globalParamIndexList.find ( innerString ) != _currentModel->globalParamIndexList.end() )
 		{
 			bool isBoundarySpecies = false;
 
@@ -945,7 +945,7 @@ public:
 		result <<  "%     options = odeset('RelTol',1e-12,'AbsTol',1e-9);" << endl;
 		result <<  "%     [t x rInfo] = " << _currentModel->modelName << "(linspace(0,100,100),@ode23s,options);" << endl;
 		result <<  "%" << endl;
-		
+
 		return result.str();
 	}
 
@@ -1100,11 +1100,11 @@ public:
 		int numRateRules = 0;
 		for (int i = 0; i < _currentModel->numRules; i++)
 		{
-				int ruleType = _currentModel->ruleTypes[i];
-				if (ruleType == SBML_RATE_RULE)
-				{
-					numRateRules++;
-				}
+			int ruleType = _currentModel->ruleTypes[i];
+			if (ruleType == SBML_RATE_RULE)
+			{
+				numRateRules++;
+			}
 		}
 		//result << endl << "xdot = zeros(" << _currentModel->numFloatingSpecies + numRateRules << ", 1);" << endl;
 
@@ -1207,7 +1207,7 @@ public:
 
 		result << PrintOutModel();
 
-		
+
 
 		result << endl <<  "else" << endl;
 		return result.str();
@@ -1353,7 +1353,7 @@ public:
 			result << value << ", " << valAmount << endl;
 		}
 		result << "   };" << endl;
-		
+
 		// Print out rate rule information
 		result << endl << "   rInfo.rateRules = { \t\t % List of variables involved in a rate rule " << endl;
 		for (int i = 0; i < _currentModel->numRules; i++) //adding initial condition for rate rule on a non-species
@@ -1571,7 +1571,7 @@ public:
 					}
 				}
 			}
-			
+
 			if (eqn == "     ") // add a rate rule reaction if defined for a floating species
 			{
 				for (int i = 0; i < _currentModel->numRules; i++)
@@ -1629,8 +1629,8 @@ public:
 					string mVariable = subConstants(variable, iCouldCareLess, false);
 					string equation = rule.substr(index + 1);
 					equation = subConstants(equation, iCouldCareLess);
-					
-				
+
+
 					//result << "   " << variable.substr(0, variable.length()-1) << " = " << equation << endl;
 					stringstream ruleToConvertStream; // read in all the rules to convert to stringfo
 					stringstream convertVarStream; // stringstream for assigning the appropriate matlab variable
@@ -1885,7 +1885,7 @@ public:
 		string outSbml_str;
 		if (validate((char *) sbmlInput.c_str())==-1)
 		{
-			fprintf (stderr, "Invalid SBML File: %s\n", (char *) getError()); 
+			fprintf (stderr, "Invalid SBML: %s\n", (char *) getError()); 
 			exit (0);
 		}
 
@@ -2075,6 +2075,7 @@ DLL_EXPORT int getNthSbmlError (int index, int *line, int *column, int *errorId,
 
 DLL_EXPORT int validateSBMLString (char *cSBML)
 {
+	int test = validateSBML(cSBML);
 	return validateSBML(cSBML);
 }
 
@@ -2090,6 +2091,8 @@ int main(int argc, char* argv[])
 		bool bInline = false;
 		bool doTranslate = false;
 		bool doWriteToFile = false;
+		bool directSbml = false;
+		char * matlabOutput;
 		string infileName; 
 		string outfileName;
 		for (int i = 0; i < argc; i++)
@@ -2113,10 +2116,23 @@ int main(int argc, char* argv[])
 				i++;
 			}
 			else if (current == "-h") {
-				fprintf (stderr, "To translate an sbml file use -input sbml.xml [-output output.m]\n");
+				fprintf (stdout, "To translate an sbml file use -input sbml.xml [-output output.m]\n");
 			}
 			else if (current == "-v") {
-				fprintf (stderr, "sbml2matlab version 1.0.0\n");
+				fprintf (stdout, "sbml2matlab version 1.0.0\n");
+			}
+			else if (i == 1) {
+				char * sbmlString = strdup(current.c_str());
+				
+				//strcpy(sbmlString, current.c_str()); // May contain SBML string
+
+				/*if (validateSBMLString(sbmlString) == 0)
+				{*/
+				doTranslate = true;
+				sbml2matlab(sbmlString, &matlabOutput);
+				directSbml = true;
+				//}
+				free(sbmlString);
 			}
 		}
 
@@ -2127,16 +2143,31 @@ int main(int argc, char* argv[])
 				ofstream out(outfileName.c_str());
 				if (!out) { 
 					cout << "Cannot open file.\n"; 
-					return 1; 
+					return -1; 
 				} 
 				out << translator.translate(infileName) << endl;
 				out.close();
-			} else {
+			} else if (directSbml == true)
+			{
+				cout << matlabOutput << endl;
+			}
+			else {
 				cout << translator.translate(infileName) << endl;
 			}
-			exit(0);
+
+
 		}
 
+		//int numErrors = getNumSbmlErrors();
+		//if (numErrors != 0)
+		//{
+		//	char * sbmlErrors = getNomErrors();
+		//	cerr << sbmlErrors << endl;
+		//SBMLDocument_t *d;
+		//int errors = SBMLDocument_getNumErrors(oDoc);
+		//if (errors > 0) SBMLDocument_printErrors(oDoc, stdout);
+
+		exit(0);
 
 	}
 	catch (MatlabError *e)

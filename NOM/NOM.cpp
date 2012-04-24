@@ -143,7 +143,6 @@ int validateInternal (const std::string &sbml)
 	{
 		stringstream oStream; 
 		oDoc->printErrors (oStream);
-		delete oDoc;
 		errorCode = 2;
 		extendedErrorMessage = (char *) oStream.str().c_str();		
 		return -1;
@@ -1130,8 +1129,7 @@ DLL_EXPORT int validateSBML(char *cSBML)
 		return -1;
 	}
 
-	validateInternal(sSBML.c_str());
-	return 0;
+	return validateInternal(sSBML.c_str());
 }
 
 //DataBlockWriter SBMLSupportModule::getSBMLImpl(Module/*from*/, DataBlockReader /*arguments*/)
