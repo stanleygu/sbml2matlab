@@ -1955,9 +1955,9 @@ DLL_EXPORT int getKineticLaw (int index, char **kineticLaw)
 	return 0;
 }
 
-DLL_EXPORT int getNthReactantStoichiometry (int arg1, int arg2)
+DLL_EXPORT double getNthReactantStoichiometry (int arg1, int arg2)
 {
-	int result;
+	double result;
 	ListOf* reactantsList;
 	SpeciesReference* reactant;
 	Reaction* r;
@@ -1984,13 +1984,13 @@ DLL_EXPORT int getNthReactantStoichiometry (int arg1, int arg2)
 	}
 
 	reactant = (SpeciesReference* ) reactantsList->get(arg2);
-	result =  (int)reactant->getStoichiometry();
+	result =  (double)reactant->getStoichiometry();
 	return result;
 }
 
-DLL_EXPORT int getNthProductStoichiometry (int arg1, int arg2)
+DLL_EXPORT double getNthProductStoichiometry (int arg1, int arg2)
 {
-	int result;
+	double result;
 	ListOf* productsList;
 	SpeciesReference* product;
 	Reaction* r;
@@ -2016,7 +2016,7 @@ DLL_EXPORT int getNthProductStoichiometry (int arg1, int arg2)
 	}
 
 	product = (SpeciesReference* ) productsList->get(arg2);
-	result =  (int)product->getStoichiometry();
+	result =  (double)product->getStoichiometry();
 	return result;
 }
 

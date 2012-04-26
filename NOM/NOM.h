@@ -428,7 +428,7 @@ extern "C" {
 	* @param[in] arg2 is the ith reactant
 	* @return -1 if there has been an error or the value of the stoichiometric amount
 	*/
-	DLL_EXPORT int getNthReactantStoichiometry (int arg1, int arg2);
+	DLL_EXPORT double getNthReactantStoichiometry (int arg1, int arg2);
 
 	/** @brief Returns the arg2^th product stoichiometry from the arg1^th reaction
 	*
@@ -436,7 +436,7 @@ extern "C" {
 	* @param[in] arg2 is the ith product
 	* @return -1 if there has been an error or the value of the stoichiometric amount
 	*/
-	DLL_EXPORT int getNthProductStoichiometry (int arg1, int arg2);
+	DLL_EXPORT double getNthProductStoichiometry (int arg1, int arg2);
 
 
 	/** @brief Returns the number of local parameters
