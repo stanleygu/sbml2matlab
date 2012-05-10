@@ -2081,73 +2081,89 @@ DLL_EXPORT int validateSBMLString (char *cSBML)
 
 int main(int argc, char* argv[])
 {
-	bool bInline = false;
+	// bool bInline = false;
 	bool doTranslate = false;
 	bool doWriteToFile = false;
+	bool stdinInput = true;
 	bool directSbml = false;
 	char * matlabOutput;
 	string infileName; 
 	string outfileName;
-	if (argc <= 1) {
+	int success = 0;
+	if (argc <= 1) { // called with no args, read sbml from stdin
 		//printf ("sbml2matlab, -h for help, -v for version info\n");
 		//exit (0);
 		stringstream sbmlStream;
 		string inputLine;
 		while (cin)
 		{
-			getline(cin, inputLine);
-			sbmlStream << inputLine;
+		getline(cin, inputLine);
+		sbmlStream << inputLine;
 		}
-		doTranslate = true;
-		sbml2matlab(strdup(sbmlStream.str().c_str()), &matlabOutput);
-		directSbml = true;
-	} 
-	try
-	{
-		setlocale(LC_ALL,"C");
-
-		for (int i = 0; i < argc; i++)
+		success = sbml2matlab(strdup(sbmlStream.str().c_str()), &matlabOutput);
+	} else { 
+		try
 		{
-			string current(argv[i]);
-			if (current ==  "--inline") 
+			setlocale(LC_ALL,"C");
+
+			for (int i = 0; i < argc; i++)
 			{
+				string current(argv[i]);
+				/*
+				if (current ==  "--inline") 
+				{
 				bInline = true;
 				break;
+				}
+				else if (current == "-input" && i + 1 < argc)
+				*/
+				if (current == "-input" && i + 1 < argc)
+				{
+					stdinInput = false;
+					doTranslate = true;
+					infileName = argv[i+1];
+					i++;
+				}
+				else if (current == "-output" && i + 1 < argc)
+				{
+					outfileName = argv[i+1];
+					doWriteToFile = true;
+					i++;
+				}
+				else if (current == "-h") {
+					fprintf (stdout, "To translate an sbml file use -input sbml.xml [-output output.m]\n");
+				}
+				else if (current == "-v") {
+					fprintf (stdout, "sbml2matlab version 1.0.0\n");
+				}
+				else if (i == 1) { // translate if sent as first param
+					char * sbmlString = strdup(current.c_str());
+					success = sbml2matlab(sbmlString, &matlabOutput);
+					free(sbmlString);
+				}
 			}
-			else if (current == "-input" && i + 1 < argc)
-			{
-				doTranslate = true;
-				infileName = argv[i+1];
-				i++;
-			}
-			else if (current == "-output" && i + 1 < argc)
-			{
-				outfileName = argv[i+1];
-				doWriteToFile = true;
-				i++;
-			}
-			else if (current == "-h") {
-				fprintf (stdout, "To translate an sbml file use -input sbml.xml [-output output.m]\n");
-			}
-			else if (current == "-v") {
-				fprintf (stdout, "sbml2matlab version 1.0.0\n");
-			}
-			else if (i == 1) {
-				char * sbmlString = strdup(current.c_str());
-
-				//strcpy(sbmlString, current.c_str()); // May contain SBML string
-
-				/*if (validateSBMLString(sbmlString) == 0)
-				{*/
-				doTranslate = true;
-				sbml2matlab(sbmlString, &matlabOutput);
-				directSbml = true;
-				//}
-				free(sbmlString);
-			}
+		} 	
+		catch (MatlabError *e)
+		{
+			fprintf(stderr, "MatlabTranslator exception: %s\n", e->getMessage().c_str());
+			return -1;
 		}
 
-		if (doTranslate)
+		// still should read input from command line
+		if (stdinInput)
+		{
+			stringstream sbmlStream;
+			string inputLine;
+			//while (getline(cin, inputLine))
+			while (cin)
+			{
+				getline(cin, inputLine);
+				sbmlStream << inputLine;
+			}
+			success = sbml2matlab(strdup(sbmlStream.str().c_str()), &matlabOutput);
+		}
+
+		if (doTranslate) // translate from file and write to a file
 		{
 			MatlabTranslator translator(false);
 			if (doWriteToFile) {
@@ -2158,21 +2174,26 @@ int main(int argc, char* argv[])
 				} 
 				out << translator.translate(infileName) << endl;
 				out.close();
-			} else if (directSbml == true)
-			{
-				cout << matlabOutput << endl;
-			}
+			} 
 			else {
 				cout << translator.translate(infileName) << endl;
 			}
 		}
-		exit(0);
-
+		else if (doWriteToFile) // already translated but write out to a file
+		{
+			ofstream out(outfileName.c_str());
+			if (!out) { 
+				cout << "Cannot open file.\n"; 
+				return -1; 
+			} 
+			out << matlabOutput << endl;
+			out.close();
+		} 
+		else // already translated string and send to stdout
+		{
+			cout << matlabOutput << endl;
+		}
+		//exit(0);
+		return success;
 	}
-	catch (MatlabError *e)
-	{
-		fprintf(stderr, "MatlabTranslator exception: %s\n", e->getMessage().c_str());
-		return -1;
-	}
-	return 0;
 }
