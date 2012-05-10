@@ -2131,10 +2131,12 @@ int main(int argc, char* argv[])
 					i++;
 				}
 				else if (current == "-h") {
-					fprintf (stdout, "To translate an sbml file use -input sbml.xml [-output output.m]\n");
+					fprintf (stdout, "To translate an sbml file use: -input sbml.xml [-output output.m]\n");
+					stdinInput = false;
 				}
 				else if (current == "-v") {
-					fprintf (stdout, "sbml2matlab version 1.0.0\n");
+					fprintf (stdout, "sbml2matlab version 1.1.1\n");
+					stdinInput = false;
 				}
 				else if (i == 1) { // translate if sent as first param
 					char * sbmlString = strdup(current.c_str());
@@ -2169,7 +2171,7 @@ int main(int argc, char* argv[])
 			if (doWriteToFile) {
 				ofstream out(outfileName.c_str());
 				if (!out) { 
-					cout << "Cannot open file.\n"; 
+					cout << "Cannot open file. You may not have write-access to this location\n"; 
 					return -1; 
 				} 
 				out << translator.translate(infileName) << endl;
@@ -2183,7 +2185,7 @@ int main(int argc, char* argv[])
 		{
 			ofstream out(outfileName.c_str());
 			if (!out) { 
-				cout << "Cannot open file.\n"; 
+				cout << "Cannot open file. You may not have write-access to this location\n"; 
 				return -1; 
 			} 
 			out << matlabOutput << endl;
