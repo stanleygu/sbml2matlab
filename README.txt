@@ -20,11 +20,3 @@ SBML input is from stdin, MATLAB output is to outputFile.m
 SBML input is from inputFile.sbml, MATLAB is to outputFile.m
 
 Replace the square brackets with the paths of the input and output files, respectively.
-
-= Limitations =
-
-Generally, sbml2matlab currently does not support the use of events, algebraic rules, or compartment rate rules.
-
-Validation test and current analysis of sbml2matlab can be found here: http://code.google.com/p/sbwtools/wiki/CurrentValidation
-
-The updated sbml2matlab wiki may be found here: http://code.google.com/p/sbml2matlab/w/list
