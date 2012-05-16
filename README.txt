@@ -1,6 +1,6 @@
 # Introduction
 
-sbml2matlab is an executable for translating SBML files to their MATLAB model equivalents.
+sbml2matlab is an executable for translating SBML files to their MATLAB model equivalents. sbml2matlab is also available as a library for use in other programs.
 
 # Usage
 sbml2matlab may be called in four different ways:
