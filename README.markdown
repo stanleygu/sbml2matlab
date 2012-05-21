@@ -27,6 +27,9 @@ Replace the square brackets with the paths of the input and output files, respec
 ### `sbml2matlab.exe -output translated.m < mymodel.sbml`
 This will pipe in `mymodel.sbml` as the input to `sbml2matlab` and writes the translated MATLAB file to `translated.m` 
 
+# Version Numbering
+sbml2matlab versions use the following numbering scheme: **MAJOR.MINOR.PATCH**
+
 # Building From Source Using CMake
 ## 1. libSBML
 
