@@ -3,7 +3,7 @@
 sbml2matlab is an executable for translating SBML files to their MATLAB model equivalents.
 
 # Download Installer
-[Windows Installer](https://github.com/sgu1/sbml2matlab/raw/master/installer/sbml2matlab-latest-win32.exe)
+[Windows Installer](https://github.com/stanley-gu/sbml2matlab/blob/master/installer/sbml2matlab-latest-win32.exe)
 * **NOTE:** Adding sbml2matlab to PATH does not work yet. Also, it is recommended that you install in a user home directory and not `Program Files` for testing purposes to avoid needing admin access. 
 
 # Usage
