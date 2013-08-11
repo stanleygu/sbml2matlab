@@ -1386,8 +1386,17 @@ public:
 		size_t pos = 0;
 		while((pos = str.find(oldStr, pos)) != string::npos)
 		{
-			str.replace(pos, oldStr.length(), newStr);
-			pos += newStr.length();
+            // Do not replace if match is actually a substring of a different
+    		// parameter, e.g. rInfo.g_p1 in rInfo.g_p10
+			if (!isdigit((int) str.at(pos + oldStr.length())))
+			{
+				str.replace(pos, oldStr.length(), newStr);
+				pos += newStr.length();
+			}
+			else
+			{
+				pos += oldStr.length();
+			}
 		}
 	}
 
