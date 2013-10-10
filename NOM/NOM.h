@@ -70,7 +70,7 @@ extern "C" {
 	*
 	* @return char* to the error message
 	*/
-	DLL_EXPORT char *getError ();
+	DLL_EXPORT const char *getError ();
 
 
 	/** @brief Load SBML into the NOM. 
@@ -526,7 +526,7 @@ extern "C" {
 	* @param[in] nVersion is the version of output SBML
 	* @return -1 if there has been an error
 	*/
-	DLL_EXPORT int convertSBML(char *inputModel, char **outputModel, int nLevel, int nVersion);
+	DLL_EXPORT int convertSBML(const char *inputModel, char **outputModel, int nLevel, int nVersion);
 
 }
 

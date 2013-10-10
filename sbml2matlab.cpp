@@ -32,6 +32,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <clocale>
 #include <exception>
 
+#ifdef WIN32
+#ifndef CYGWIN
+#define strdup _strdup
+#endif
+#endif
+
 #define CONVERT_ANY(source,target)\
 		{\
 		std::stringstream oStream;\
@@ -58,12 +64,12 @@ typedef struct {
 	double value;
 } TNameValue;
 
-typedef struct TUserFuncInfo {
+typedef struct {
 	char *fnId;
 	int numArgs;
 	char **argList;
 	char *body;
-};
+} TUserFuncInfo;
 
 
 // Define a data structure to hold all information required
@@ -1662,9 +1668,9 @@ public:
 				}
 			}
 		}
-		for (int i = 0; i < rulesToConvert.size(); i++)
+		for (size_t i = 0; i < rulesToConvert.size(); i++)
 		{
-			for (int j = 0; j < paramsToConvert.size(); j++)
+			for (size_t j = 0; j < paramsToConvert.size(); j++)
 			{
 				stringReplace(rulesToConvert[i], paramsToConvert[j], convertParamsTo[j]);
 			}
@@ -2067,7 +2073,7 @@ DLL_EXPORT void freeMatlabString(char* matlabInput)
 	free(matlabInput);
 }
 
-DLL_EXPORT char *getNomErrors()
+DLL_EXPORT const char *getNomErrors()
 {
 	return getError();
 }
