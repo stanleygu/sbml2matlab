@@ -5,27 +5,60 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
 # define target
 SET (TARGET NOM)
 
+####################################################################
+#
+# Locate libsbml
+#
 
-# define sources
+find_path(LIBSBML_INCLUDE_DIR "The 'include' directory for libsbml"
+        NAMES sbml/SBMLTypes.h
+        PATHS /usr/include /usr/local/include 
+              ${CMAKE_SOURCE_DIR}/include 
+              ${CMAKE_SOURCE_DIR}/dependencies/include
+        )
 
-SET (LIBSBML_INCLUDE CACHE PATH "Full Path to LIBSBML Include Directory")
-SET (LIBSBML_LIB CACHE PATH "Full Path to LIBSBML Import Libraries")
-SET (LIBSBML_BIN CACHE PATH "Full Path to LIBSBML Binaries")
+if(LIBSBML_STATIC)
+    find_library(LIBSBML_STATIC_LIBRARY 
+        NAMES libsbml-static.lib libsbml-static.so libsbml-static.dylib libsbml-static
+        PATHS /usr/lib /usr/local/lib 
+              ${CMAKE_SOURCE_DIR} 
+              ${CMAKE_SOURCE_DIR}/dependencies/lib
+        )
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_STATIC_LIBRARY} )
+else()
+    find_library(LIBSBML_LIBRARY 
+        NAMES libsbml.lib libsbml.so libsbml.dylib libsbml
+        PATHS /usr/lib /usr/local/lib 
+              ${CMAKE_SOURCE_DIR} 
+              ${CMAKE_SOURCE_DIR}/dependencies/lib
+        )
+   set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_LIBRARY} )
+endif()
 
+if(WIN32)
+  #Find the libsbml dll so we can install it with our program.
+  find_path(LIBSBML_BIN_DIR
+        NAMES libsbml.dll
+        PATHS /usr/bin /usr/local/bin
+              ${LIBSBML_INCLUDE_DIR}/../bin
+              ${CMAKE_SOURCE_DIR}/ 
+              ${CMAKE_SOURCE_DIR}/dependencies/libsbml/bin
+              ${CMAKE_SOURCE_DIR}/../libsbml-5/release/bin/
+        )
+        set(LIBSBML_DLL ${LIBSBML_BIN_DIR}/libsbml.dll)
+        install(FILES   ${LIBSBML_DLL} DESTINATION .)
+endif()
 
-
-# dependencies
-# it will expect a CMakeLists.txt in each folder
-# ADD_SUBDIRECTORY( sbml )
 
 # dependency headers
 INCLUDE_DIRECTORIES(
-    ${LIBSBML_INCLUDE}
+    ${INCLUDE_DIRECTORIES}
+    ${LIBSBML_INCLUDE_DIR}
 )
 
 # have linker point to libsbml
-#link_directories(${LIBSBML_LIBRARY})
-link_directories(${LIBSBML_LIB})
+link_directories(${LIBSBML_LIBRARY})
+#link_directories(${LIBSBML_LIB})
 
 # source files
 FILE( GLOB NOM_SOURCE_FILES
@@ -42,81 +75,31 @@ ADD_LIBRARY( ${TARGET}
 
 
 
-# set_property(TARGET ${TARGET}-static 
-                # PROPERTY    COMPILE_DEFINITIONS 
-                            # LIBSBML_STATIC
-# ) 
+TARGET_LINK_LIBRARIES(${TARGET} ${SBML2MATLAB_LIBS} )
 
+#We can afford to look for everything here, since anything not found will simply be ignored.
 if (WIN32)
-	# link to dependencies
-	
-	TARGET_LINK_LIBRARIES( ${TARGET}
-		${LIBSBML_LIB}/libcheck.lib
-		${LIBSBML_LIB}/libexpat.lib
-		${LIBSBML_LIB}/iconv.lib
-		${LIBSBML_LIB}/libxml2.lib
-		${LIBSBML_LIB}/libsbml-static.lib
-		${LIBSBML_LIB}/xerces-c_static_3.lib
-		${LIBSBML_LIB}/xerces-c_static_3D.lib
-		${LIBSBML_LIB}/zdll.lib
-		${LIBSBML_LIB}/bzip2.lib
-
-	)
-	set_property(TARGET ${TARGET} 
-                PROPERTY    COMPILE_DEFINITIONS 
-                            LIBSBML_STATIC
-							LIBLAX_STATIC
-                            ) 
-	# gathering libsbml/NOM dependencies
-	file(GLOB NOM_DEPENDENCIES 
-	# "${LIBSBML_BIN}/*.dll
-		${LIBSBML_BIN}/bzip2.dll
-		${LIBSBML_BIN}/iconv.dll
-		${LIBSBML_BIN}/libcheck.dll
-		${LIBSBML_BIN}/libexpat.dll
-		${LIBSBML_BIN}/libxml2.dll
-		${LIBSBML_BIN}/msvcp100.dll
-		${LIBSBML_BIN}/msvcr100.dll
-		${LIBSBML_BIN}/MSVCRT.dll
-		${LIBSBML_BIN}/xerces-c_3_1.dll
-		${LIBSBML_BIN}/zlib1.dll
-	)
-	# build static library
-	ADD_LIBRARY( ${TARGET}-static
-		STATIC
-		${NOM_SOURCE_FILES}
-	)
-	target_link_libraries(${TARGET}-static
-		${LIBSBML_LIB}/libsbml-static.lib
-	)
-elseif (APPLE)	
-	TARGET_LINK_LIBRARIES( NOM
-		${LIBSBML_LIB}/libsbml.dylib
-	)
-else ()
-	# link to dependencies
-	TARGET_LINK_LIBRARIES( NOM
-		${LIBSBML_LIB}/libsbml.so
-	)
-	# Installing libsbml/NOM dependencies
-	# removed because it is generating broken links
-	#file(GLOB NOM_DEPENDENCIES "${LIBSBML_BIN}/libsbml.so" "${LIBSBML_BIN}/libxml2.so")
+    # gathering libsbml/NOM dependencies
+    file(GLOB NOM_DEPENDENCIES 
+        # "${LIBSBML_BIN}/*.dll
+        ${LIBSBML_BIN}/bzip2.dll
+        ${LIBSBML_BIN}/iconv.dll
+        ${LIBSBML_BIN}/libcheck.dll
+        ${LIBSBML_BIN}/libexpat.dll
+        ${LIBSBML_BIN}/libxml2.dll
+        ${LIBSBML_BIN}/msvcp100.dll
+        ${LIBSBML_BIN}/msvcr100.dll
+        ${LIBSBML_BIN}/MSVCRT.dll
+        ${LIBSBML_BIN}/xerces-c_3_1.dll
+        ${LIBSBML_BIN}/zlib1.dll
+    )
 endif ()
 
-
-
-# link to dependencies
-# TARGET_LINK_LIBRARIES( NOM
-    # ${LIBSBML_LIB}/libsbml.lib
-    # ${LIBSBML_LIB}/bzip2.lib
-    # ${LIBSBML_LIB}/iconv.lib
-    # ${LIBSBML_LIB}/libcheck.lib
-    # ${LIBSBML_LIB}/libexpat.lib
-    # ${LIBSBML_LIB}/libxml2.lib
-    # ${LIBSBML_LIB}/xerces-c_3.lib
-    # ${LIBSBML_LIB}/xerces-c_3D.lib
-    # ${LIBSBML_LIB}/zdll.lib
-# )
+# build static library
+ADD_LIBRARY( ${TARGET}-static
+    STATIC
+    ${NOM_SOURCE_FILES}
+)
 
 # install NOM
 install(TARGETS NOM LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)

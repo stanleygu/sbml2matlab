@@ -61,7 +61,7 @@ extern "C"
 	*
 	* @return char* to the error message
 	*/
-	DLL_EXPORT char *getNomErrors();
+	DLL_EXPORT const char *getNomErrors();
 
 	/** @brief Returns number of errors in SBML model
 	*

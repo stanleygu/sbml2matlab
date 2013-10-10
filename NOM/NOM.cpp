@@ -59,6 +59,12 @@
 #include "sbml/conversion/SBMLRuleConverter.h"
 #include "sbml/conversion/SBMLFunctionDefinitionConverter.h"
 
+#ifdef WIN32
+#ifndef CYGWIN
+#define strdup _strdup
+#endif
+#endif
+
 
 SBMLDocument* _oSBMLDocCPP = NULL;
 Model* _oModelCPP = NULL;
@@ -66,7 +72,7 @@ Model* _oModelCPP = NULL;
 int errorCode = 0;
 char *extendedErrorMessage;
 
-static char *errorMessages[] = {
+static const char *errorMessages[] = {
 	  "No Error", 
 	  "The input string cannot be blank in loadSBML", // 1
 	  "Validation failed: ", // 2
@@ -96,6 +102,7 @@ static char *errorMessages[] = {
 	 ,"SBML conversion failed" // 26
 }; 
 
+static const char* zero = "0";
 
 extern "C" {
 
@@ -104,7 +111,7 @@ extern "C" {
 // -------------------------------------------------------------------------------------------
 
 // Concatentate two strings together and return the new string
-char *strconcat(char *s1, char *s2)
+char *strconcat(const char *s1, const char *s2)
 {
 	size_t old_size;
 	char *t;
@@ -202,7 +209,7 @@ void checkForMissingNames(const ASTNode * node, vector< string> &results, vector
 	}
 }
 
-DLL_EXPORT int convertSBML(char *inputModel, char **outputModel, int nLevel, int nVersion)
+DLL_EXPORT int convertSBML(const char *inputModel, char **outputModel, int nLevel, int nVersion)
 {
 	SBMLDocument *oSBMLDoc = readSBMLFromString(inputModel);
 	Model *oModel = oSBMLDoc->getModel();
@@ -264,10 +271,8 @@ char* addMissingModifiersInternal(const string& sModel)
 	{
 	  delete d;
 	  //string newModel = convertSBML(sModel, 2, 1);
-	  char ** outputModel;
-	  char * inputModel;
-	  strcpy(inputModel,sModel.c_str());
-	  convertSBML(inputModel,outputModel, 2, 1);
+	  char * outputModel[1];
+	  convertSBML(sModel.c_str(),outputModel, 2, 1);
 	  string newModel = *outputModel;
 	  return addMissingModifiersInternal(newModel);
 	}
@@ -415,20 +420,20 @@ DLL_EXPORT int loadSBML(char* sbmlStr)
 			char *c;
 			c = new char [sSBML.length() + 1];
 			strcpy (c, sSBML.c_str());
-			loadSBML(c);
-			return 0;
+			return loadSBML(c);
 		}
 		ConversionProperties props;
 		props.addOption("sortRules", true, "sort rules");
 		_oSBMLDocCPP->convert(props);
 		return validateInternal(arg);
 	}
-
+    //Otherwise, this worked.
+    return 0;
 }
 
 
 // Call this is if any method returns -1, it will return the error message string
-DLL_EXPORT char *getError () 
+DLL_EXPORT const char *getError () 
 {
 	if (extendedErrorMessage != NULL) {
 	   char *t = strconcat (errorMessages[errorCode], extendedErrorMessage);
@@ -1577,6 +1582,7 @@ DLL_EXPORT int getCompartmentIdBySpeciesId (char *cId, char **compId)
 		return -1;
 	}
 	*compId = (char *) oSpecies->getCompartment().c_str();
+    return 0;
 }
 
 //DataBlockWriter SBMLSupportModule::getNthFloatingSpeciesCompartmentNameImpl(Module/*from*/, DataBlockReader arguments)
@@ -1946,7 +1952,7 @@ DLL_EXPORT int getKineticLaw (int index, char **kineticLaw)
 	kl = r->getKineticLaw();
 	if (kl == NULL)
 	{
-		*kineticLaw = "0";
+		*kineticLaw = (char *) zero;
 	}
 	else
 	{
@@ -2869,9 +2875,7 @@ DLL_EXPORT int getNumEvents()
 
 DLL_EXPORT int getNthEvent (int arg, char **trigger, char **delay, char **lValue, char **rValue)
 {
-	EventAssignment*	ea;
 	Event*			    event;
-	const char* zero = "0";
 	int					numEventAssignments;
 
 	if (_oModelCPP == NULL)
@@ -3094,6 +3098,7 @@ DLL_EXPORT int convertMathMLToString (char *mathMLStr, char **infix)
 		return -1;
 	}
 	*infix = result;
+    return 0;
 }
 
 DLL_EXPORT int convertStringToMathML (char* infixStr, char **mathMLStr)
