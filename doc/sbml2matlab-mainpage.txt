@@ -1,0 +1,9 @@
+/** @mainpage SBML2Matlab: A converter to Matlab from SBML.
+
+SBML2Matlab is a small library and executable that can convert SBML files to Matlab.
+
+
+<p>sbml2matlab is distributed under the @subpage sbml2matlab-license.  The Windows binary includes a <A target="_top" HREF="http://sbml.org/Software/libSBML">libSBML</a> dll, which is released under the <A target="_top" HREF="http://sbml.org/Software/libSBML/docs/cpp-api/">LGPL</a>.  libSBML, in turn, relies on <A target="_top" HREF="http://expat.sourceforge.net/">expat</a>, released under the <A target="_top" HREF="http://www.opensource.org/licenses/mit-license.php">MIT license</a>, the <A target="_top" HREF="http://www.gzip.org/">gzip</a> dll, released under the <A target="_top" HREF="http://www.math.utah.edu/docs/info/gzip_1.html#SEC1">GPL</a>, and a <A target="_top" HREF="http://www.bzip.org/">bzip</a> dll, released under the <A target="_top" HREF="http://www.bzip.org/1.0.5/bzip2-manual-1.0.5.html">BSD</a> license.</P>
+
+@htmlinclude google-analytics.html
+*/

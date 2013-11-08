@@ -14,11 +14,13 @@ endif()
 
 set(EXTRA_LIBS "" CACHE STRING "Semicolon separatred list of additional libraries to link against." )
 
-OPTION(WITH_LIBSBML_EXPAT  "Set if libsbml was compiled with a separate expat library." OFF)
+OPTION(WITH_LIBSBML_EXPAT  "Set if libsbml was compiled with a separate expat library."  OFF)
 OPTION(WITH_LIBSBML_LIBXML "Set if libsbml was compiled with a separate libxml library." OFF)
 OPTION(WITH_LIBSBML_XERCES "Set if libsbml was compiled with a separate xerces library." OFF)
 OPTION(WITH_LIBSBML_COMPRESSION "Set if libsbml was compiled with separate zdll and bzip libraries." OFF)
-OPTION(LIBSBML_STATIC "Whether to use the static libsbml library" ON)
+OPTION(LIBSBML_STATIC       "Whether to use the static libsbml library"                   ON)
+option(WITH_SWIG            "Regenerate SWIG-based language bindings."                    ON)
+option(WITH_PYTHON          "Generate Python language bindings."                         OFF)
 
 
 if(WITH_LIBSBML_EXPAT)
@@ -109,9 +111,61 @@ if(WIN32 AND NOT UNIX)
 #    set( CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} CACHE STRING "Flags used by the compiler during all build types (Forced version)." FORCE )
 endif()
 
+###############################################################################
+#
+# If WITH_SWIG is selected, we need to find swig
+#
+if(WITH_SWIG)
+    find_program(SWIG_EXECUTABLE
+        NAMES swig
+        PATHS
+              c:/Program Files (x86)/Swig
+              c:/Program Files/Swig
+              c:/swigwin-2.0.11
+              c:/swigwin-2.0.10
+              c:/swigwin-2.0.9
+              c:/swigwin-2.0.8
+              c:/swigwin-2.0.7
+              c:/swigwin-2.0.6
+              c:/swigwin-2.0.5
+              c:/swigwin-2.0.4
+              c:/swigwin-2.0.3
+              c:/swigwin-2.0.2
+              c:/swigwin-2.0.1
+              c:/swigwin-2.0.0
+              /usr/local/bin
+              /opt/local/bin
+              /usr/bin
+        DOC "The file name of the swig executable."
+        )
+    find_package(SWIG)
+    if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
+    	message(WARNING "You are using swig version ${SWIG_VERSION} while we recommend at least version 2.0.4.")
+    endif()
+    set(SWIG_EXTRA_ARGS)
+endif(WITH_SWIG)
+
+if(WITH_SWIG)
+    message(STATUS "  Using SWIG                    = ${SWIG_EXECUTABLE}")
+    
+    if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
+    	message(WARNING "   You are using swig version ${SWIG_VERSION} while we recommend at least version 2.0.4.")
+    endif()
+
+endif()
+
+if(WITH_PYTHON)
+    message(STATUS "  Using Python                  = ${PYTHON_EXECUTABLE}")
+endif()
+
+
 # dependencies
 # it will expect a CMakeLists.txt in each folder
 ADD_SUBDIRECTORY(NOM)
+
+# Language bindings
+ADD_SUBDIRECTORY(bindings)
+
 
 # dependency headers
 INCLUDE_DIRECTORIES(
@@ -141,6 +195,13 @@ install(TARGETS libsbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHI
 install(FILES README.markdown DESTINATION .)
 install(FILES LICENSE.txt DESTINATION .)
 install(FILES help.zip DESTINATION ./help)
+
+if (NOT UNIX)
+  if (WITH_PYTHON)
+     message(STATUS "  Installing libsbml2matlab in ${DESTINATION}/bindings/python/libsbml2matlab")
+     INSTALL(TARGETS libsbml2matlab DESTINATION bindings/python/libsbml2matlab )
+  endif()
+endif(NOT UNIX)
 
 # link to dependencies
 TARGET_LINK_LIBRARIES(sbml2matlab NOM)

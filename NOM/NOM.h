@@ -105,7 +105,7 @@ extern "C" {
 	*
 	* @return -1 if the SBML model is invalid, else returns 0
 	*/
-	DLL_EXPORT int validateSBML(char *cSBML);
+	DLL_EXPORT int validateSBML(const char *cSBML);
 
 
 	/** @brief Returns 0 (false) in the argument list if the species given by sId does not have
@@ -151,7 +151,7 @@ extern "C" {
 	* @param[in] sbmlStr is the SBML string to validate
 	* @return -1 if there has been an error, otherwise returns 0
 	*/
-	DLL_EXPORT int validate(char *sbmlStr);
+	DLL_EXPORT int validate(const char *sbmlStr);
 
 
 	/** @brief Return the model name in the current model

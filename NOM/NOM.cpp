@@ -990,7 +990,7 @@ DLL_EXPORT int setValue (char *sId, double dValue)
 //}
 
 
-DLL_EXPORT int validate(char *sbml)
+DLL_EXPORT int validate(const char *sbml)
 {
 	string sbmlStr = sbml;
 
@@ -1125,9 +1125,9 @@ DLL_EXPORT int getNthError (int index, int *line, int *column, int *errorId, cha
 //
 //}
 
-DLL_EXPORT int validateSBML(char *cSBML)
+DLL_EXPORT int validateSBML(const char *cSBML)
 {
-	string sSBML = cSBML;
+	string sSBML(cSBML);
 	if (sSBML == "")
 	{
 		errorCode = 1;

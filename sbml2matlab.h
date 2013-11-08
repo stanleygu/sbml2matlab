@@ -48,7 +48,7 @@ extern "C"
 	*
 	* @return 0 if translation was successful, -1 if not
 	*/
-	DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput);
+	DLL_EXPORT int sbml2matlab(const char* sbmlInput, char** matlabOutput);
 
 	/** @brief Frees MATLAB fumction string from memory
 	*
@@ -85,6 +85,15 @@ extern "C"
 	*
 	* @return -1 if the SBML model is invalid, else returns 0
 	*/
-	DLL_EXPORT int validateSBMLString (char *cSBML);
+	DLL_EXPORT int validateSBMLString (const char *cSBML);
+
+	/** @brief Translates SBML to the MATLAB function equivalent
+	*
+    * Takes @p sbmlInput as the SBML file, and returns Matlab.  Returns NULL
+    * on an error.
+	*
+	* @return the Matlab translation if translation was successful, NULL if not.
+	*/
+	DLL_EXPORT char* getMatlab(const char* sbmlInput);
 
 }

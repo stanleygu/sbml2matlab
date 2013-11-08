@@ -1887,7 +1887,8 @@ public:
 			oFile.close();
 		} else {
 			fprintf (stderr, "File could not be opened\n");
-			exit (0);
+            return "";
+			//exit (0);
 		}
 		return translateSBML(sbml);
 	}
@@ -1898,10 +1899,11 @@ public:
 		stringstream result;
 		char * outSbml;
 		string outSbml_str;
-		if (validate((char *) sbmlInput.c_str())==-1)
+		if (validate(sbmlInput.c_str())==-1)
 		{
 			fprintf (stderr, "Invalid SBML: %s\n", (char *) getError()); 
-			exit (0);
+            return "";
+			//exit (0);
 		}
 
 
@@ -2051,7 +2053,7 @@ public:
 //const string MatlabTranslator::NL      = "\n";
 //#endif
 
-DLL_EXPORT int sbml2matlab(char* sbmlInput, char** matlabOutput)
+DLL_EXPORT int sbml2matlab(const char* sbmlInput, char** matlabOutput)
 {
 	try
 	{
@@ -2088,10 +2090,26 @@ DLL_EXPORT int getNthSbmlError (int index, int *line, int *column, int *errorId,
 	return getNthError(index, line, column, errorId, errorType, errorMsg);
 }
 
-DLL_EXPORT int validateSBMLString (char *cSBML)
+DLL_EXPORT int validateSBMLString (const char *cSBML)
 {
-	int test = validateSBML(cSBML);
+	//int test = validateSBML(cSBML);
 	return validateSBML(cSBML);
+}
+
+DLL_EXPORT char* getMatlab(const char* sbmlInput)
+{
+  try
+  {
+    MatlabTranslator translator(false);
+    string translation = translator.translateSBML(sbmlInput);
+    char* matlabOutput = (char *) malloc((translation.length()+1)*sizeof(char));
+    strcpy(matlabOutput,(char *) translation.c_str());
+    return matlabOutput;
+  }
+  catch (MatlabError*)
+  {
+    return NULL;
+  }
 }
 
 int main(int argc, char* argv[])
