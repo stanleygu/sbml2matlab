@@ -81,17 +81,18 @@ TARGET_LINK_LIBRARIES(${TARGET} ${SBML2MATLAB_LIBS} )
 if (WIN32)
     # gathering libsbml/NOM dependencies
     file(GLOB NOM_DEPENDENCIES 
-        # "${LIBSBML_BIN}/*.dll
-        ${LIBSBML_BIN}/bzip2.dll
-        ${LIBSBML_BIN}/iconv.dll
-        ${LIBSBML_BIN}/libcheck.dll
-        ${LIBSBML_BIN}/libexpat.dll
-        ${LIBSBML_BIN}/libxml2.dll
-        ${LIBSBML_BIN}/msvcp100.dll
-        ${LIBSBML_BIN}/msvcr100.dll
-        ${LIBSBML_BIN}/MSVCRT.dll
-        ${LIBSBML_BIN}/xerces-c_3_1.dll
-        ${LIBSBML_BIN}/zlib1.dll
+        # "${LIBSBML_BIN_DIR}/*.dll
+        ${LIBSBML_BIN_DIR}/libsbml.dll
+        ${LIBSBML_BIN_DIR}/bzip2.dll
+        ${LIBSBML_BIN_DIR}/iconv.dll
+        ${LIBSBML_BIN_DIR}/libcheck.dll
+        ${LIBSBML_BIN_DIR}/libexpat.dll
+        ${LIBSBML_BIN_DIR}/libxml2.dll
+        ${LIBSBML_BIN_DIR}/msvcp100.dll
+        ${LIBSBML_BIN_DIR}/msvcr100.dll
+        ${LIBSBML_BIN_DIR}/MSVCRT.dll
+        ${LIBSBML_BIN_DIR}/xerces-c_3_1.dll
+        ${LIBSBML_BIN_DIR}/zlib1.dll
     )
 endif ()
 
@@ -104,5 +105,12 @@ ADD_LIBRARY( ${TARGET}-static
 # install NOM
 install(TARGETS NOM LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)
 # Installing libsbml/NOM dependencies
+#message(STATUS "  NOM_DEPENDENCIES found:  ${NOM_DEPENDENCIES}")
+#message(STATUS "  LIBSBML_BIN_DIR:  ${LIBSBML_BIN_DIR}")
 install(FILES ${NOM_DEPENDENCIES} DESTINATION .)
+
+if (WITH_PYTHON)
+  install(TARGETS NOM DESTINATION bindings/python/sbml2matlab )
+  install(FILES ${NOM_DEPENDENCIES} DESTINATION bindings/python/sbml2matlab )
+endif()
 

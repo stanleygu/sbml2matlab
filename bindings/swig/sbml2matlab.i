@@ -27,7 +27,7 @@ public class"
 
 
 %{
-#include "../sbml2matlab.h"
+#include "sbml2matlab.h"
 %}
 
 /**
@@ -70,4 +70,4 @@ public class"
  * Wrap these files.
  */
 
-%include ../sbml2matlab.h
+%include sbml2matlab.h

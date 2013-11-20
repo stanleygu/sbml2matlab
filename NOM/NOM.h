@@ -78,7 +78,7 @@ extern "C" {
 	* @param[in] sbmlStr sbmlStr is a char pointer to the SBML model
 	* @return -1 if there has been an error, otherwise returns 0
 	*/
-	DLL_EXPORT int loadSBML(char* sbmlStr);
+	DLL_EXPORT int loadSBML(const char* sbmlStr);
 
 
 	/** @brief Returns number of errors in SBML model
@@ -483,7 +483,7 @@ extern "C" {
 	* @param[out] ou tSBML is output sbml string with local parameters promoted to global parameters
 	* @return -1 if there has been an error
 	*/
-	DLL_EXPORT int getParamPromotedSBML (char *inSBML, char **outSBML);
+	DLL_EXPORT int getParamPromotedSBML (const char *inSBML, char **outSBML);
 
 
 	/** @brief Fills in any missing modifiers to the SBML file
@@ -492,7 +492,7 @@ extern "C" {
 	* @param[out] SBML is output sbml string with modifiers added
 	* @return -1 if there has been an error
 	*/
-	DLL_EXPORT int addMissingModifiers (char *inSBML, char **outSBML);
+	DLL_EXPORT int addMissingModifiers (const char *inSBML, char **outSBML);
 
 
 	/** @brief Converts a MathML string into infix notation
@@ -501,7 +501,7 @@ extern "C" {
 	* @param[out] infix notation is the output string
 	* @return -1 if there has been an error
 	*/
-	DLL_EXPORT int convertMathMLToString (char *mathMLStr, char **infix);
+	DLL_EXPORT int convertMathMLToString (const char *mathMLStr, char **infix);
 
 	/** @brief Converts an infix string into MathML Notation
 	*
@@ -509,7 +509,7 @@ extern "C" {
 	* @param[out] MathML notation is the output string
 	* @return -1 if there has been an error
 	*/
-	DLL_EXPORT int convertStringToMathML (char* infixStr, char **mathMLStr);
+	DLL_EXPORT int convertStringToMathML (const char* infixStr, char **mathMLStr);
 
 	/** @brief reorders rules in SBML
 	*

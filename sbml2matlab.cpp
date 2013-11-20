@@ -134,6 +134,14 @@ public:
 	vector<TNameValue> parameters;
 
 	TReactionInfo (int reactionIndex)
+      : id("")
+      , name("")
+      , isReversible(false)
+      , rateLaw("")
+      , iIsReve(0)
+      , reactants()
+      , products()
+      , parameters()
 	{
 		char *cId;
 
@@ -183,9 +191,33 @@ class SBMLInfo
 {
 public: 
 
-	SBMLInfo(const string& sbmlString)
-	{
-		std::string str;
+    SBMLInfo(const string& sbmlString)
+      : modelName()
+      , numFloatingSpecies(0)
+      , numReactions(0)
+      , numBoundarySpecies(0)
+      , numParameters(0)
+      , numGlobalParameters(0)
+      , numCompartments(0)
+      , numRules(0)
+      , numUserDefinedFunctions(0)
+      , compartmentsList()
+      , localParameterList()
+      , allLocalParametersList()
+      , globalParametersList()
+      , globalParamIndexList()
+      , nthReactionParameters()
+      , parameterMapList()
+      , iterator()
+      , sp_list(NULL)
+      , rules()
+      , ruleTypes()
+      , userDefinedFunctions()
+      , reactions()
+      , compartments()
+      , globalParameters()
+    {
+        std::string str;
 		char *cstr;
 		char *cstr_sbml;
 
@@ -207,6 +239,35 @@ public:
 		ReadReactions();		
 		ReadSpecies();
 	}
+
+    SBMLInfo()
+      : modelName()
+      , numFloatingSpecies(0)
+      , numReactions(0)
+      , numBoundarySpecies(0)
+      , numParameters(0)
+      , numGlobalParameters(0)
+      , numCompartments(0)
+      , numRules(0)
+      , numUserDefinedFunctions(0)
+      , compartmentsList()
+      , localParameterList()
+      , allLocalParametersList()
+      , globalParametersList()
+      , globalParamIndexList()
+      , nthReactionParameters()
+      , parameterMapList()
+      , iterator()
+      , sp_list(NULL)
+      , rules()
+      , ruleTypes()
+      , userDefinedFunctions()
+      , reactions()
+      , compartments()
+      , globalParameters()
+    {
+    }
+
 
 	~SBMLInfo()
 	{
@@ -312,6 +373,7 @@ public:
 		char *cstr;
 
 		int numTotalSpecies = numFloatingSpecies + numBoundarySpecies;
+        delete sp_list;
 		sp_list = new spAttributes[numTotalSpecies];
 
 		for (int i=0; i<numFloatingSpecies; i++) 
@@ -430,7 +492,7 @@ private:
 	double								pvalue;
 	SBMLInfo*							_currentModel;
 
-	const static string					NL;
+	//const static string					NL; //Only used in commented-out code.
 	bool                                _bInlineMode;
 
 
@@ -838,7 +900,14 @@ private:
 public:
 	///
 	///MatlabTranslator Constructor
-	MatlabTranslator(bool bInline = false) : _bInlineMode(bInline)
+	MatlabTranslator(bool bInline = false) 
+      : sbml()
+      , eqn()
+      , stoich()
+      , pname()
+      , pvalue(0.0)
+      , _currentModel(NULL)
+      , _bInlineMode(bInline)
 	{
 	}
 
@@ -1901,15 +1970,23 @@ public:
 		string outSbml_str;
 		if (validate(sbmlInput.c_str())==-1)
 		{
-			fprintf (stderr, "Invalid SBML: %s\n", (char *) getError()); 
-            return "";
-			//exit (0);
+          const char* errch = getError();
+          string error(errch);
+          delete errch;
+          size_t endline = error.find("\n");
+          while (endline != string::npos) {
+            error.insert(endline+1, "% ");
+            endline = error.find("\n", endline+1);
+          }
+          error = "% " + error;
+          return error;
 		}
 
 
-		getParamPromotedSBML((char *)sbmlInput.c_str(), &outSbml);
+		getParamPromotedSBML(sbmlInput.c_str(), &outSbml);
 		reorderRules(&outSbml);
 		outSbml_str = outSbml;
+        delete _currentModel;
 		_currentModel = new SBMLInfo(outSbml_str);
 
 		result << PrintHeader();
@@ -2114,121 +2191,89 @@ DLL_EXPORT char* getMatlab(const char* sbmlInput)
 
 int main(int argc, char* argv[])
 {
-	// bool bInline = false;
 	bool doTranslate = false;
 	bool doWriteToFile = false;
-	bool stdinInput = true;
+	bool stdinInput = true; //Only false if provided with an SBML file name.
 	bool directSbml = false;
-	char * matlabOutput;
+	char * matlabOutput = NULL;
 	string infileName; 
 	string outfileName;
 	int success = 0;
-	if (argc <= 1) { // called with no args, read sbml from stdin
-		//printf ("sbml2matlab, -h for help, -v for version info\n");
-		//exit (0);
-		stringstream sbmlStream;
-		string inputLine;
-		while (cin)
-		{
-		getline(cin, inputLine);
-		sbmlStream << inputLine;
-		}
-		success = sbml2matlab(strdup(sbmlStream.str().c_str()), &matlabOutput);
-	} else { 
-		try
-		{
-			setlocale(LC_ALL,"C");
+    setlocale(LC_ALL,"C");
 
-			for (int i = 0; i < argc; i++)
-			{
-				string current(argv[i]);
-				/*
-				if (current ==  "--inline") 
-				{
-				bInline = true;
-				break;
-				}
-				else if (current == "-input" && i + 1 < argc)
-				*/
-				if (current == "-input" && i + 1 < argc)
-				{
-					stdinInput = false;
-					doTranslate = true;
-					infileName = argv[i+1];
-					i++;
-				}
-				else if (current == "-output" && i + 1 < argc)
-				{
-					outfileName = argv[i+1];
-					doWriteToFile = true;
-					i++;
-				}
-				else if (current == "-h") {
-					fprintf (stdout, "To translate an sbml file use: -input sbml.xml [-output output.m]\n");
-					stdinInput = false;
-				}
-				else if (current == "-v") {
-					fprintf (stdout, "sbml2matlab version 1.1.1\n");
-					stdinInput = false;
-				}
-				else if (i == 1) { // translate if sent as first param
-					char * sbmlString = strdup(current.c_str());
-					success = sbml2matlab(sbmlString, &matlabOutput);
-					free(sbmlString);
-				}
-			}
-		} 	
-		catch (MatlabError *e)
-		{
-			fprintf(stderr, "MatlabTranslator exception: %s\n", e->getMessage().c_str());
-			return -1;
-		}
+    for (int i = 1; i < argc; i++)
+    {
+      string current(argv[i]);
+      if (current == "-input" && i + 1 < argc)
+      {
+        stdinInput = false;
+        doTranslate = true;
+        infileName = argv[i+1];
+        i++;
+      }
+      else if (current == "-output" && i + 1 < argc)
+      {
+        outfileName = argv[i+1];
+        doWriteToFile = true;
+        i++;
+      }
+      else if (current == "-h") {
+        fprintf (stdout, "To translate an sbml file use: -input sbml.xml [-output output.m]\n");
+        stdinInput = false;
+      }
+      else if (current == "-v") {
+        fprintf (stdout, "sbml2matlab version 1.1.1\n");
+        stdinInput = false;
+      }
+      else if (i == 1) { // translate if sent as first param
+        stdinInput = false;
+        doTranslate = true;
+        infileName = argv[i];
+      }
+    }
 
-		// still should read input from command line
-		if (stdinInput)
-		{
-			stringstream sbmlStream;
-			string inputLine;
-			//while (getline(cin, inputLine))
-			while (cin)
-			{
-				getline(cin, inputLine);
-				sbmlStream << inputLine;
-			}
-			success = sbml2matlab(strdup(sbmlStream.str().c_str()), &matlabOutput);
-		}
+    // Read input from command line
+    if (stdinInput)
+    {
+      stringstream sbmlStream;
+      string inputLine;
+      //while (getline(cin, inputLine))
+      while (cin)
+      {
+        getline(cin, inputLine);
+        sbmlStream << inputLine;
+      }
+      success = sbml2matlab(sbmlStream.str().c_str(), &matlabOutput);
+    }
 
-		if (doTranslate) // translate from file and write to a file
-		{
-			MatlabTranslator translator(false);
-			if (doWriteToFile) {
-				ofstream out(outfileName.c_str());
-				if (!out) { 
-					cout << "Cannot open file. You may not have write-access to this location\n"; 
-					return -1; 
-				} 
-				out << translator.translate(infileName) << endl;
-				out.close();
-			} 
-			else {
-				cout << translator.translate(infileName) << endl;
-			}
-		}
-		else if (doWriteToFile) // already translated but write out to a file
-		{
-			ofstream out(outfileName.c_str());
-			if (!out) { 
-				cout << "Cannot open file. You may not have write-access to this location\n"; 
-				return -1; 
-			} 
-			out << matlabOutput << endl;
-			out.close();
-		} 
-		else // already translated string and send to stdout
-		{
-			cout << matlabOutput << endl;
-		}
-		//exit(0);
-		return success;
-	}
+    if (doWriteToFile) 
+    {
+      ofstream out(outfileName.c_str());
+      if (!out) { 
+        cout << "Cannot open file '" << outfileName << "'. You may not have write-access to this location.\n"; 
+        return -1; 
+      }
+      if (doTranslate) {
+        MatlabTranslator translator(false);
+        out << translator.translate(infileName) << endl;
+        success = (getError() == NULL);
+      }
+      else {
+        out << matlabOutput << endl;
+      }
+      out.close();
+    }
+    else //Write to stdout
+    {
+      if (doTranslate) {
+        MatlabTranslator translator(false);
+        cout << translator.translate(infileName) << endl;
+        success = (getError() == NULL);
+      }
+      else {
+        cout << matlabOutput << endl;
+      }
+    }
+
+    return success;
 }

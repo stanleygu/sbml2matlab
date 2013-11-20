@@ -45,7 +45,7 @@ ADD_CUSTOM_COMMAND(
     COMMAND "${PYTHON_EXECUTABLE}"
     ARGS    "${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
             python
-            -I"${CMAKE_CURRENT_SOURCE_DIR}/.."
+            -I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
             -D"${CMAKE_CURRENT_SOURCE_DIR}/../../doc"
             "${CMAKE_CURRENT_SOURCE_DIR}/../swig/sbml2matlab.i"
             "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
@@ -57,7 +57,7 @@ ADD_CUSTOM_COMMAND(
     ARGS    -E rename pydoc-doxygen.i pydoc.i
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS    -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-            -I${CMAKE_CURRENT_SOURCE_DIR} 
+            -I${CMAKE_CURRENT_SOURCE_DIR}/../.. 
             -I${CMAKE_CURRENT_BINARY_DIR} 
             -I${CMAKE_SOURCE_DIR}/src
             -I${CMAKE_SOURCE_DIR}/include
@@ -74,7 +74,7 @@ ADD_CUSTOM_COMMAND(
     ARGS    -E rename pydoc-normal.i pydoc.i
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS    -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-            -I${CMAKE_CURRENT_SOURCE_DIR} 
+            -I${CMAKE_CURRENT_SOURCE_DIR}/../..
             -I${CMAKE_CURRENT_BINARY_DIR} 
             -I${CMAKE_SOURCE_DIR}/src
             -I${CMAKE_SOURCE_DIR}/include
@@ -99,9 +99,14 @@ add_custom_target(binding_python_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/sb
 # Build native library
 #
 
+message(STATUS "  Current source directory = ${CMAKE_CURRENT_SOURCE_DIR}")
+message(STATUS "  Main source directory = ${CMAKE_SOURCE_DIR}")
+
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/bindings/)
+include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${PYTHON_INCLUDE_DIRS})
 if (EXTRA_INCLUDE_DIRS) 
  include_directories(${EXTRA_INCLUDE_DIRS})

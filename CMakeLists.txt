@@ -44,14 +44,16 @@ if(WITH_LIBSBML_LIBXML)
         )
     set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBXML_LIBRARY} )
 
-    find_library(ICONV_LIBRARY 
-        NAMES iconv.lib iconv.so iconv.dylib iconv
-	PATHS /usr/lib /usr/local/lib 
-              ${CMAKE_SOURCE_DIR} 
-              ${CMAKE_SOURCE_DIR}/dependencies/lib
-              ${LIBSBML_INCLUDE_DIR}/../lib
-        )
-    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${ICONV_LIBRARY} )
+    if(WIN32)
+      find_library(ICONV_LIBRARY 
+          NAMES iconv.lib iconv.so iconv.dylib iconv
+          PATHS /usr/lib /usr/local/lib 
+                ${CMAKE_SOURCE_DIR} 
+                ${CMAKE_SOURCE_DIR}/dependencies/lib
+                ${LIBSBML_INCLUDE_DIR}/../lib
+          )
+      set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${ICONV_LIBRARY} )
+    endif()
 endif()
 
 if(WITH_LIBSBML_XERCES)
@@ -198,8 +200,8 @@ install(FILES help.zip DESTINATION ./help)
 
 if (NOT UNIX)
   if (WITH_PYTHON)
-     message(STATUS "  Installing libsbml2matlab in ${DESTINATION}/bindings/python/libsbml2matlab")
-     INSTALL(TARGETS libsbml2matlab DESTINATION bindings/python/libsbml2matlab )
+     message(STATUS "  Installing libsbml2matlab in ${DESTINATION}/bindings/python/sbml2matlab")
+     INSTALL(TARGETS libsbml2matlab DESTINATION bindings/python/sbml2matlab )
   endif()
 endif(NOT UNIX)
 

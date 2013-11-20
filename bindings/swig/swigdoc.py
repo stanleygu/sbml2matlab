@@ -66,7 +66,7 @@ class CHeader:
       # Track things that we flag as internal, so that we can
       # remove them from the documentation.
 
-      if (stripped.find('@cond doxygenAntimonyInternal') >= 0): isInternal = True
+      if (stripped.find('@cond doxygenSbml2matlabInternal') >= 0): isInternal = True
       if (stripped.find('@endcond') >= 0):                       isInternal = False
 
       # Watch for class description, usually at top of file.
@@ -264,8 +264,8 @@ class Method:
     # the comments for those methods.  This approach is potentially dangerous
     # because swig might attach the doc string to the wrong method if a
     # methods has multiple versions with varying argument types, but the
-    # combination doesn't seem to arise in antimony currently, and anyway,
-    # this fixes a real problem in the Java documentation for antimony.
+    # combination doesn't seem to arise in sbml2matlab currently, and anyway,
+    # this fixes a real problem in the Java documentation for sbml2matlab.
 
     if language == 'java' or language == 'csharp':
       if isConst and (args.find('unsigned int') >= 0):
@@ -736,13 +736,13 @@ def rewriteDocstringForCSharp (docstring):
 
   # Do replacements on some documentation text we sometimes use.
 
-  p = re.compile(r'antimonyConstants([@.])')
-  docstring = p.sub(r'antimonycs.antimony\1', docstring)
+  p = re.compile(r'sbml2matlabConstants([@.])')
+  docstring = p.sub(r'sbml2matlabcs.sbml2matlab\1', docstring)
 
   # Fix @link for constants that we forgot conditionalize in the source.
 
   p = re.compile(r'@link +([A-Z_0-9]+?)@endlink', re.DOTALL)
-  docstring = p.sub(r'@link antimony.\1@endlink', docstring)
+  docstring = p.sub(r'@link sbml2matlab.\1@endlink', docstring)
 
   # Can't use math symbols.  Kluge around it.
 
@@ -752,8 +752,8 @@ def rewriteDocstringForCSharp (docstring):
 
   # Some additional special cases.
 
-  docstring = docstring.replace(r'SBML_formulaToString()', 'antimonycs.antimony.formulaToString()')
-  docstring = docstring.replace(r'SBML_parseFormula()', 'antimonycs.antimony.parseFormula()')
+  docstring = docstring.replace(r'SBML_formulaToString()', 'sbml2matlabcs.sbml2matlab.formulaToString()')
+  docstring = docstring.replace(r'SBML_parseFormula()', 'sbml2matlabcs.sbml2matlab.parseFormula()')
 
   # Need to escape the quotation marks:
 
@@ -969,7 +969,7 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
     else:
       post = ' public'
     if isInternal:
-      post = ' /* antimony-internal */' + post
+      post = ' /* sbml2matlab-internal */' + post
   elif language == 'perl':
     pre  = '=item'
     post = ''
@@ -1070,11 +1070,11 @@ def processFile (filename, ostream):
 
 
 def main (args):
-  """usage: swigdoc.py [java | python | perl | csharp] -Ipath -Dpath antimony.i output.i
+  """usage: swigdoc.py [java | python | perl | csharp] -Ipath -Dpath sbml2matlab.i output.i
 
   java | python | perl | csharp  generate docstrings for this language module.
-  path                           is the path to the antimony src/ directory.
-  antimony.i                      is the master antimony SWIG interface file.
+  path                           is the path to the sbml2matlab src/ directory.
+  sbml2matlab.i                  is the master sbml2matlab SWIG interface file.
   output.i                       is the file to output the SWIG docstrings.
   """
 
@@ -1091,10 +1091,10 @@ def main (args):
   headers     = getHeadersFromSWIG(args[4])
   stream      = open(args[5], 'w')
 
-  headers.append("swig/OStream.h")
+  headers.append("bindings/swig/OStream.h")
 
   if language == 'perl':
-    infile = open(os.path.abspath('Antimony.txt'), 'r')
+    infile = open(os.path.abspath('sbml2matlab.txt'), 'r')
     stream.write(infile.read())
     stream.write('=head1 FUNCTION INDEX\n\n=over 8\n\n')
 
