@@ -24,16 +24,15 @@
 #include <cstring>
 #include <string>
 #include <cmath>
-using namespace std;
 
 namespace uScanner {
 
     // Declare a Scanner exception type
     class EScannerException {
 	public:
-		string eMessage;
+		std::string eMessage;
 
-        EScannerException (string message) {
+        EScannerException (std::string message) {
 			eMessage = message;
         }
     };
@@ -73,7 +72,7 @@ namespace uScanner {
     {
 	public:
         enum TTokenCode tokenCode;
-        string          tokenString;
+        std::string          tokenString;
         int             tokenInteger;
         double          tokenDouble;
         double          tokenValue;  // Used to retrieve int or double
@@ -117,9 +116,9 @@ namespace uScanner {
         int				   bufferPtr;                // Index of position in buffer containing current char
         int				   bufferLength;
         int				   yylineno;                 // Current line number
-        istream*		   myFStream;
+        std::istream*      myFStream;
         TTokenCode		   ftoken;
-        map<string, int>   wordTable;
+        std::map<std::string, int>   wordTable;
 
         void initScanner()
         {
@@ -184,7 +183,7 @@ namespace uScanner {
 
         void getWord()
         {
-			string tempfch;
+			std::string tempfch;
             while ((FCharTable[(int)fch] == cLETTER)
                 || (FCharTable[(int)fch] == cDIGIT)
                 || (FCharTable[(int)fch] == cUNDERSCORE))
@@ -523,7 +522,7 @@ namespace uScanner {
                            break;
 
             default:
-				string message;
+				std::string message;
 				message = "Syntax error: Unknown special token [" + fch;
 				message = message + "]";
                 throw new EScannerException (message);
@@ -569,7 +568,7 @@ namespace uScanner {
 		
         bool   IgnoreNewLines;
 
-        string tokenString;
+        std::string tokenString;
         int    tokenInteger;
         double tokenDouble;
         double tokenScalar;  // Used to retrieve int or double
@@ -602,7 +601,7 @@ namespace uScanner {
         }
 
         // writeonly stream property
-        void setStream(istream* inputStream) {
+        void setStream(std::istream* inputStream) {
              //istream inputStream(sb);
 			 myFStream = inputStream;
         }
@@ -704,9 +703,9 @@ namespace uScanner {
         // Given a token, this function returns the string eqauivalent
         // -------------------------------------------------------------------
 
-        string tokenToString (TTokenCode code) {
-			string strtokenInteger;
-			string strtokenDouble;
+        std::string tokenToString (TTokenCode code) {
+			std::string strtokenInteger;
+			std::string strtokenDouble;
 			char   buffer[100]; 
 
 			switch (code) {
