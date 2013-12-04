@@ -15,13 +15,26 @@ endif()
 set(EXTRA_LIBS "" CACHE STRING "Semicolon separatred list of additional libraries to link against." )
 
 OPTION(WITH_LIBSBML_EXPAT  "Set if libsbml was compiled with a separate expat library."  OFF)
-OPTION(WITH_LIBSBML_LIBXML "Set if libsbml was compiled with a separate libxml library." OFF)
+OPTION(WITH_LIBSBML_LIBXML "Set if libsbml was compiled with a separate libxml library." ON)
 OPTION(WITH_LIBSBML_XERCES "Set if libsbml was compiled with a separate xerces library." OFF)
 OPTION(WITH_LIBSBML_COMPRESSION "Set if libsbml was compiled with separate zdll and bzip libraries." OFF)
 OPTION(LIBSBML_STATIC       "Whether to use the static libsbml library"                   ON)
 option(WITH_SWIG            "Regenerate SWIG-based language bindings."                    ON)
 option(WITH_PYTHON          "Generate Python language bindings."                         OFF)
 
+# 
+# Determine the python installation directory
+#
+if (WITH_PYTHON)
+  set(PYTHON_PACKAGE_INSTALL_DIR)
+  if (UNIX OR CYGWIN) 
+    execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "import sys;import platform; sys.stdout.write(platform.python_version()[:3])"
+      OUTPUT_VARIABLE PYTHON_VERSION)
+    set(PYTHON_PACKAGE_INSTALL_DIR lib/python${PYTHON_VERSION}/site-packages)
+  else()
+    set(PYTHON_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/python)
+  endif()
+endif()
 
 if(WITH_LIBSBML_EXPAT)
     find_library(EXPAT_LIBRARY 
@@ -200,7 +213,7 @@ install(FILES help.zip DESTINATION ./help)
 
 if (NOT UNIX)
   if (WITH_PYTHON)
-     message(STATUS "  Installing libsbml2matlab in ${DESTINATION}/bindings/python/sbml2matlab")
+     message(STATUS "  Installing libsbml2matlab in bindings/python/sbml2matlab")
      INSTALL(TARGETS libsbml2matlab DESTINATION bindings/python/sbml2matlab )
   endif()
 endif(NOT UNIX)
