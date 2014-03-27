@@ -2196,7 +2196,7 @@ int main(int argc, char* argv[])
 	bool doWriteToFile = false;
 	bool stdinInput = true; //Only false if provided with an SBML file name.
 	bool directSbml = false;
-	char * matlabOutput = NULL;
+	char * matlabOutput = "";
 	string infileName; 
 	string outfileName;
 	int success = 0;
