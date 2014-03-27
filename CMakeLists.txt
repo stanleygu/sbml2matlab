@@ -1,6 +1,6 @@
 ####################################################################
 #
-# CMake Build Script for libsbml2matlab
+# CMake Build Script for sbml2matlab
 #
 
 cmake_minimum_required(VERSION 2.8)
@@ -18,7 +18,7 @@ INCLUDE(InstallRequiredSystemLibraries)
 
 #---------------------CPACK---------------------
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Translate SBML files to MATLAB functions")
-SET(CPACK_PACKAGE_NAME "libsbml2matlab")
+SET(CPACK_PACKAGE_NAME "sbml2matlab")
 SET(CPACK_PACKAGE_VENDOR "Stanley Gu")
 SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.markdown")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
@@ -35,7 +35,7 @@ set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, op
 
 ####################################################################
 #
-# Here we have the main configuration options for libsbml2matlab
+# Here we have the main configuration options for sbml2matlab
 #
 
 # which language bindings should be build
@@ -47,11 +47,11 @@ OPTION(WITH_LIBSBML_XERCES "Set if libsbml was compiled with a separate xerces l
 OPTION(WITH_LIBSBML_COMPRESSION "Set if libsbml was compiled with separate zdll and bzip libraries." OFF)
 
 set(EXTRA_LIBS "" CACHE STRING "Libraries the other libraries depend on that are in non-standard locations" )
-set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${EXTRA_LIBS} )
+set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${EXTRA_LIBS} )
 
 
-SET(LIBSBML2MATLAB_VERSION_STRING "v${LIBSBML2MATLAB_VERSION_MAJOR}.${LIBSBML2MATLAB_VERSION_MINOR}${LIBSBML2MATLAB_VERSION_PATCH}${LIBSBML2MATLAB_VERSION_RELEASE}")
-add_definitions( -DLIBSBML2MATLAB_VERSION_STRING="${LIBSBML2MATLAB_VERSION_STRING}" )
+SET(SBML2MATLAB_VERSION_STRING "v${SBML2MATLAB_VERSION_MAJOR}.${SBML2MATLAB_VERSION_MINOR}${SBML2MATLAB_VERSION_PATCH}${SBML2MATLAB_VERSION_RELEASE}")
+add_definitions( -DSBML2MATLAB_VERSION_STRING="${SBML2MATLAB_VERSION_STRING}" )
 
 
 ########################################################
@@ -76,7 +76,7 @@ find_library(LIBSBML_LIBRARY
               ${CMAKE_SOURCE_DIR}/../libsbml-5/release/lib/
         )
 
-set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${LIBSBML_LIBRARY} )
+set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_LIBRARY} )
 
 
 ###############################################################
@@ -92,7 +92,7 @@ if(WITH_LIBSBML_EXPAT)
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
-    set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${EXPAT_LIBRARY} )
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${EXPAT_LIBRARY} )
 endif()
 
 if(WITH_LIBSBML_LIBXML)
@@ -103,7 +103,7 @@ if(WITH_LIBSBML_LIBXML)
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
-    set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${LIBXML_LIBRARY} )
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBXML_LIBRARY} )
 
     if(WIN32)
       find_library(ICONV_LIBRARY 
@@ -113,7 +113,7 @@ if(WITH_LIBSBML_LIBXML)
                 ${CMAKE_SOURCE_DIR}/dependencies/lib
                 ${LIBSBML_INCLUDE_DIR}/../lib
           )
-      set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${ICONV_LIBRARY} )
+      set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${ICONV_LIBRARY} )
     endif()
 endif()
 
@@ -125,7 +125,7 @@ if(WITH_LIBSBML_XERCES)
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
-    set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${XERCES_LIBRARY} )
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${XERCES_LIBRARY} )
 endif()
 
 if(WITH_LIBSBML_COMPRESSION)
@@ -136,7 +136,7 @@ if(WITH_LIBSBML_COMPRESSION)
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
-    set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${ZDLL_LIBRARY} )
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${ZDLL_LIBRARY} )
 
     find_library(BZIP_LIBRARY 
         NAMES bzip2.lib bzip2.so bzip2.dylib bzip2
@@ -145,7 +145,7 @@ if(WITH_LIBSBML_COMPRESSION)
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
-    set(LIBSBML2MATLAB_LIBS ${LIBSBML2MATLAB_LIBS} ${BZIP_LIBRARY} )
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${BZIP_LIBRARY} )
 endif()
 
 ###############################################################################
@@ -250,8 +250,8 @@ INCLUDE_DIRECTORIES(
 ##### Build the NOM library #####
 set(LIBNOM_LIBRARY NOM)
 add_library(${LIBNOM_LIBRARY} ${LIBNOM_HEADERS} ${LIBNOM_SOURCES})
-#message(STATUS "  LIBSBML2MATLAB_LIBS:  ${LIBSBML2MATLAB_LIBS}")
-target_link_libraries(${LIBNOM_LIBRARY} ${LIBSBML2MATLAB_LIBS})
+#message(STATUS "  SBML2MATLAB_LIBS:  ${SBML2MATLAB_LIBS}")
+target_link_libraries(${LIBNOM_LIBRARY} ${SBML2MATLAB_LIBS})
 add_definitions(-DLIB_EXPORTS)
 install(TARGETS ${LIBNOM_LIBRARY} DESTINATION lib)
 install(FILES   ${LIBNOM_HEADERS} DESTINATION include)
@@ -272,7 +272,7 @@ if (WIN32 AND NOT CYGWIN)
     set_target_properties(${LIBNOM_LIBRARY}-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1;LIBNOM_STATIC=1")
 endif(WIN32 AND NOT CYGWIN)
 
-target_link_libraries(${LIBNOM_LIBRARY}-static ${LIBSBML2MATLAB_LIBS})
+target_link_libraries(${LIBNOM_LIBRARY}-static ${SBML2MATLAB_LIBS})
 
 INSTALL(TARGETS ${LIBNOM_LIBRARY}-static
         DESTINATION lib
@@ -303,17 +303,17 @@ install(FILES help.zip DESTINATION ./help)
 
 if (NOT UNIX)
   if (WITH_PYTHON)
-     message(STATUS "  Installing libsbml2matlab in bindings/python/sbml2matlab")
+     message(STATUS "  Installing sbml2matlab in bindings/python/sbml2matlab")
      INSTALL(TARGETS libsbml2matlab DESTINATION bindings/python/sbml2matlab )
   endif()
 endif(NOT UNIX)
 
 # link to dependencies
 # TARGET_LINK_LIBRARIES(sbml2matlab NOM)
-TARGET_LINK_LIBRARIES(libsbml2matlab        NOM-static ${LIBSBML2MATLAB_LIBS})
-TARGET_LINK_LIBRARIES(libsbml2matlab-static NOM-static ${LIBSBML2MATLAB_LIBS})
-TARGET_LINK_LIBRARIES(sbml2matlab           NOM-static ${LIBSBML2MATLAB_LIBS})
-#message(STATUS "  LIBSBML2MATLAB_LIBS:  ${LIBSBML2MATLAB_LIBS}")
+TARGET_LINK_LIBRARIES(libsbml2matlab        NOM-static ${SBML2MATLAB_LIBS})
+TARGET_LINK_LIBRARIES(libsbml2matlab-static NOM-static ${SBML2MATLAB_LIBS})
+TARGET_LINK_LIBRARIES(sbml2matlab           NOM-static ${SBML2MATLAB_LIBS})
+#message(STATUS "  SBML2MATLAB_LIBS:  ${SBML2MATLAB_LIBS}")
 
 IF(WIN32 AND NOT UNIX)
   # There is a bug in NSI that does not handle full unix paths properly. Make
@@ -325,11 +325,10 @@ IF(WIN32 AND NOT UNIX)
   SET(CPACK_NSIS_CONTACT "stanleygu@gmail.com")
   SET(CPACK_NSIS_MODIFY_PATH ON)
   # don't decorate static library 
-  set_target_properties(libsbml2matlab-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1;LIBSBML2MATLAB_STATIC=1;NOM_STATIC=1")
+  set_target_properties(libsbml2matlab-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1;SBML2MATLAB_STATIC=1;NOM_STATIC=1")
 ELSE(WIN32 AND NOT UNIX)
   SET(CPACK_STRIP_FILES "bin/sbml2matlab")
   SET(CPACK_SOURCE_STRIP_FILES "")
 ENDIF(WIN32 AND NOT UNIX)
 SET(CPACK_PACKAGE_EXECUTABLES "sbml2matlab" "sbml2matlab")
 SET(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\README.lnk'  '\$INSTDIR\\\\README.markdown'")
-INCLUDE(CPack)
