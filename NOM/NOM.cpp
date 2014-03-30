@@ -694,7 +694,7 @@ DLL_EXPORT int getNumFloatingSpecies()
 	if (_oModelCPP == NULL)
 	{
 		errorCode = 1;
-		return -1; 
+		return 0; 
 	}
 	int numSpecies = _oModelCPP->getNumSpecies();
 	int numBoundarySpecies = getNumBoundarySpeciesInternal();
@@ -707,7 +707,7 @@ DLL_EXPORT int getNumBoundarySpecies()
 	if (_oModelCPP == NULL)
 	{
 		errorCode = 1;
-		return -1;
+		return 0;
 	}	
 	return (int)getNumBoundarySpeciesInternal();
 }

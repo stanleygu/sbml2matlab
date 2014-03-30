@@ -224,8 +224,9 @@ public:
 		cstr_sbml = (char *) sbmlString.c_str(); 
 		loadSBML(cstr_sbml);
 
-		getModelId(&cstr);
-		modelName = cstr;
+		if (!getModelId(&cstr)) {
+          modelName = cstr;
+        }
 		if (modelName == "")
 			modelName = "ExportedModel";
 
@@ -1966,7 +1967,7 @@ public:
 	string translateSBML(const string &sbmlInput)
 	{
 		stringstream result;
-		char * outSbml;
+		char * outSbml = "";
 		string outSbml_str;
 		if (validate(sbmlInput.c_str())==-1)
 		{
@@ -2195,7 +2196,7 @@ int main(int argc, char* argv[])
 	bool doWriteToFile = false;
 	bool stdinInput = true; //Only false if provided with an SBML file name.
 	bool directSbml = false;
-	char * matlabOutput = NULL;
+	char * matlabOutput = "";
 	string infileName; 
 	string outfileName;
 	int success = 0;
