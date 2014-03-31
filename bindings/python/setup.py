@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='sbml2matlab',
-      version='1.2.1',
+      version='1.2.2',
       description='An SBML to MATLAB translator',
       author='Stanley Gu, Lucian Smith',
       author_email='stanleygu@gmail.com, lucianoelsmitho@gmail.com',
