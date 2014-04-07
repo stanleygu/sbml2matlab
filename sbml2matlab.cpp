@@ -74,7 +74,7 @@ typedef struct {
 
 // Define a data structure to hold all information required
 // for each species in the network
-class spAttributes 
+class spAttributes
 {
 public:
 	string	name;
@@ -84,7 +84,7 @@ public:
 	double	init_conc;
 	double	init_amount;
 	string	compartment;
-	double	compartment_vol;		
+	double	compartment_vol;
 };
 
 class NameValue
@@ -96,7 +96,7 @@ public:
 
 class IdNameValue
 {
-public: 
+public:
 	string id;
 	string name;
 	double value;
@@ -121,7 +121,7 @@ private:
 
 class TReactionInfo
 {
-public: 
+public:
 
 	string id;
 	string name;
@@ -146,14 +146,14 @@ public:
 		char *cId;
 
 		getNthReactionId (reactionIndex, &cId);
-		id = cId; 
+		id = cId;
 		getNthReactionName (reactionIndex, &cId);
 		name = cId;
 		isReactionReversible (reactionIndex, &iIsReve);
 		isReversible = (bool) iIsReve;
 		getKineticLaw (reactionIndex, &cId);
 		rateLaw = cId;
-		int numOfReactants; int numOfProducts; 
+		int numOfReactants; int numOfProducts;
 		int numParameters;  double value;
 
 		numOfReactants = getNumReactants (reactionIndex);
@@ -189,7 +189,7 @@ public:
 
 class SBMLInfo
 {
-public: 
+public:
 
     SBMLInfo(const string& sbmlString)
       : modelName()
@@ -221,7 +221,7 @@ public:
 		char *cstr;
 		char *cstr_sbml;
 
-		cstr_sbml = (char *) sbmlString.c_str(); 
+		cstr_sbml = (char *) sbmlString.c_str();
 		loadSBML(cstr_sbml);
 
 		if (!getModelId(&cstr)) {
@@ -237,7 +237,7 @@ public:
 		ReadGlobalParameters();
 		ReadUserDefinedFunctions();
 		ReadRules();
-		ReadReactions();		
+		ReadReactions();
 		ReadSpecies();
 	}
 
@@ -369,7 +369,7 @@ public:
 	// - initialAmount         double
 	// - compartment           string
 	// - compartmentVolume     double
-	void ReadSpecies() 
+	void ReadSpecies()
 	{
 		char *cstr;
 
@@ -377,19 +377,19 @@ public:
         delete sp_list;
 		sp_list = new spAttributes[numTotalSpecies];
 
-		for (int i=0; i<numFloatingSpecies; i++) 
+		for (int i=0; i<numFloatingSpecies; i++)
 		{
 			getNthFloatingSpeciesId (i, &cstr);
 			sp_list[i].id = cstr;
 
-			double value; 
+			double value;
 			getValue (cstr, &value);
 			bool isConcentration;
 			bool isAmount;
 
 			getNthFloatingSpeciesName(i, &cstr);
 			sp_list[i].name = cstr;
-			getCompartmentIdBySpeciesId((char *) sp_list[i].id.c_str(), &cstr);  
+			getCompartmentIdBySpeciesId((char *) sp_list[i].id.c_str(), &cstr);
 			sp_list[i].compartment = cstr;
 			sp_list[i].compartment_vol = compartmentsList[sp_list[i].compartment];
 			sp_list[i].boundary = false;
@@ -403,7 +403,7 @@ public:
 				sp_list[i].init_conc = value;
 				sp_list[i].init_amount = value*sp_list[i].compartment_vol;
 			}
-			else 
+			else
 			{
 				sp_list[i].is_amount = true;
 				sp_list[i].init_conc = value/sp_list[i].compartment_vol;
@@ -411,7 +411,7 @@ public:
 			}
 		}
 
-		for (int i=0; i<numBoundarySpecies; i++) 
+		for (int i=0; i<numBoundarySpecies; i++)
 		{
 
 			int index = i + numFloatingSpecies;
@@ -419,10 +419,10 @@ public:
 			getNthBoundarySpeciesId (i, &cstr);
 			sp_list[index].id = cstr;
 
-			double value; 
-			getValue (cstr, &value);	
-			bool isConcentration; 
-			bool isAmount; 
+			double value;
+			getValue (cstr, &value);
+			bool isConcentration;
+			bool isAmount;
 			hasInitialAmount(cstr, &isAmount);
 			isConcentration = !isAmount;
 
@@ -439,7 +439,7 @@ public:
 				sp_list[index].init_conc = value;
 				sp_list[index].init_amount = value*sp_list[index].compartment_vol;
 			}
-			else 
+			else
 			{
 				sp_list[index].is_amount = true;
 				sp_list[index].init_conc = value/sp_list[index].compartment_vol;
@@ -475,7 +475,7 @@ public:
 	vector<string>						rules;
 	vector<int>							ruleTypes;
 	vector<TUserFuncInfo*>				userDefinedFunctions;
-	vector<TReactionInfo>				reactions;  
+	vector<TReactionInfo>				reactions;
 	vector<IdNameValue>					compartments;
 	vector<NameValue>					globalParameters;
 
@@ -487,7 +487,7 @@ public:
 */
 class MatlabTranslator
 {
-private:	
+private:
 
 	string								sbml, eqn, stoich, pname;
 	double								pvalue;
@@ -497,7 +497,7 @@ private:
 	bool                                _bInlineMode;
 
 
-	// deal with all strings, which could be: 
+	// deal with all strings, which could be:
 	// - global parameter (under which we also list boundary species)
 	// - floating species
 	// - compartment volumes
@@ -508,7 +508,7 @@ private:
 	{
 		stringstream replaceStream;
 
-		string innerString(stringInside(currentToken));		
+		string innerString(stringInside(currentToken));
 		string localParameterId = reactionId + "_" + innerString;
 
 		if ( _currentModel->globalParamIndexList.find ( innerString ) != _currentModel->globalParamIndexList.end() )
@@ -517,7 +517,7 @@ private:
 
 			for (int ib=0; ib< _currentModel->numBoundarySpecies; ib++)
 			{
-				if (innerString == _currentModel->sp_list[ib + _currentModel->numFloatingSpecies].id) 
+				if (innerString == _currentModel->sp_list[ib + _currentModel->numFloatingSpecies].id)
 				{
 					if (divideVolumes)
 						replaceStream << "(";
@@ -527,7 +527,7 @@ private:
 						replaceStream << _currentModel->globalParametersList[innerString];
 					}
 					else
-					{						
+					{
 						replaceStream << "rInfo.g_p" << _currentModel->globalParamIndexList[innerString];
 					}
 
@@ -547,7 +547,7 @@ private:
 			if (isBoundarySpecies == false) {
 
 				if (_bInlineMode)
-				{					
+				{
 					replaceStream << _currentModel->globalParametersList[innerString];
 				}
 				else
@@ -566,7 +566,7 @@ private:
 			replaceStream << "vol__" << innerString;
 		}
 		else
-		{			
+		{
 			bool match = false;
 			for (int isp=0; isp<_currentModel->numFloatingSpecies; isp++)
 			{
@@ -626,7 +626,7 @@ private:
 				else if (innerString == "arccoth")
 					replaceStream << "acoth";
 
-				else 
+				else
 					replaceStream << innerString;
 			}
 		}
@@ -639,7 +639,7 @@ private:
 	{
 		stringstream replaceStream;
 
-		string innerString(stringInside(currentToken));		
+		string innerString(stringInside(currentToken));
 		string localParameterId = reactionId + "_" + innerString;
 
 		if ( _currentModel->globalParamIndexList.find ( innerString ) != _currentModel->globalParamIndexList.end() )
@@ -648,7 +648,7 @@ private:
 
 			for (int ib=0; ib< _currentModel->numBoundarySpecies; ib++)
 			{
-				if (innerString == _currentModel->sp_list[ib + _currentModel->numFloatingSpecies].id) 
+				if (innerString == _currentModel->sp_list[ib + _currentModel->numFloatingSpecies].id)
 				{
 					if (divideVolumes)
 						replaceStream << "(";
@@ -658,7 +658,7 @@ private:
 						replaceStream << _currentModel->globalParametersList[innerString];
 					}
 					else
-					{						
+					{
 						replaceStream << "rInfo.g_p" << _currentModel->globalParamIndexList[innerString];
 					}
 
@@ -678,7 +678,7 @@ private:
 			if (isBoundarySpecies == false) {
 
 				if (_bInlineMode)
-				{					
+				{
 					replaceStream << _currentModel->globalParametersList[innerString];
 				}
 				else
@@ -697,7 +697,7 @@ private:
 			replaceStream << "vol__" << innerString;
 		}
 		else
-		{			
+		{
 			bool match = false;
 			for (int isp=0; isp<_currentModel->numFloatingSpecies; isp++)
 			{
@@ -757,7 +757,7 @@ private:
 				else if (innerString == "arccoth")
 					replaceStream << "acoth";
 
-				else 
+				else
 					replaceStream << innerString;
 			}
 		}
@@ -784,16 +784,16 @@ private:
 
 				switch ( scanner.getToken() )
 				{
-				case tWordToken :	
+				case tWordToken :
 					{
-						string currentToken = scanner.tokenToString ( scanner.getToken() );						
+						string currentToken = scanner.tokenToString ( scanner.getToken() );
 						result << ReplaceStringToken(currentToken,  reactionId, divideVolumes);
 					}
 					break;
 				case tDoubleToken:
 					result << scanner.tokenDouble;
 					break;
-				case tIntToken	 :  
+				case tIntToken	 :
 					result << scanner.tokenInteger;
 					break;
 				case tPlusToken	 :	result << "+";
@@ -847,16 +847,16 @@ private:
 
 				switch ( scanner.getToken() )
 				{
-				case tWordToken :	
+				case tWordToken :
 					{
-						string currentToken = scanner.tokenToString ( scanner.getToken() );						
+						string currentToken = scanner.tokenToString ( scanner.getToken() );
 						result << ReplaceStringTokenCol(currentToken,  reactionId, divideVolumes);
 					}
 					break;
 				case tDoubleToken:
 					result << scanner.tokenDouble;
 					break;
-				case tIntToken	 :  
+				case tIntToken	 :
 					result << scanner.tokenInteger;
 					break;
 				case tPlusToken	 :	result << "+";
@@ -901,7 +901,7 @@ private:
 public:
 	///
 	///MatlabTranslator Constructor
-	MatlabTranslator(bool bInline = false) 
+	MatlabTranslator(bool bInline = false)
       : sbml()
       , eqn()
       , stoich()
@@ -989,7 +989,7 @@ public:
 	/// prints the header information on how to use the matlab file
 	string PrintHeader()
 	{
-		stringstream result; 
+		stringstream result;
 		result <<  "%  How to use:" << endl;
 		result <<  "%" << endl;
 		result <<  "%  " << _currentModel->modelName << " takes 3 inputs and returns 3 outputs." << endl;
@@ -1006,7 +1006,7 @@ public:
 		result <<  "%  t - the time vector that corresponds with the solution. If tspan only contains" << endl;
 		result <<  "%  the start and end times, t will contain points spaced out by the solver." << endl;
 		result <<  "%  x - the simulation results." << endl;
-		result <<  "%  rInfo - a structure containing information about the model. The fields" << endl; 
+		result <<  "%  rInfo - a structure containing information about the model. The fields" << endl;
 		result <<  "%  within rInfo are: " << endl;
 		result <<  "%     stoich - the stoichiometry matrix of the model " << endl;
 		result <<  "%     floatingSpecies - a cell array containing floating species name, initial" << endl;
@@ -1030,12 +1030,12 @@ public:
 	{
 		stringstream result;
 
-		result << endl << "% List of Compartments " << endl;		
+		result << endl << "% List of Compartments " << endl;
 
 		for(int i = 0; i < _currentModel->numCompartments; i++)
 		{
-			result << "vol__" << _currentModel->compartments[i].id 
-				<< " = " << _currentModel->compartments[i].value 
+			result << "vol__" << _currentModel->compartments[i].id
+				<< " = " << _currentModel->compartments[i].value
 				<< ";\t\t%"  << _currentModel->compartments[i].name << endl;
 		}
 
@@ -1046,16 +1046,16 @@ public:
 	// prints out the list of global parameters
 	string PrintOutGlobalParameters()
 	{
-		stringstream result;		
+		stringstream result;
 
 		if (_currentModel->numGlobalParameters > 0) {
 			result << endl << "% Global Parameters " << endl;
 		}
 		for(int i = 0; i < _currentModel->numGlobalParameters; i++)
-		{			
+		{
 
-			result <<  "rInfo.g_p" << (i+1) << " = " 
-				<< _currentModel->globalParameters[i].value << ";\t\t% " 
+			result <<  "rInfo.g_p" << (i+1) << " = "
+				<< _currentModel->globalParameters[i].value << ";\t\t% "
 				<< _currentModel->globalParameters[i].name << endl;
 
 
@@ -1069,7 +1069,7 @@ public:
 	{
 		stringstream result;
 
-		if (_currentModel->numBoundarySpecies > 0) 
+		if (_currentModel->numBoundarySpecies > 0)
 		{
 			result << endl << "% Boundary Conditions " << endl;
 		}
@@ -1080,19 +1080,19 @@ public:
 			bool isAmount = _currentModel->sp_list[index].is_amount;
 			string speciesId = _currentModel->sp_list[index].id;
 
-			result <<  "rInfo.g_p" << (_currentModel->numGlobalParameters + i+1) << " = "; 			
+			result <<  "rInfo.g_p" << (_currentModel->numGlobalParameters + i+1) << " = ";
 
 			double value;
 			if (isAmount == true)
 			{
-				value =  _currentModel->sp_list[index].init_amount;				
+				value =  _currentModel->sp_list[index].init_amount;
 			}
 			else
 			{
-				value = _currentModel->sp_list[index].init_conc;				
+				value = _currentModel->sp_list[index].init_conc;
 			}
 
-			result << value << ";\t\t% " << speciesId <<  " = " << _currentModel->sp_list[index].name 
+			result << value << ";\t\t% " << speciesId <<  " = " << _currentModel->sp_list[index].name
 				<< (isAmount ? " [Amount]" : "[Concentration]")  << endl;
 
 			_currentModel->globalParametersList[speciesId] = value;
@@ -1109,7 +1109,7 @@ public:
 		stringstream result;
 		char buffer[100];
 		string strPvalue;
-		if (_currentModel->numReactions > 0) 
+		if (_currentModel->numReactions > 0)
 		{
 			result << endl << "% Local Parameters" << endl;
 		}
@@ -1148,7 +1148,7 @@ public:
 					str_J_index = buffer;
 					str_P_index = "par_r" + str_I_index + "_p" + str_J_index;
 
-					result <<   str_P_index << " = " << strPvalue 
+					result <<   str_P_index << " = " << strPvalue
 						<< ";\t\t% " << "[" << r_name << ", " << pname +"]" << endl;
 
 					_currentModel->parameterMapList[p_modname] = str_P_index;
@@ -1168,7 +1168,7 @@ public:
 		stringstream result;
 		string floatingSpeciesName;
 		for(int i = 0; i < _currentModel->numFloatingSpecies; i++)
-		{			
+		{
 			result <<  "%  x(" << (i+1) <<  ")        " << _currentModel->sp_list[i].id << endl;
 		}
 
@@ -1232,8 +1232,8 @@ public:
 			sprintf( buffer, "%d", i+1 );
 			strFloatingSpeciesIndex = buffer;
 
-			result <<  "   xdot(" << strFloatingSpeciesIndex << ") = " 
-				<<  strValue  <<  ";\t\t% " << floatingSpeciesName 
+			result <<  "   xdot(" << strFloatingSpeciesIndex << ") = "
+				<<  strValue  <<  ";\t\t% " << floatingSpeciesName
 				<< " = " <<  _currentModel->sp_list[i].name << bnd_data << endl;
 			initCondIndex++;
 		}
@@ -1307,7 +1307,7 @@ public:
 
 			for (int j = 0; j < _currentModel->numReactions; j++)
 			{
-				int				numProducts = _currentModel->reactions[j].products.size();				
+				int				numProducts = _currentModel->reactions[j].products.size();
 				string			productName;
 				double			productStoichiometry = 0;
 				double			reactantStoichiometry = 0;
@@ -1381,7 +1381,7 @@ public:
 
 		for(int i = 0; i < _currentModel->numCompartments; i++)
 		{
-			result << "      '" << _currentModel->compartments[i].id 
+			result << "      '" << _currentModel->compartments[i].id
 				<< "' , " << _currentModel->compartments[i].value
 				<< endl;
 
@@ -1393,7 +1393,7 @@ public:
 		result << endl << "   rInfo.params = {" << "\t\t% Each row: [Parameter Name, Value]" << endl;
 
 		for(int i = 0; i < _currentModel->numGlobalParameters; i++)
-		{			
+		{
 
 			result <<  "      '" << _currentModel->globalParameters[i].name << "' , ";
 			result << _currentModel->globalParameters[i].value << endl;
@@ -1521,7 +1521,7 @@ public:
 	{
 		stringstream result;
 
-		if (_currentModel->numUserDefinedFunctions > 0) 
+		if (_currentModel->numUserDefinedFunctions > 0)
 		{
 			result << endl << "% listOfUserDefinedFunctions" << endl;
 
@@ -1548,7 +1548,7 @@ public:
 	// prints out the events (not yet implemented)
 	string PrintOutEvents()
 	{
-		string tstr;		
+		string tstr;
 
 		// #####################
 		//int numEvents = SBMLSupport::getNumEvents();
@@ -1599,7 +1599,7 @@ public:
 
 			for (int j = 0; j < _currentModel->numReactions; j++)
 			{
-				int				numProducts = _currentModel->reactions[j].products.size();				
+				int				numProducts = _currentModel->reactions[j].products.size();
 
 				string			productName;
 				string			strStoichiometry;
@@ -1683,14 +1683,17 @@ public:
 					}
 				}
 			}
-			if (eqn == "     ") 
+			if (eqn == "     ")
 			{
 				eqn =  eqn + "   0";
 			}
+            else
+            {
+				xdotIndex++;
+				result << eqn << endl;
+            }
 
 
-			xdotIndex++;
-			result << eqn << endl;
 		}
 
 		//// adding in reactions with parameters from rate rules
@@ -1949,7 +1952,7 @@ public:
 		ifstream oFile (fileName.c_str());
 		if (oFile.is_open())
 		{
-			while (!oFile.eof()) 
+			while (!oFile.eof())
 			{
 				getline(oFile, buffer);
 				sbml+=buffer;
@@ -2076,7 +2079,7 @@ public:
 	numProducts = SBMLSupport::getNumProducts(j);
 	for(int k1 = 0; k1 < numProducts; k1++)
 	{
-	productName = SBMLSupport::getNthProductName(j, k1);					
+	productName = SBMLSupport::getNthProductName(j, k1);
 	if (floatingSpeciesName == productName)
 	{
 	productStoichiometry = SBMLSupport::getNthProductStoichiometryDouble(j, k1);
@@ -2197,7 +2200,7 @@ int main(int argc, char* argv[])
 	bool stdinInput = true; //Only false if provided with an SBML file name.
 	bool directSbml = false;
 	char * matlabOutput = "";
-	string infileName; 
+	string infileName;
 	string outfileName;
 	int success = 0;
     setlocale(LC_ALL,"C");
@@ -2247,12 +2250,12 @@ int main(int argc, char* argv[])
       success = sbml2matlab(sbmlStream.str().c_str(), &matlabOutput);
     }
 
-    if (doWriteToFile) 
+    if (doWriteToFile)
     {
       ofstream out(outfileName.c_str());
-      if (!out) { 
-        cout << "Cannot open file '" << outfileName << "'. You may not have write-access to this location.\n"; 
-        return -1; 
+      if (!out) {
+        cout << "Cannot open file '" << outfileName << "'. You may not have write-access to this location.\n";
+        return -1;
       }
       if (doTranslate) {
         MatlabTranslator translator(false);
