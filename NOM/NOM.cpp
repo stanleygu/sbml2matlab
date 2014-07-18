@@ -749,21 +749,19 @@ DLL_EXPORT int getNthFunctionDefinition (int index, char** fnId, int *numArgs, c
 
 	fnMath		= SBML_formulaToString ( fnDefn->getBody() );
 
-	*fnId = (char *) fnDefn->getId().c_str();
+	*fnId = strdup(fnDefn->getId().c_str());
 	*numArgs		= fnDefn->getNumArguments( );
 
-	*argList = (char **) malloc (*numArgs);
+	*argList = (char **) malloc (*numArgs * sizeof(char**));
 	for (n = 0; n < *numArgs; n++)
 	{
-		(*argList)[n] = (char *) fnDefn->getArgument(n)->getName();
+		(*argList)[n] = strdup(fnDefn->getArgument(n)->getName());
 	}
 
 	(*body) = (char *) malloc (strlen (fnMath) + 1);
 	strcpy ((*body), fnMath);
 
 	//*body = fnMath;
-
-	delete fnMath;
 
 	return 0;
 }
