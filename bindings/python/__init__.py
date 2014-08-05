@@ -1,2 +1,2 @@
 from libsbml2matlab import *
-__version__ = '1.2.3-beta'
+__version__ = '1.2.3-beta-2'
