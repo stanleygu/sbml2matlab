@@ -135,7 +135,7 @@ else()
 endif()
 
 message(STATUS "libraries: ${SBML2MATLAB_LIBS}\nsbml2matlab:libsbml2matlab")
-target_link_libraries(binding_python_lib ${SBML2MATLAB_LIBS} libsbml2matlab ${PYTHON_LIBRARIES})
+target_link_libraries(binding_python_lib ${SBML2MATLAB_LIBS} libsbml2matlab-static ${PYTHON_LIBRARIES})
 
 # 
 # Determine the python installation directory
@@ -157,10 +157,6 @@ INSTALL(FILES setup.py MANIFEST.in DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR})
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml2matlab.pth  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR})
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml2matlab.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/sbml2matlab )
 INSTALL(FILES __init__.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/sbml2matlab )
-
-if (APPLE)
-  INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/../../liblibsbml2matlab.dylib  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/sbml2matlab)
-endif()
 
 if (NOT UNIX)
   file(GLOB new_win_dependencies "${CMAKE_SOURCE_DIR}/win32/*.dll")
