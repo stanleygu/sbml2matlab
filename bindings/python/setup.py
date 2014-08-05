@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-sbml2matlab_version = '1.2.3-beta-2'
+sbml2matlab_version = '1.2.3-beta-3'
 
 
 # get the os string

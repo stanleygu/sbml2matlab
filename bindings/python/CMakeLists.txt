@@ -125,6 +125,9 @@ set_target_properties (binding_python_lib PROPERTIES OUTPUT_NAME "_libsbml2matla
 if (UNIX)
         set_target_properties (binding_python_lib PROPERTIES PREFIX "")
         set_target_properties (binding_python_lib PROPERTIES SUFFIX ".so")
+        if (APPLE)
+           SET_TARGET_PROPERTIES(binding_python_lib PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+        endif()
 else()                
         if (CYGWIN)
                 set_target_properties (binding_python_lib PROPERTIES PREFIX "")
@@ -135,7 +138,8 @@ else()
 endif()
 
 message(STATUS "libraries: ${SBML2MATLAB_LIBS}\nsbml2matlab:libsbml2matlab")
-target_link_libraries(binding_python_lib ${SBML2MATLAB_LIBS} libsbml2matlab-static ${PYTHON_LIBRARIES})
+#target_link_libraries(binding_python_lib ${SBML2MATLAB_LIBS} libsbml2matlab-static ${PYTHON_LIBRARIES})
+target_link_libraries(binding_python_lib ${SBML2MATLAB_LIBS} libsbml2matlab-static)
 
 # 
 # Determine the python installation directory
