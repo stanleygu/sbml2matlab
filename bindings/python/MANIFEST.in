@@ -1,5 +1,5 @@
 include setup.py
-include __init__.py
+include sbml2matlab/__init__.py
 include sbml2matlab/liblibsbml2matlab.dylib
 include sbml2matlab/libsbml2matlab.py
 include sbml2matlab/_libsbml2matlab.so
