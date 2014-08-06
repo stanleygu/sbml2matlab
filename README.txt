@@ -72,3 +72,21 @@ NOM requires libSBML header files and the libSBML import library to compile.
 NOM.dll requires libSBML.dll and the shared libraries (DLLs) found in  the libSBML dependencies. All these DLLs are placed in the same install folder as sbml2matlab or any other program that uses NOM.
 
 
+# Python Bindings
+
+## Building Mac Distribution
+
+The python binding distribution for Mac was produced with the following script:
+
+```
+mkdir -p ~/projects/libsbml/build_experimental
+cd ~/projects/libsbml && svn co https://svn.code.sf.net/p/sbml/code/branches/libsbml-experimental@20107
+cd ~/projects/libsbml/build_experimental && cmake -DCMAKE_INSTALL_PREFIX=/usr/local/libsbml -DENABLE_LAYOUT=OFF -DENABLE_RENDER=OFF -DWITH_PYTHON=ON -DWITH_BZIP2=OFF -DWITH_ZLIB=OFF -DPYTHON_INCLUDE_DIR=/usr/local/include/python2.6 -DPYTHON_LIBRARY=/usr/local/lib/libpython2.6.dylib -DCMAKE_CXX_FLAGS='-stdlib=libstdc++ -mmacosx-version-min=10.6' ../libsbml-experimental
+cd ~/projects/libsbml/build_experimental && make -j4 && make install
+echo "/usr/local/libsbml/lib/python2.6/site-packages/libsbml" | tee /usr/local/lib/python2.6/site-packages/libsbml.pth
+
+cd ~/projects && git clone https://github.com/stanley-gu/sbml2matlab.git
+mkdir -p ~/projects/sbml2matlab/build
+cd ~/projects/sbml2matlab/build && cmake .. -DLIBSBML_INCLUDE_DIR=/usr/local/libsbml/include -DCMAKE_INSTALL_PREFIX=/usr/local/sbml2matlab -DWITH_LIBSBML_LIBXML=ON -DLIBSBML_LIBRARY=/usr/local/libsbml/lib/libsbml-static.a -DWITH_PYTHON=ON -DPYTHON_INCLUDE_DIR=/usr/local/include/python2.6 -DPYTHON_LIBRARY=/usr/local/lib/libpython2.6.dylib -DCMAKE_CXX_FLAGS='-fPIC -stdlib=libstdc++ -mmacosx-version-min=10.6'
+cd ~/projects/sbml2matlab/build && make -j4 && make install
+```
