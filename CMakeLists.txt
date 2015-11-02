@@ -129,18 +129,20 @@ if(WITH_LIBSBML_XERCES)
 endif()
 
 if(WITH_LIBSBML_COMPRESSION)
-    find_library(ZDLL_LIBRARY 
-        NAMES zdll.lib zdll.so zdll.dylib zdll
-	PATHS /usr/lib /usr/local/lib 
-              ${CMAKE_SOURCE_DIR} 
-              ${CMAKE_SOURCE_DIR}/dependencies/lib
-              ${LIBSBML_INCLUDE_DIR}/../lib
-        )
-    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${ZDLL_LIBRARY} )
+    if(WIN32)
+    	find_library(ZDLL_LIBRARY 
+    	    NAMES zdll.lib zdll.so zdll.dylib zdll
+    	    PATHS /usr/lib /usr/local/lib 
+    	          ${CMAKE_SOURCE_DIR} 
+    	          ${CMAKE_SOURCE_DIR}/dependencies/lib
+    	          ${LIBSBML_INCLUDE_DIR}/../lib
+    	    )
+    	set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${ZDLL_LIBRARY} )
+    endif()
 
     find_library(BZIP_LIBRARY 
-        NAMES bzip2.lib bzip2.so bzip2.dylib bzip2
-	PATHS /usr/lib /usr/local/lib 
+        NAMES bzip2.lib bzip2.so libbz2.so bzip2.dylib bzip2
+	PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu  
               ${CMAKE_SOURCE_DIR} 
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
