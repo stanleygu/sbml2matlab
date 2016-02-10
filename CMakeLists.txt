@@ -183,8 +183,6 @@ if(WITH_SWIG)
 endif(WITH_SWIG)
 
 if(WITH_SWIG)
-    message(STATUS "  Using SWIG                    = ${SWIG_EXECUTABLE}")
-    
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
         message(WARNING "   You are using swig version ${SWIG_VERSION} while we recommend at least version 2.0.4.")
     endif()
@@ -291,7 +289,7 @@ file(GLOB LIBNOM_HEADERS
     ${NOM_SRC_DIR}/NOM.h
     )
 
-##### Build the NOM library #####
+# Build the NOM library
 add_library(NOM ${LIBNOM_HEADERS} ${LIBNOM_SOURCES})
 target_link_libraries(NOM ${SBML2MATLAB_LIBS})
 add_definitions(-DLIB_EXPORTS)
@@ -306,13 +304,16 @@ if (NOT UNIX)
 endif(NOT UNIX)
 
 
-##### Build the static library #####
+# Build the NOM static library
 add_library (NOM-static STATIC ${LIBNOM_SOURCES} )
 
 if (WIN32 AND NOT CYGWIN)
     # don't decorate static library 
     set_target_properties(NOM-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1;LIBNOM_STATIC=1")
-endif(WIN32 AND NOT CYGWIN)
+endif()
+if(UNIX)
+  set_target_properties(NOM-static PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
 
 target_link_libraries(NOM-static ${SBML2MATLAB_LIBS})
 
@@ -320,7 +321,7 @@ install(TARGETS NOM-static
         DESTINATION lib
   )
 
-##### Build the various sbml2matlab things #####
+# Build sbml2matlab
 
 set(SBML2MATLAB_SOURCE sbml2matlab.h uScanner.h sbml2matlab.cpp)
 
@@ -336,6 +337,10 @@ add_library( libsbml2matlab SHARED
 add_library( libsbml2matlab-static STATIC
   ${SBML2MATLAB_SOURCE}
 )
+
+if(UNIX)
+  set_target_properties(libsbml2matlab-static PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
 
 install(TARGETS libsbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)	
 
