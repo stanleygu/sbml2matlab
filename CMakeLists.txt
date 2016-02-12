@@ -78,7 +78,16 @@ find_library(LIBSBML_LIBRARY
               ${CMAKE_SOURCE_DIR}/../libsbml-5/release/lib/
         )
 
-set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_LIBRARY} )
+find_library(LIBSBML_STATIC_LIBRARY
+        NAMES sbml-static
+        PATHS ${LIBSBML_PREFIX}/lib
+              /usr/lib /usr/local/lib
+              ${CMAKE_SOURCE_DIR}
+              ${CMAKE_SOURCE_DIR}/dependencies/lib
+              ${CMAKE_SOURCE_DIR}/../libsbml-5/release/lib/
+        )
+
+set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_STATIC_LIBRARY} z bz2 )
 
 
 ###############################################################
