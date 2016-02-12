@@ -337,7 +337,7 @@ set(SBML2MATLAB_SOURCE sbml2matlab.h uScanner.h sbml2matlab.cpp)
 add_executable( sbml2matlab
   ${SBML2MATLAB_SOURCE}
 )
-install(TARGETS sbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)	
+install(TARGETS sbml2matlab DESTINATION bin )
 
 
 add_library( libsbml2matlab SHARED
