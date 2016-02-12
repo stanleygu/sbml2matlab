@@ -1,11 +1,11 @@
 /**
  * \file    sbml2matlab.i
- * \brief   Language-independent SWIG directives for wrapping libsbml2matlab
+ * \brief   Language-independent SWIG directives for wrapping sbml2matlab
  * \author  Lucian Smith, based on libsbml code from Ben Bornstein and Ben Kovitz
- * 
+ *
  */
 
-%module(directors="1") libsbml2matlab
+%module(directors="1") sbml2matlab
 
 #pragma SWIG nowarn=473,401,844
 
@@ -14,11 +14,11 @@
   * Wrapper class for global methods and constants defined by libSBML.
   * <p>
   * <em style='color: #555'>
-  * This class of objects is defined by libsbml2matlab only and has no direct
+  * This class of objects is defined by sbml2matlab only and has no direct
   * equivalent in terms of Sbml2matlab components.
   * </em>
   * <p>
-  * In the C++ version of libsbml2matlab, models are parsed and stored in a 
+  * In the C++ version of sbml2matlab, models are parsed and stored in a
   * global object, which can then be queried by subsequent calls to
   * sbml2matlab API functions.  However, all returned elements become the
   * property of the caller.
@@ -55,7 +55,7 @@ public class"
 %ignore getNthSbmlError;
 
 /**
- * Rename getMatlab as 'sbml2matlab', 
+ * Rename getMatlab as 'sbml2matlab',
  */
 %rename(sbml2matlab) getMatlab;
 

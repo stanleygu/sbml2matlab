@@ -49,6 +49,6 @@ setup(name='sbml2matlab',
       packages=['sbml2matlab'],
       package_data={
           # add dll, won't hurt unix, not there anyway
-          "sbml2matlab": ["_libsbml2matlab.pyd", "*.dll", "*.txt",
+          "sbml2matlab": ["_sbml2matlab.pyd", "*.dll", "*.txt",
                           "*.lib", "*.so"]
       })
