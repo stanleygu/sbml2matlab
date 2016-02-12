@@ -330,19 +330,22 @@ add_executable( sbml2matlab
 )
 install(TARGETS sbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)	
 
+
 add_library( libsbml2matlab SHARED
   ${SBML2MATLAB_SOURCE}
 )
+set_target_properties( libsbml2matlab PROPERTIES PREFIX "" )
 
 add_library( libsbml2matlab-static STATIC
   ${SBML2MATLAB_SOURCE}
 )
+set_target_properties( libsbml2matlab-static PROPERTIES PREFIX "" )
 
 if(UNIX)
   set_target_properties(libsbml2matlab-static PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-install(TARGETS libsbml2matlab LIBRARY DESTINATION . RUNTIME DESTINATION . ARCHIVE DESTINATION .)	
+install( TARGETS libsbml2matlab LIBRARY DESTINATION lib RUNTIME DESTINATION bin ARCHIVE DESTINATION lib )
 
 install(FILES README.txt DESTINATION .)
 install(FILES LICENSE.txt DESTINATION .)
