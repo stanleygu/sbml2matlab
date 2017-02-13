@@ -10,7 +10,7 @@ project(sbml2matlab)
 ####################################################################
 #
 # These lines configure the parameters for packaging the binaries
-# they can be invoked with: make package / nmake package or by using 
+# they can be invoked with: make package / nmake package or by using
 # cpack -G zip|deb|rpm|dmg|nsis
 #
 
@@ -63,17 +63,17 @@ find_path(LIBSBML_INCLUDE_DIR
         NAMES sbml/SBMLTypes.h
         PATHS ${LIBSBML_PREFIX}/include
               /usr/include /usr/local/include
-              ${CMAKE_SOURCE_DIR}/include 
+              ${CMAKE_SOURCE_DIR}/include
               ${CMAKE_SOURCE_DIR}/dependencies/include
               ${CMAKE_SOURCE_DIR}/../libsbml-5/release/include/
         )
 include_directories(${INCLUDE_DIRECTORIES} ${LIBSBML_INCLUDE_DIR})
 
-find_library(LIBSBML_LIBRARY 
+find_library(LIBSBML_LIBRARY
         NAMES sbml libsbml.lib libsbml.so libsbml
         PATHS ${LIBSBML_PREFIX}/lib
               /usr/lib /usr/local/lib
-              ${CMAKE_SOURCE_DIR} 
+              ${CMAKE_SOURCE_DIR}
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${CMAKE_SOURCE_DIR}/../libsbml-5/release/lib/
         )
@@ -87,17 +87,20 @@ find_library(LIBSBML_STATIC_LIBRARY
               ${CMAKE_SOURCE_DIR}/../libsbml-5/release/lib/
         )
 
-set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_STATIC_LIBRARY} z bz2 )
-
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_STATIC_LIBRARY})
+else()
+    set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBSBML_STATIC_LIBRARY} z bz2 )
+endif()
 
 ###############################################################
 
 # Locate the libraries libsbml depends on, for static linking.
 if(WITH_LIBSBML_EXPAT)
-    find_library(EXPAT_LIBRARY 
+    find_library(EXPAT_LIBRARY
         NAMES libexpat.lib libexpat.so libexpat.dylib libexpat expat.lib expat.so expat.dylib expat
-	PATHS /usr/lib /usr/local/lib 
-              ${CMAKE_SOURCE_DIR} 
+	PATHS /usr/lib /usr/local/lib
+              ${CMAKE_SOURCE_DIR}
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
@@ -105,22 +108,22 @@ if(WITH_LIBSBML_EXPAT)
 endif()
 
 if(WITH_LIBSBML_LIBXML)
-    find_library(LIBXML_LIBRARY 
+    find_library(LIBXML_LIBRARY
         NAMES xml2 libxml2.lib libxml2.so libxml2.dylib libxml2
               PATHS
               /usr/lib /usr/local/lib
-              ${CMAKE_SOURCE_DIR} 
+              ${CMAKE_SOURCE_DIR}
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
     set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${LIBXML_LIBRARY} )
 
     if(WIN32)
-      find_library(ICONV_LIBRARY 
+      find_library(ICONV_LIBRARY
           NAMES iconv iconv.lib iconv.so iconv.dylib iconv libiconv.lib libiconv.so libiconv.dylib libiconv
           PATHS
                 /usr/lib /usr/local/lib
-                ${CMAKE_SOURCE_DIR} 
+                ${CMAKE_SOURCE_DIR}
                 ${CMAKE_SOURCE_DIR}/dependencies/lib
                 ${LIBSBML_INCLUDE_DIR}/../lib
           )
@@ -129,10 +132,10 @@ if(WITH_LIBSBML_LIBXML)
 endif()
 
 if(WITH_LIBSBML_XERCES)
-    find_library(XERCES_LIBRARY 
+    find_library(XERCES_LIBRARY
         NAMES xerces-c_static_3.lib xerces-c_static_3.so xerces-c_static_3.dylib xerces-c_static_3
-	PATHS /usr/lib /usr/local/lib 
-              ${CMAKE_SOURCE_DIR} 
+	PATHS /usr/lib /usr/local/lib
+              ${CMAKE_SOURCE_DIR}
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
@@ -141,20 +144,20 @@ endif()
 
 if(WITH_LIBSBML_COMPRESSION)
     if(WIN32)
-    	find_library(ZDLL_LIBRARY 
+    	find_library(ZDLL_LIBRARY
     	    NAMES z zdll.lib zdll.so zdll.dylib zdll
-    	    PATHS /usr/lib /usr/local/lib 
-    	          ${CMAKE_SOURCE_DIR} 
+    	    PATHS /usr/lib /usr/local/lib
+    	          ${CMAKE_SOURCE_DIR}
     	          ${CMAKE_SOURCE_DIR}/dependencies/lib
     	          ${LIBSBML_INCLUDE_DIR}/../lib
     	    )
     	set(SBML2MATLAB_LIBS ${SBML2MATLAB_LIBS} ${ZDLL_LIBRARY} )
     endif()
 
-    find_library(BZIP_LIBRARY 
+    find_library(BZIP_LIBRARY
         NAMES bzip2 bzip2.lib bzip2.so libbz2.so bzip2.dylib bzip2
-	PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu  
-              ${CMAKE_SOURCE_DIR} 
+	PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu
+              ${CMAKE_SOURCE_DIR}
               ${CMAKE_SOURCE_DIR}/dependencies/lib
               ${LIBSBML_INCLUDE_DIR}/../lib
         )
@@ -201,7 +204,7 @@ endif()
 # Determine the python installation directory
 if (WITH_PYTHON)
   set(PYTHON_PACKAGE_install_DIR)
-  if (UNIX OR CYGWIN) 
+  if (UNIX OR CYGWIN)
     execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "import sys;import platform; sys.stdout.write(platform.python_version()[:3])"
       OUTPUT_VARIABLE PYTHON_VERSION)
     set(PYTHON_PACKAGE_install_DIR lib/python${PYTHON_VERSION}/site-packages)
@@ -317,7 +320,7 @@ endif(NOT UNIX)
 add_library (NOM-static STATIC ${LIBNOM_SOURCES} )
 
 if (WIN32 AND NOT CYGWIN)
-    # don't decorate static library 
+    # don't decorate static library
     set_target_properties(NOM-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1;LIBNOM_STATIC=1")
 endif()
 if(UNIX)
@@ -389,7 +392,7 @@ IF(WIN32 AND NOT UNIX)
   set(CPACK_NSIS_HELP_LINK "http:\\\\\\\\code.google.com/p/snowburst")
   set(CPACK_NSIS_CONTACT "stanleygu@gmail.com")
   set(CPACK_NSIS_MODIFY_PATH ON)
-  # don't decorate static library 
+  # don't decorate static library
   set_target_properties(libsbml2matlab-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1;SBML2MATLAB_STATIC=1;NOM_STATIC=1")
 ELSE(WIN32 AND NOT UNIX)
   set(CPACK_STRIP_FILES "bin/sbml2matlab")

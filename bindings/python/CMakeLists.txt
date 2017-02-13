@@ -138,6 +138,9 @@ else()
 endif()
 
 target_link_libraries(binding_python_lib ${SBML2MATLAB_LIBS} libsbml2matlab-static)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    target_link_libraries(binding_python_lib ${PYTHON_LIBRARY})
+endif()
 
 #
 # Determine the python installation directory
